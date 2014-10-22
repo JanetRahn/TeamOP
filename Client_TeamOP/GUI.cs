@@ -11,9 +11,9 @@ namespace Client_TeamOP
     {
         Backend backend;
 
-        public void refreshGui()
+        public bool refreshGui()
         {
-
+            return false;
         }
     }
 }
