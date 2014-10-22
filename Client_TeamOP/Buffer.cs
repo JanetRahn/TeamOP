@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace Client_TeamOP
 {
-    public class Buffer
-    {
+    public class Buffer {
 
         public Buffer()
         {
