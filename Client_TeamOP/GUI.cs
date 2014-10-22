@@ -6,11 +6,14 @@ using System.Threading.Tasks;
 
 namespace Client_TeamOP
 {
-    interface IBuffer
+    
+    class GUI
     {
-        public void addToBuffer(String message);
-        public void readFromBuffer();
-        public bool status();
+        Backend backend;
 
+        public void refreshGui()
+        {
+
+        }
     }
 }

@@ -1,1 +1,9 @@
 c:\users\tim\documents\visual studio 2013\Projects\Client_TeamOP\Client_TeamOP\bin\Debug\Client_TeamOP.exe.config
+C:\Users\Tim\Documents\Visual Studio 2013\Projects\TeamOP\Client_TeamOP\bin\Debug\Client_TeamOP.exe.config
+C:\Users\Tim\Documents\Visual Studio 2013\Projects\TeamOP\Client_TeamOP\obj\Debug\Client_TeamOP.csprojResolveAssemblyReference.cache
+C:\Users\Tim\Documents\Visual Studio 2013\Projects\TeamOP\Client_TeamOP\obj\Debug\Client_TeamOP.Properties.Resources.resources
+C:\Users\Tim\Documents\Visual Studio 2013\Projects\TeamOP\Client_TeamOP\obj\Debug\Client_TeamOP.csproj.GenerateResource.Cache
+C:\Users\Tim\Documents\Visual Studio 2013\Projects\TeamOP\Client_TeamOP\bin\Debug\Client_TeamOP.exe
+C:\Users\Tim\Documents\Visual Studio 2013\Projects\TeamOP\Client_TeamOP\bin\Debug\Client_TeamOP.pdb
+C:\Users\Tim\Documents\Visual Studio 2013\Projects\TeamOP\Client_TeamOP\obj\Debug\Client_TeamOP.exe
+C:\Users\Tim\Documents\Visual Studio 2013\Projects\TeamOP\Client_TeamOP\obj\Debug\Client_TeamOP.pdb
