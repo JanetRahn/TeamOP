@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 namespace Client_TeamOP
 {
     
-    class GUI
+    public class GUI
     {
         Backend backend;
 
-        public void refreshGui()
+        public bool refreshGui()
         {
-
+            return false;
         }
     }
 }
