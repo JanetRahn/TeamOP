@@ -23,8 +23,8 @@ namespace Client_TeamOP
             return null;
         }
 
-        public void sendToMethod(){
-            
+        public bool sendToMethod(String message){
+            return false;
         }
 
         public void parseS(String message){
@@ -47,9 +47,10 @@ namespace Client_TeamOP
         {
             Contract.Requires(message != null);
         }
-        public void parseDragon(String message)
+        public bool parseDragon(String message)
         {
             Contract.Requires(message != null);
+            return false; 
         }
         public void parsePlayer(String message)
         {

@@ -18,10 +18,11 @@ namespace Client_TeamOP
             return false;
         }
 
-        public void storeEnemy(Object positionable)
+        public bool storeEnemy(Object positionable)
         {
             Contract.Requires(this.positionable != null);
             Contract.Requires(positionable != null);
+            return false;
         }
 
         public void deleteEnemey(Object positionable)

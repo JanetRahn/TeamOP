@@ -11,8 +11,9 @@ namespace ProgrammTest
     {
         [TestMethod]        //Method to Connect to Server C1/3
         public void isConnected()
-        {            
-            Connector connector = new Connector();
+        {
+            Client_TeamOP.Buffer f = new Client_TeamOP.Buffer();
+            Connector connector = new Connector(f);
             connector.connectToServer("127.0.0.1", 666);
             Assert.IsTrue(connector.isConnected());
         }
@@ -20,7 +21,8 @@ namespace ProgrammTest
         [TestMethod]        //
         public void isDisconnected()
         {
-            Connector connector = new Connector();
+            Client_TeamOP.Buffer f = new Client_TeamOP.Buffer();
+            Connector connector = new Connector(f);
             connector.connectToServer("127.0.0.1", 666);
             connector.disconnectFromServer();
             Assert.IsFalse(connector.isConnected());
@@ -29,7 +31,8 @@ namespace ProgrammTest
         [TestMethod]        
         public void writeToStreamFailed()
         {
-            Connector connector = new Connector();
+            Client_TeamOP.Buffer f = new Client_TeamOP.Buffer();
+            Connector connector = new Connector(f);
             connector.connectToServer("127.0.0.1", 666);
             connector.disconnectFromServer();
             Assert.IsTrue(connector.readFromStream());
@@ -38,7 +41,8 @@ namespace ProgrammTest
         [TestMethod]
         public void readStream()
         {
-            Connector connector = new Connector();
+            Client_TeamOP.Buffer f = new Client_TeamOP.Buffer();
+            Connector connector = new Connector(f);
             connector.connectToServer("127.0.0.1", 666);
             Assert.IsTrue(connector.readFromStream());
         }
@@ -46,7 +50,8 @@ namespace ProgrammTest
         [TestMethod]        //Method to write to Buffer C2/3
         public void writeToBuffer()
         {
-            Connector connector = new Connector();
+            Client_TeamOP.Buffer f = new Client_TeamOP.Buffer();
+            Connector connector = new Connector(f);
             Client_TeamOP.Buffer b = new Client_TeamOP.Buffer();
             connector.writeToBuffer("test");
             Assert.IsFalse(b.isBufferEmpty());
@@ -55,7 +60,8 @@ namespace ProgrammTest
         [TestMethod]        //Method to send Commands to Server C3/3
         public void SendToServer()
         {
-            Connector connector = new Connector();
+            Client_TeamOP.Buffer f = new Client_TeamOP.Buffer();
+            Connector connector = new Connector(f);
             connector.connectToServer("127.0.0.1", 666);
             Assert.IsTrue(connector.sendCommandToServer("TEST"));
         }
@@ -63,8 +69,10 @@ namespace ProgrammTest
         [TestMethod]        //Method to read from the Buffer P1/3
         public void readFromBuffer()
         {
-          Parser p = new Parser();
+          
+          
           Client_TeamOP.Buffer b = new Client_TeamOP.Buffer();
+          Parser p = new Parser(b);
           b.addToBuffer("Test");
           Assert.IsTrue(p.readFromBuffer()!=null);
         }
@@ -103,7 +111,8 @@ namespace ProgrammTest
         [TestMethod]        //send Servermessage to a rule method P3/3
         public void sendToMethod()
         {
-            Parser p = new Parser();
+            Client_TeamOP.Buffer f = new Client_TeamOP.Buffer();
+            Parser p = new Parser(f);
             Assert.IsTrue(p.sendToMethod("begin:999"));
         }
 
@@ -135,8 +144,9 @@ namespace ProgrammTest
         [TestMethod]
         public void parseToDragon()
         {
-            Parser p = new Parser();
-            Assert.IsTrue(p.parseDragon());
+            Client_TeamOP.Buffer b = new Client_TeamOP.Buffer();
+            Parser p = new Parser(b);
+            Assert.IsTrue(p.parseDragon("gültiger Dragon"));
         }
 
 
@@ -144,7 +154,7 @@ namespace ProgrammTest
         public void parseToDragon()
         {
             Backend b = new Backend();
-            Assert.IsTrue(b.storeEnemy(Object o));
+            Assert.IsTrue(b.storeEnemy(new Object()));
         }
 
 
