@@ -10,6 +10,3 @@ C:\Users\Tim\Documents\Visual Studio 2013\Projects\TeamOP\Client_TeamOP\obj\Debu
 D:\Endwicklung\TeamOP\Client_TeamOP\bin\Debug\Client_TeamOP.exe.config
 D:\Endwicklung\TeamOP\Client_TeamOP\obj\Debug\Client_TeamOP.exe
 D:\Endwicklung\TeamOP\Client_TeamOP\obj\Debug\Client_TeamOP.pdb
-E:\Dropbox\Studium_Semester3\Informatik 3\TeamOP\Client_TeamOP\bin\Debug\Client_TeamOP.exe.config
-E:\Dropbox\Studium_Semester3\Informatik 3\TeamOP\Client_TeamOP\obj\Debug\Client_TeamOP.exe
-E:\Dropbox\Studium_Semester3\Informatik 3\TeamOP\Client_TeamOP\obj\Debug\Client_TeamOP.pdb
