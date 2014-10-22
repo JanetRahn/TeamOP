@@ -132,17 +132,20 @@ namespace ProgrammTest
 
 
         //EBNF
-
-
         [TestMethod]
-        public void Rule1()
+        public void parseToDragon()
         {
             Parser p = new Parser();
-            
-           
+            Assert.IsTrue(p.parseDragon());
         }
 
 
+        [TestMethod]
+        public void parseToDragon()
+        {
+            Backend b = new Backend();
+            Assert.IsTrue(b.storeEnemy(Object o));
+        }
 
 
 
