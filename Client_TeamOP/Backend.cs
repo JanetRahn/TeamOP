@@ -9,21 +9,25 @@ namespace Client_TeamOP
 {
     public class Backend
     {
-        Connector connector;
-        GUI gui;        
+        private Connector connector;
+        private GUI gui;
+        private List<Object> positionable;
         public bool sendToConnector(String message)
         {
+            Contract.Invariant(connector != null);
             return false;
         }
 
-        public void storeEnemy()
+        public void storeEnemy(Object positionable)
         {
-
+            Contract.Requires(this.positionable != null);
+            Contract.Requires(positionable != null);
         }
 
-        public void deleteEnemey()
+        public void deleteEnemey(Object positionable)
         {
-
+            Contract.Requires(this.positionable != null);
+            Contract.Requires(positionable != null);
         }
 
 

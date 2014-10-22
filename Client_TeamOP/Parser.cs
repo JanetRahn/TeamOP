@@ -11,100 +11,131 @@ namespace Client_TeamOP
     {
         Buffer buffer;
         Backend backend;
+
+        public Parser(Buffer buffer)
+        {
+            Contract.Requires(buffer != null);
+            this.buffer = buffer;
+        }
+
         public String readFromBuffer(){
             Contract.Requires(buffer != null);
             return null;
         }
 
         public void sendToMethod(){
-
+            
         }
 
         public void parseS(String message){
-
+            Contract.Requires(message != null);
         }
-        public void parseServermes(){
-
+        public void parseServermes(String message){
+            Contract.Requires(message != null);
         }
-        public void parseServer(){
-
+        public void parseServer(String message){
+            Contract.Requires(message != null);
         }
-        public void parseResult(){
-
+        public void parseResult(String message){
+            Contract.Requires(message != null);
         }
-        public void parseOpponent(){
-
+        public void parseOpponent(String message)
+        {
+            Contract.Requires(message != null);
         }
-        public void parseChallenge(){
-
+        public void parseChallenge(String message)
+        {
+            Contract.Requires(message != null);
         }
-        public void parseDragon(){
-
+        public void parseDragon(String message)
+        {
+            Contract.Requires(message != null);
         }
-        public void parsePlayer(){
-
+        public void parsePlayer(String message)
+        {
+            Contract.Requires(message != null);
         }
-        public void parsePlayers(){
-
-        }
-
-        public void parseEntities(){
-
-        }
-        public void parseMapcell(){
-
-        }
-        public void parseMap(){
-
-        }
-        public void parseMessage(){
-
+        public void parsePlayers(String message)
+        {
+            Contract.Requires(message != null);
         }
 
-        public void parseUpdate(){
-
+        public void parseEntities(String message)
+        {
+            Contract.Requires(message != null);
         }
-        public void parseDelete(){
-
+        public void parseMapcell(String message)
+        {
+            Contract.Requires(message != null);
         }
-        public void parseAnswer(){
-
+        public void parseMap(String message)
+        {
+            Contract.Requires(message != null);
         }
-        public void parseOkay(){
-
+        public void parseMessage(String message)
+        {
+            Contract.Requires(message != null);
         }
-        public void parseDeny(){
 
+        public void parseUpdate(String message)
+        {
+            Contract.Requires(message != null);
         }
-        public void parseUnknow(){
-
+        public void parseDelete(String message)
+        {
+            Contract.Requires(message != null);
         }
-        public void parseInvalid(){
-
+        public void parseAnswer(String message)
+        {
+            Contract.Requires(message != null);
         }
-        public void parseYourID(){
-
+        public void parseOkay(String message)
+        {
+            Contract.Requires(message != null);
         }
-        public void parseTime(){
-
+        public void parseDeny(String message)
+        {
+            Contract.Requires(message != null);
         }
-        public void parseOnline(){
-
+        public void parseUnknow(String message)
+        {
+            Contract.Requires(message != null);
         }
-        public void parseDecision(){
-
+        public void parseInvalid(String message)
+        {
+            Contract.Requires(message != null);
         }
-        public void parseDragonfight(){
-
+        public void parseYourID(String message)
+        {
+            Contract.Requires(message != null);
         }
-        public void parseStaghunt(){
-
+        public void parseTime(String message)
+        {
+            Contract.Requires(message != null);
         }
-        public void parseSkirmish(){
-
+        public void parseOnline(String message)
+        {
+            Contract.Requires(message != null);
         }
-        public void parseProperty(){
-
+        public void parseDecision(String message)
+        {
+            Contract.Requires(message != null);
+        }
+        public void parseDragonfight(String message)
+        {
+            Contract.Requires(message != null);
+        }
+        public void parseStaghunt(String message)
+        {
+            Contract.Requires(message != null);
+        }
+        public void parseSkirmish(String message)
+        {
+            Contract.Requires(message != null);
+        }
+        public void parseProperty(String message)
+        {
+            Contract.Requires(message != null);
         }
     }
 }
