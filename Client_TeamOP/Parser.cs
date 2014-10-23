@@ -24,6 +24,8 @@ namespace Client_TeamOP
         }
 
         public bool sendToMethod(String message){
+            Contract.Requires(message != null);
+
             return false;
         }
 

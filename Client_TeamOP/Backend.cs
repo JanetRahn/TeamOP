@@ -14,6 +14,7 @@ namespace Client_TeamOP
         private List<Object> positionable;
         public bool sendToConnector(String message)
         {
+            Contract.Requires(message != null);
             Contract.Invariant(connector != null);
             return false;
         }
