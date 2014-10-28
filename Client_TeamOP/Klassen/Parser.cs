@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics.Contracts;
+using System.Threading;
 
 namespace Client_TeamOP
 {
@@ -11,24 +12,26 @@ namespace Client_TeamOP
     {
         Buffer buffer;
         Backend backend;
+        Thread listening;
+        List<Thread> StillParsing;
+        
 
+        
         public Parser(Buffer buffer)
         {
             Contract.Requires(buffer != null);
             this.buffer = buffer;
+            listening = new Thread(new ThreadStart(listeningThread));
+            StillParsing = new List<Thread>();            
         }
-
+       
         public String readFromBuffer(){
             Contract.Requires(buffer != null);
             return null;
         }
-
-        public bool sendToMethod(String message){
+        public void sendToMethod(String message){
             Contract.Requires(message != null);
-
-            return false;
         }
-
         public void parseS(String message){
             Contract.Requires(message != null);
         }

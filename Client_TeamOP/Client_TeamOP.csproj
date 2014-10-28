@@ -44,11 +44,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Backend.cs" />
-    <Compile Include="Buffer.cs" />
-    <Compile Include="GUI.cs" />
-    <Compile Include="Parser.cs" />
-    <Compile Include="Connector.cs" />
+    <Compile Include="Klassen\Backend.cs" />
+    <Compile Include="Klassen\Buffer.cs" />
+    <Compile Include="Klassen\GUI.cs" />
+    <Compile Include="Klassen\Parser.cs" />
+    <Compile Include="Klassen\Connector.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -80,9 +80,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Klassen\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
