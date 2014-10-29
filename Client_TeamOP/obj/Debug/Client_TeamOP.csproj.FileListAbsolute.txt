@@ -13,3 +13,6 @@ D:\Endwicklung\TeamOP\Client_TeamOP\obj\Debug\Client_TeamOP.pdb
 E:\Dropbox\Studium_Semester3\Informatik 3\TeamOP\Client_TeamOP\bin\Debug\Client_TeamOP.exe.config
 E:\Dropbox\Studium_Semester3\Informatik 3\TeamOP\Client_TeamOP\obj\Debug\Client_TeamOP.exe
 E:\Dropbox\Studium_Semester3\Informatik 3\TeamOP\Client_TeamOP\obj\Debug\Client_TeamOP.pdb
+C:\Users\Neddy-PC\Dropbox\Studium_Semester3\Informatik 3\TeamOP\Client_TeamOP\bin\Debug\Client_TeamOP.exe.config
+C:\Users\Neddy-PC\Dropbox\Studium_Semester3\Informatik 3\TeamOP\Client_TeamOP\obj\Debug\Client_TeamOP.exe
+C:\Users\Neddy-PC\Dropbox\Studium_Semester3\Informatik 3\TeamOP\Client_TeamOP\obj\Debug\Client_TeamOP.pdb
