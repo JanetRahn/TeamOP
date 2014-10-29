@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Klassen\Backend.cs" />
     <Compile Include="Klassen\Buffer.cs" />
+    <Compile Include="Klassen\Positionable.cs" />
     <Compile Include="Klassen\GUI.cs" />
     <Compile Include="Klassen\Parser.cs" />
     <Compile Include="Klassen\Connector.cs" />
