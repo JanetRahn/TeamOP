@@ -5,6 +5,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics.Contracts;
+using System.IO;
 
 namespace Client_TeamOP
 {
@@ -12,12 +13,16 @@ namespace Client_TeamOP
     {
         Buffer buffer;
         TcpClient client;
-
+        bool messageComplete;
+        StreamWriter writeStream;
+        StreamReader readStream;
+        
         public Connector(Buffer buffer) 
         {
             Contract.Requires(buffer != null);
-            Contract.Ensures(client != null);
+            this.client = new TcpClient();            
             this.buffer = buffer;
+            Contract.Ensures(client != null);            
         }
 
         public NetworkStream getStreams()
@@ -30,19 +35,24 @@ namespace Client_TeamOP
             Contract.Invariant(client != null);
             return client.Connected;
         }
-        public void connectToServer(String ip,int port)
+        public bool connectToServer(String ip,int port)
         {
             Contract.Requires(ip != null);
             Contract.Requires(port!=null);
+            client.Connect(ip, port);
             Contract.Ensures(client != null);
+            return client.Connected;
         }
 
         public bool disconnectFromServer() 
         {
             Contract.Requires(client.Connected);
             Contract.Invariant(client != null);
+
+            client.Close();
+
             Contract.Ensures(!client.Connected);
-            return false;
+            return !client.Connected;
         }
 
         public void writeToBuffer(String message)
