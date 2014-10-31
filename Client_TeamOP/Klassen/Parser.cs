@@ -12,8 +12,11 @@ namespace Client_TeamOP
     {
         Buffer buffer;
         Backend backend;
-        Thread listening;
-        List<Thread> StillParsing;
+        Thread convertParser;
+
+        static int messageID;
+        bool completedMessage;
+        
         
 
         
@@ -21,15 +24,33 @@ namespace Client_TeamOP
         {
             Contract.Requires(buffer != null);
             this.buffer = buffer;
-            listening = new Thread(new ThreadStart(listeningThread));
-            StillParsing = new List<Thread>();            
+            convertParser = new Thread(new ThreadStart(convertLoop));
+                                
         }
-       
+
+        public void convertLoop()
+        {
+            convertL();
+        }
+
+        public void convertL(){
+            String s = readFromBuffer();
+
+
+            if (completedMessage)
+            {
+                sendToMethod();
+            }
+            //Wenn die nachricht startet ID eingespeichtert
+            //Message länge wird gezählt
+            //Wird dann geparsed
+        }
+
         public String readFromBuffer(){
             Contract.Requires(buffer != null);
             return null;
         }
-        public void sendToMethod(String message){
+        public void sendToMethod(String[] message){
             Contract.Requires(message != null);
         }
         public void parseS(String message){
