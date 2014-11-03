@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Diagnostics.Contracts;
 using System.Threading;
 
-namespace Client_TeamOP
+namespace Client_TeamOP.Klassen
 {
     public class Parser
     {
@@ -25,7 +25,7 @@ namespace Client_TeamOP
             Contract.Requires(buffer != null);
             this.buffer = buffer;
             convertParser = new Thread(new ThreadStart(convertLoop));
-                                
+            convertParser.Start();                    
         }
 
         public void convertLoop()
@@ -33,18 +33,19 @@ namespace Client_TeamOP
             convertL();
         }
 
-        public void convertL(){
+        public void convertL(){           
             String s = readFromBuffer();
-
-
+            while (true) { }
             if (completedMessage)
             {
-                sendToMethod();
+                //sendToMethod();
             }
             //Wenn die nachricht startet ID eingespeichtert
             //Message länge wird gezählt
             //Wird dann geparsed
+            
         }
+
 
         public String readFromBuffer(){
             Contract.Requires(buffer != null);

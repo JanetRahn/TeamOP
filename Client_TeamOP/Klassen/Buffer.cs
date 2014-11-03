@@ -4,32 +4,36 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics.Contracts;
+using System.Collections;
 
-namespace Client_TeamOP
+namespace Client_TeamOP.Klassen
 {
     public class Buffer {
-        private List<String> buffer;
+        private Ringpuffer buffer = new Ringpuffer(10);
+
         public Buffer(){
-            Contract.Ensures(buffer != null);
+            Contract.Ensures(buffer != null);            
         }
-        public void addToBuffer(String message){
+        public void addToBuffer(ArrayList message){
             Contract.Requires(message != null);
             Contract.Invariant(buffer != null);
+            buffer.Enqueue(message);
+            Console.WriteLine("Addet ArrayList");
         }
 
-        public String getMessageFromBuffer(){
-            Contract.Invariant(buffer != null);
-            return null;
+        public ArrayList getMessageFromBuffer(){
+            Contract.Invariant(buffer != null);            
+            return buffer.Dequeue();
         }
 
         public bool isBufferFull() {
             Contract.Invariant(buffer != null);
-            return false;
+            return buffer.IsFull;
         }
 
         public bool isBufferEmpty(){
             Contract.Invariant(buffer != null);
-            return false;
+            return buffer.IsEmpty;
         }
 
     }

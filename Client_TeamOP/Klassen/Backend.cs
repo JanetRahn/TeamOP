@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics.Contracts;
 
-namespace Client_TeamOP
+namespace Client_TeamOP.Klassen
 {
     public class Backend
     {
@@ -15,15 +15,23 @@ namespace Client_TeamOP
         private List<Positionable> positionable_Human;
         private List<Positionable> positionable_Dragon;
         private Map map;
-        private MiniGame currentGame;
-        private Boolean isMiniGame;
+        private Minigame currentGame;
+        private bool isMiniGame;
         private List<String> log;
 
+
+        public Backend()
+        {
+            connector = new Connector(new Buffer());
+            connector.connectToServer("127.0.0.1", 666);
+        }
         public bool sendCommand(String message)
         {
+            bool sended;
             Contract.Requires(message != null);
             Contract.Invariant(connector != null);
-            return false;
+            sended = connector.sendCommandToServer(message);
+            return sended;
         }
 
         public bool storeHuman(Positionable positionable)
@@ -41,7 +49,7 @@ namespace Client_TeamOP
 
         public List<Positionable> getPositionableHumans()
         {
-
+            return null;
         }
 
         public bool storeDragon(Positionable positionable)
@@ -59,7 +67,7 @@ namespace Client_TeamOP
 
         public List<Positionable> getPositionableDragon()
         {
-
+            return null;
         }
 
         public Boolean moveUp()
@@ -121,9 +129,9 @@ namespace Client_TeamOP
         {
         }
 
-        public Boolean isMiniGame()
+        public bool isMiniGameRunning()
         {
-            return false;
+            return isMiniGame;
         }
 
         public List<String> getLog()
