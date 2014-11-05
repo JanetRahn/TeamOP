@@ -8,12 +8,14 @@ namespace Client_TeamOP.Klassen
 {
     public class Map
     {
-        private Field[] field;
+        private Field[,] field;
         private int width, length;
 
-        public Map()
+        public Map(int width, int length)
         {
-
+            this.width = width;
+            this.length = length;
+            field=new Field[width, length];
         }
         public int[] getField(int x, int y)
         {

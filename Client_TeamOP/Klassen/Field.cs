@@ -12,11 +12,14 @@ namespace Client_TeamOP.Klassen
         private Boolean unwalkable;
         private Boolean water;
         private Boolean huntable;
-        private Positionable positionable;
+        private List<Positionable> positionable;
 
-        public Field()
+        public Field(Boolean forest, Boolean unwalkable, Boolean water, Boolean huntable)
         {
-
+            this.forest = forest;
+            this.unwalkable = unwalkable;
+            this.water = water;
+            this.huntable = huntable;
         }
         public Boolean getForest()
         {
@@ -36,11 +39,11 @@ namespace Client_TeamOP.Klassen
         }
         public void setPositionable(Positionable pl)
         {
-            this.positionable = pl;
+            this.positionable.Add(pl);
         }
         public void removePositionable(Positionable pl)
         {
-
+            this.positionable.Remove(pl);
         }
     }
 }
