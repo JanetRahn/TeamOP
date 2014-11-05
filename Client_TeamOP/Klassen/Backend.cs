@@ -72,21 +72,25 @@ namespace Client_TeamOP.Klassen
 
         public Boolean moveUp()
         {
+            connector.sendCommandToServer("ask:mv:up");
             return true;
         }
 
         public Boolean moveDown()
         {
+            connector.sendCommandToServer("ask:mv:dwn");
             return true;
         }
 
         public Boolean moveRight()
         {
+            connector.sendCommandToServer("ask:mv:rgt");
             return true;
         }
 
         public Boolean moveLeft()
         {
+            connector.sendCommandToServer("ask:mv:lft");
             return true;
         }
 
@@ -105,19 +109,14 @@ namespace Client_TeamOP.Klassen
             return null;
         }
 
-        public void connectServer()
-        {
-
-        }
-
         public Boolean isConnected()
         {
-            return false;
+            return connector.isConnected();
         }
 
         public void disconnectServer()
         {
-
+            connector.disconnectFromServer();
         }
 
         public String getCurrentMiniGame()
