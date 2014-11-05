@@ -12,13 +12,13 @@ namespace Client_TeamOP.Klassen
 {
     public class Connector
     {
-        Buffer buffer;
-        TcpClient client;
-        Sender sender;
-        Receiver receiver;
-        int messageID;
-        ArrayList packedMessage;
-        bool messageComplete = false,running = false;       
+        private Buffer buffer;
+        private TcpClient client;
+        private Sender sender;
+        private Receiver receiver;
+        private int messageID;
+        private ArrayList packedMessage;
+        private bool messageComplete = false, running = false;       
         
         public Connector(Buffer buffer) 
         {

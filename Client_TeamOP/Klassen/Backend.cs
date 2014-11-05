@@ -12,8 +12,8 @@ namespace Client_TeamOP.Klassen
         private Connector connector;
         private Parser parser;
         private GUI gui;
-        private List<Positionable> positionable_Human;
-        private List<Positionable> positionable_Dragon;
+        private List<Positionable> positionableHuman;
+        private List<Positionable> positionableDragon;
         private Map map;
         private Minigame currentGame;
         private bool isMiniGame;
@@ -36,14 +36,14 @@ namespace Client_TeamOP.Klassen
 
         public bool storeHuman(Positionable positionable)
         {
-            Contract.Requires(this.positionable_Human != null);
+            Contract.Requires(this.positionableHuman != null);
             Contract.Requires(positionable != null);
             return false;
         }
 
         public void deleteHuman(Positionable positionable)
         {
-            Contract.Requires(this.positionable_Human != null);
+            Contract.Requires(this.positionableHuman != null);
             Contract.Requires(positionable != null);
         }
 
@@ -54,14 +54,14 @@ namespace Client_TeamOP.Klassen
 
         public bool storeDragon(Positionable positionable)
         {
-            Contract.Requires(this.positionable_Dragon != null);
+            Contract.Requires(this.positionableDragon != null);
             Contract.Requires(positionable != null);
             return false;
         }
 
         public void deleteDragon(Positionable positionable)
         {
-            Contract.Requires(this.positionable_Dragon != null);
+            Contract.Requires(this.positionableDragon != null);
             Contract.Requires(positionable != null);
         }
 
@@ -90,14 +90,19 @@ namespace Client_TeamOP.Klassen
             return true;
         }
 
-        public void challengePlayer()
+        public void challengePlayer(Positionable enemy)
         {
 
         }
 
-        public void rename()
+        public void rename(String newName)
         {
 
+        }
+
+        public Positionable[] getOnPos()
+        {
+            return null;
         }
 
         public void connectServer()
