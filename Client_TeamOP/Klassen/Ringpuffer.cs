@@ -9,12 +9,12 @@ namespace Client_TeamOP.Klassen
 {
     class Ringpuffer
     {
-        ArrayList[] buffer;
-        int head;
-        int tail;
-        int length;
-        int message;
-        int bufferSize;
+        private ArrayList[] buffer;
+        private int head;
+        private int tail;
+        private int length;
+        private int message;
+        private int bufferSize;
         
 
         public Ringpuffer(int bufferSize)
