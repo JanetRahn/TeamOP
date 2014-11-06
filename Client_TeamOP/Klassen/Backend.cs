@@ -142,5 +142,10 @@ namespace Client_TeamOP.Klassen
         {
             return log;
         }
+
+        public void putLog(String newLogElement)
+        {
+            log.Add(newLogElement);
+        }
     }
 }
