@@ -10,7 +10,7 @@ namespace Client_TeamOP.Klassen
 {
      public abstract class ClientThread
      {
-            private TcpClient client;
+            //private TcpClient client;
             protected Connector parent;
             protected bool active = false;
 
@@ -30,19 +30,18 @@ namespace Client_TeamOP.Klassen
 
             protected TcpClient getClient()
             {
-                return this.client;
+                return parent.getClient();
             }
 
             public ClientThread(Connector parent)
             {
-                this.parent = parent;
-                this.client = parent.getClient();
+                this.parent = parent;               
             }
 
             // TCP-Datenstrom 
             protected NetworkStream getStream()
             {
-                return this.getClient().GetStream();
+                return parent.getClient().GetStream();
             }
 
             protected abstract void loop();

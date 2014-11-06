@@ -27,10 +27,10 @@ namespace Client_TeamOP.Klassen
             {
                 if (parent.isConnected())
                 {
-                    if (getStream() != null && getStream().CanWrite)
+                    if (getStream() != null && getStream().CanRead)
                     {
-                        getStream().ReadTimeout = 5;
-                        if (getStream().DataAvailable)
+                       
+                        if (true)//getStream().DataAvailable)
                         {
                             try {
                             String messageLine = sr.ReadLine();

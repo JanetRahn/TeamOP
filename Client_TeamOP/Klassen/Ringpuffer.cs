@@ -21,7 +21,7 @@ namespace Client_TeamOP.Klassen
         {
               buffer = new ArrayList[bufferSize];
               this.bufferSize = bufferSize;
-              head = bufferSize - 1;
+              head = 0;
               message = 0;
         }
 
@@ -36,11 +36,18 @@ namespace Client_TeamOP.Klassen
         }
 
         public ArrayList Dequeue()
-        {                
-                ArrayList dequeued = buffer[tail];
-                tail = NextPosition(tail);
+        {
+            ArrayList dequeued = null;
+            if (tail != head)
+            {
+                dequeued = buffer[tail];
+                buffer[tail] = null;
+            } 
+            else { tail = NextPosition(tail); }
+
+            if(dequeued != null)
                 length--;
-                return dequeued;            
+            return dequeued;            
         }
 
         private int NextPosition(int position)
@@ -48,14 +55,15 @@ namespace Client_TeamOP.Klassen
             return (position + 1) % bufferSize;
         }
 
-        public void Enqueue(ArrayList toAdd)        
-        {            
-                head = NextPosition(head);
-                buffer[head] = toAdd;
-                if (IsFull)
-                    tail = NextPosition(tail);
-                else
-                    length++;            
+        public void Enqueue(ArrayList toAdd)
+        {
+            head = NextPosition(head);
+            buffer[head] = toAdd;
+            
+            if (IsFull)
+                tail = NextPosition(tail);
+            else
+                length++;
         }
     }
 }

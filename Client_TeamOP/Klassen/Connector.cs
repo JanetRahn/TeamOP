@@ -50,13 +50,18 @@ namespace Client_TeamOP.Klassen
         {
             Contract.Requires(ip != null);
             Contract.Requires(port < 0);
-
-            client.Connect(ip, port);
-            sender = new Sender(this);
-            receiver = new Receiver(this);
-            sender.startLoopThread();
-            receiver.startLoopThread();
-            
+            try
+            {
+                client.Connect(ip, port);
+                sender = new Sender(this);
+                receiver = new Receiver(this);
+                sender.startLoopThread();
+                receiver.startLoopThread();
+            }
+            catch
+            {
+                Console.WriteLine("Server nicht erreichbar");
+            }
             Contract.Ensures(client != null);
             return client.Connected;
         }
@@ -75,11 +80,6 @@ namespace Client_TeamOP.Klassen
             Contract.Invariant(buffer != null);
             buffer.addToBuffer(message);
         }
-        public bool readFromStream()
-        {
-            Contract.Invariant(client != null);
-            return false;
-        }
         public bool sendCommandToServer(String command)
         {
             Contract.Requires(command != null);
@@ -94,12 +94,12 @@ namespace Client_TeamOP.Klassen
                 {
                     packedMessage = new ArrayList();
                 }
-                if (extractKey(message).Equals("begin") && isServerMessage(message))
+                if (extractKey(message) != null && extractKey(message).Equals("begin") && isServerMessage(message))
                 {
                     messageID = Int32.Parse(extractValue(message));
                     Console.WriteLine("A new Message arrived");
                 }
-                else if (extractKey(message).Equals("end") && isServerMessage(message) && messageID == Int32.Parse(extractValue(message)))
+                else if (extractKey(message) != null && extractKey(message).Equals("end") && isServerMessage(message) && messageID == Int32.Parse(extractValue(message)))
                 {
                     messageComplete = true;
                     Console.WriteLine("Message completed");
@@ -118,7 +118,7 @@ namespace Client_TeamOP.Klassen
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Fehler");
+                Console.WriteLine("Fehler" + ex.Message);
             }
 
         }
@@ -132,28 +132,39 @@ namespace Client_TeamOP.Klassen
         {
             try
             {
+                int ioac = indexOfAssignChar(message);
+                if (ioac < 0)
+                    return null;
                 return message.Substring(0, indexOfAssignChar(message));
             }
-            catch
+            catch (Exception e)
             {
-                return "";
+
+                Console.WriteLine("Fehler bei Key " + e.Message);
+                return null;
             }
-        }
+                
+}
         public static String extractValue(String message)
         {
             try
             {
                 int i = indexOfAssignChar(message);
+                if (i < 0)
+                    return null;
                 return message.Substring(i + 1, message.Length - i - 1);
             }
-            catch
+            catch(Exception e)
             {
-                return "";
-            }
+                Console.WriteLine("Fehler bei Value " + e.Message);
+                return null;
+            }                
+            
         }
         public static int indexOfAssignChar(String message)
         {
-            return message.IndexOf(":");
+            int s = message.IndexOf(":");
+            return s;
         }
 
 
