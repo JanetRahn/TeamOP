@@ -17,6 +17,9 @@ namespace Client_TeamOP.Klassen
         static int messageID;
         bool completedMessage;
         
+        
+
+        
         public Parser(Buffer buffer)
         {
             Contract.Requires(buffer != null);
@@ -40,6 +43,7 @@ namespace Client_TeamOP.Klassen
             //Wenn die nachricht startet ID eingespeichtert
             //Message länge wird gezählt
             //Wird dann geparsed
+            
         }
 
 

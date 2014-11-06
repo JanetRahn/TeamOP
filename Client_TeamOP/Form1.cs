@@ -13,27 +13,10 @@ namespace Client_TeamOP
 {
     public partial class Form1 : Form
     {
-        private Backend backend;
         public Form1()
         {
             InitializeComponent();
-            backend = new Backend();
-
-        }
-
-        private void maskedTextBox1_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
-        {
-
-        }
-
-        private void maskedTextBox1_MaskInputRejected_1(object sender, MaskInputRejectedEventArgs e)
-        {
-
-        }
-
-        private void sendenB_Click(object sender, EventArgs e)
-        {
-
+            Backend backend = new Backend();            
         }
     }
 }
