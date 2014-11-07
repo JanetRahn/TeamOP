@@ -10,7 +10,6 @@ namespace Client_TeamOP.Klassen
 {
      public abstract class ClientThread
      {
-            private TcpClient client;
             protected Connector parent;
             protected bool active = false;
 
@@ -38,7 +37,6 @@ namespace Client_TeamOP.Klassen
                 this.parent = parent;               
             }
 
-            // TCP-Datenstrom 
             protected NetworkStream getStream()
             {
                 return parent.getClient().GetStream();
