@@ -10,9 +10,8 @@ namespace Client_TeamOP.Klassen
 {
     class Sender : ClientThread
     {
-        Connector parent;
-        StreamWriter sw;
-        Queue<String> senderStack = new Queue<String>();
+       private StreamWriter sw;
+       private Queue<String> senderStack = new Queue<String>();
 
         public Sender(Connector c) : base(c)
         {

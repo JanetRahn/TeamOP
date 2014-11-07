@@ -11,8 +11,6 @@ namespace Client_TeamOP.Klassen
 {
     class Receiver : ClientThread
     {
-        
-        private Connector parent;
         private StreamReader sr;
 
         public Receiver(Connector c) : base(c)
