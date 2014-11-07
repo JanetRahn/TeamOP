@@ -13,7 +13,6 @@ namespace Client_TeamOP.Klassen
         Buffer buffer;
         Backend backend;
         Thread convertParser;
-
         static int messageID;
         bool completedMessage;
         
@@ -39,11 +38,7 @@ namespace Client_TeamOP.Klassen
             if (completedMessage)
             {
                 //sendToMethod();
-            }
-            //Wenn die nachricht startet ID eingespeichtert
-            //Message länge wird gezählt
-            //Wird dann geparsed
-            
+            }           
         }
 
 
