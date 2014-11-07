@@ -18,15 +18,18 @@ namespace Client_TeamOP.Klassen
         private Receiver receiver;
         private int messageID;
         private ArrayList packedMessage;
+        private Queue<ArrayList> stackPackedMessage = new Queue<ArrayList>();
         private bool messageComplete = false, running = false;       
         
         public Connector(Buffer buffer) 
         {
-            Contract.Requires(buffer != null);
+            Contract.Requires(buffer != null);      //If?
+
             this.client = new TcpClient();            
             this.buffer = buffer;
             running = true;
-            Contract.Ensures(client != null);            
+
+            Contract.Ensures(client != null);      //If?      
         }
         public bool isRunning()
         {
@@ -38,54 +41,75 @@ namespace Client_TeamOP.Klassen
         }
         public NetworkStream getStreams()
         {
-            Contract.Invariant(client != null);
+            Contract.Invariant(client != null);     //If?
             return client.GetStream();
         }
         public bool isConnected()
         {
-            Contract.Invariant(client != null);
+            Contract.Invariant(client != null);     //If?
             return client.Connected;
         }
         public bool connectToServer(String ip,int port)
         {
             Contract.Requires(ip != null);
             Contract.Requires(port < 0);
-            try
+            bool connected = false;
+
+            if (ip != null & port < 0)
             {
-                client.Connect(ip, port);
-                sender = new Sender(this);
-                receiver = new Receiver(this);
-                sender.startLoopThread();
-                receiver.startLoopThread();
-            }
-            catch
-            {
-                Console.WriteLine("Server nicht erreichbar");
+                try
+                {
+                    client.Connect(ip, port);
+                    sender = new Sender(this);
+                    receiver = new Receiver(this);
+                    sender.startLoopThread();
+                    receiver.startLoopThread();
+                    connected = client.Connected;
+                }
+                catch
+                {
+                    Console.WriteLine("Server nicht erreichbar");
+                }
             }
             Contract.Ensures(client != null);
-            return client.Connected;
+            return connected;
         }
         public bool disconnectFromServer() 
         {
             Contract.Requires(client.Connected);
             Contract.Invariant(client != null);
 
-            client.Close();
+            if (client.Connected & client != null)
+            {
+                client.Close();
+            }
 
-            Contract.Ensures(!client.Connected);
+            Contract.Ensures(!client.Connected);        //If?
             return !client.Connected;
         }
         public void writeToBuffer(ArrayList message)
         {
             Contract.Invariant(buffer != null);
-            buffer.addToBuffer(message);
+            if (buffer != null)
+            {
+                buffer.addToBuffer(message);
+            }
         }
-        public bool sendCommandToServer(String command)
+        public bool sendCommandToServer(String command)       
         {
             Contract.Requires(command != null);
             Contract.Invariant(client != null);
-            return false;
+            bool sended = false;
+
+            if (command != null & client != null)
+            {
+                sender.sendToSenderBuffer(command);
+                sended = true;
+            }
+            return sended;
         }
+
+
         public void packingMessage(String message)
         {
             try
@@ -108,14 +132,17 @@ namespace Client_TeamOP.Klassen
                 {
                     packedMessage.Add(message);
                 }
-
                 if (messageComplete && packedMessage != null && packedMessage.Count > 0)
                 {
-                    writeToBuffer(packedMessage);
+                    stackPackedMessage.Enqueue(packedMessage);
                     packedMessage = null;
-                    messageComplete = false;
+                    messageComplete = false; 
+                }                
+                while (!buffer.isBufferFull() && stackPackedMessage.Count > 0)
+                {
+                        writeToBuffer(stackPackedMessage.Dequeue());
                 }
-            }
+            }            
             catch (Exception ex)
             {
                 Console.WriteLine("Fehler" + ex.Message);

@@ -27,18 +27,8 @@ namespace Client_TeamOP.Klassen
 
         public void convertLoop()
         {
-            convertL();
-        }
-
-        public void convertL(){           
-            String s = readFromBuffer();
-            while (true) { }
-            if (completedMessage)
-            {
-                //sendToMethod();
-            }           
-        }
-
+            
+        }   
 
         public String readFromBuffer(){
             Contract.Requires(buffer != null);
