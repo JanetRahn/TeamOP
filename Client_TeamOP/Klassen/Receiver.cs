@@ -10,14 +10,12 @@ namespace Client_TeamOP.Klassen
 {
     class Receiver : ClientThread
     {
-        TcpClient client;
         Connector parent;
         StreamReader sr;
 
         public Receiver(Connector c) : base(c)
         {
             this.parent = c;
-            this.client = c.getClient();
             sr = new StreamReader(getStream());
         }
 

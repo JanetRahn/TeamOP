@@ -10,8 +10,6 @@ namespace Client_TeamOP.Klassen
 {
     class Sender : ClientThread
     {
-
-        TcpClient client;
         Connector parent;
         StreamWriter sw;
         Queue<String> senderStack = new Queue<String>();
@@ -19,7 +17,6 @@ namespace Client_TeamOP.Klassen
         public Sender(Connector c) : base(c)
         {
             this.parent = c;
-            this.client = c.getClient();
             sw = new StreamWriter(getStream());
         }
 
