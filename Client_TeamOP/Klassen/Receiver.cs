@@ -4,18 +4,20 @@ using System.IO;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Client_TeamOP.Klassen
 {
     class Receiver : ClientThread
     {
-        Connector parent;
-        StreamReader sr;
+        
+        private Connector parent;
+        private StreamReader sr;
 
         public Receiver(Connector c) : base(c)
         {
-            this.parent = c;
+            this.parent = c; 
             sr = new StreamReader(getStream());
         }
 
@@ -26,16 +28,13 @@ namespace Client_TeamOP.Klassen
                 if (parent.isConnected())
                 {
                     if (getStream() != null && getStream().CanRead)
-                    {
-                       
-                        if (true)//getStream().DataAvailable)
-                        {
+                    {                            
                             try {
                             String messageLine = sr.ReadLine();
-                            parent.packingMessage(messageLine);                            
+                            parent.packingMessage(messageLine);
+
                             }
                             catch (Exception ex) { Console.WriteLine("Fehler: " + ex.Message); }
-                        }
                     }
 
                 }

@@ -17,8 +17,6 @@ namespace Client_TeamOP.Klassen
         bool completedMessage;
         
         
-
-        
         public Parser(Buffer buffer)
         {
             Contract.Requires(buffer != null);

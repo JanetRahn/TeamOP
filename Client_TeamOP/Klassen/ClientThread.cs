@@ -10,7 +10,7 @@ namespace Client_TeamOP.Klassen
 {
      public abstract class ClientThread
      {
-            //private TcpClient client;
+            private TcpClient client;
             protected Connector parent;
             protected bool active = false;
 
