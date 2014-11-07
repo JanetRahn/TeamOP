@@ -130,36 +130,41 @@ namespace Client_TeamOP.Klassen
         }
         public static String extractKey(String message)
         {
+            String s = "";
             try
             {
                 int ioac = indexOfAssignChar(message);
                 if (ioac < 0)
-                    return null;
-                return message.Substring(0, indexOfAssignChar(message));
+                {
+                    s = null;
+                }
+                s = message.Substring(0, indexOfAssignChar(message));                
             }
             catch (Exception e)
             {
-
                 Console.WriteLine("Fehler bei Key " + e.Message);
-                return null;
+                s = null;
             }
-                
-}
+            return s;                
+    }
         public static String extractValue(String message)
         {
+            String s = null;
             try
             {
                 int i = indexOfAssignChar(message);
                 if (i < 0)
-                    return null;
-                return message.Substring(i + 1, message.Length - i - 1);
+                {
+                    s = null;
+                }
+                s = message.Substring(i + 1, message.Length - i - 1);
             }
             catch(Exception e)
             {
                 Console.WriteLine("Fehler bei Value " + e.Message);
-                return null;
-            }                
-            
+                s = null;
+            }
+            return s;
         }
         public static int indexOfAssignChar(String message)
         {

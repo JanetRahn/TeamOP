@@ -45,8 +45,10 @@ namespace Client_TeamOP.Klassen
             } 
             else { tail = NextPosition(tail); }
 
-            if(dequeued != null)
+            if (dequeued != null)
+            {
                 length--;
+            }
             return dequeued;            
         }
 
@@ -59,11 +61,15 @@ namespace Client_TeamOP.Klassen
         {
             head = NextPosition(head);
             buffer[head] = toAdd;
-            
+
             if (IsFull)
+            {
                 tail = NextPosition(tail);
+            }
             else
+            {
                 length++;
+            }
         }
     }
 }
