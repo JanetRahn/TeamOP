@@ -13,8 +13,7 @@ namespace Client_TeamOP.Klassen
     public class Buffer {
         
         private static readonly int bufferMaxSize = 20;
-        private Queue<ArrayList> buffer = new Queue<ArrayList>(bufferMaxSize);
-        private readonly object queueSync = new object(); 
+        private Queue<ArrayList> buffer = new Queue<ArrayList>(bufferMaxSize);         
 
         public Buffer(){
             Contract.Ensures(buffer != null);
@@ -24,16 +23,24 @@ namespace Client_TeamOP.Klassen
             }
         }
         public void addToBuffer(ArrayList message){
+           
             Contract.Requires(message != null);
             Contract.Invariant(buffer != null);
 
             if (message != null & buffer != null)
             {
-                lock (queueSync)
+                Monitor.Enter(buffer);
+
+                while (buffer.Count == bufferMaxSize)
                 {
-                    buffer.Enqueue(message);
+                    Monitor.Wait(buffer);
                 }
-                Monitor.Pulse(queueSync);
+
+                buffer.Enqueue(message);
+
+                Monitor.Exit(buffer);
+                Monitor.PulseAll(buffer);
+
                 Console.WriteLine("Addet ArrayList");
             }
         }
@@ -41,17 +48,18 @@ namespace Client_TeamOP.Klassen
         public ArrayList getMessageFromBuffer(){
             Contract.Invariant(buffer != null); 
             ArrayList message = null;
-            
+
             if (buffer != null)
             {
-                lock (queueSync)
-                {
+                Monitor.Enter(buffer);
                     while (buffer.Count == 0)
                     {
-                        Monitor.Wait(queueSync);
+                        Monitor.Wait(buffer);
                     }
                     message = buffer.Dequeue();
-                }
+                    
+                Monitor.Exit(buffer);
+                Monitor.PulseAll(buffer);
             }
             return message;
         }
