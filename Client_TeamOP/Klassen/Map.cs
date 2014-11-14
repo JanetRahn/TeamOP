@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Client_TeamOP.Klassen
 {
-    public class Map
+    public class Map : IMap
     {
         private Field[,] field;
         private int width, length;
 
-        public Map(int width, int length)
+        public Map(int width, int length, List<MapEnum> attributes)
         {
             this.width = width;
             this.length = length;
@@ -32,4 +32,7 @@ namespace Client_TeamOP.Klassen
         }
 
     }
+ 
 }
+
+

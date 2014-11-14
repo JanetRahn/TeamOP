@@ -7,7 +7,7 @@ using System.Diagnostics.Contracts;
 
 namespace Client_TeamOP.Klassen
 {
-    public class Backend
+    public class Backend : IBackend
     {
         private Connector connector;
         private Parser parser;
@@ -20,9 +20,9 @@ namespace Client_TeamOP.Klassen
         private List<String> log;
 
 
-        public Backend()
+       public Backend()
         {
-            connector = new Connector(new Buffer());
+           connector = new Connector(new Buffer());
             connector.connectToServer("127.0.0.1", 666);
         }
         public bool sendCommand(String message)
@@ -47,9 +47,12 @@ namespace Client_TeamOP.Klassen
             Contract.Requires(positionable != null);
         }
 
-        public List<Positionable> getPositionableHumans()
+        public List<IPositionable> getPositionableHumans() //getPlayer
         {
-            return null;
+            List<IPositionable> humans = new List<IPositionable>();
+            Positionable p = new Positionable(0, 1);
+            humans.Add(p);
+            return humans; 
         }
 
         public bool storeDragon(Positionable positionable)
@@ -65,9 +68,12 @@ namespace Client_TeamOP.Klassen
             Contract.Requires(positionable != null);
         }
 
-        public List<Positionable> getPositionableDragon()
+        public List<IPositionable> getPositionableDragon()  //getDragons
         {
-            return null;
+            List<IPositionable> dragons = new List<IPositionable>();
+            Positionable p = new Positionable(0,1);
+            dragons.Add(p);
+            return dragons; 
         }
 
         public Boolean moveUp()
@@ -124,9 +130,40 @@ namespace Client_TeamOP.Klassen
             return "";
         }
 
-        public Map getMap()
+        public IMap[][] getMap() //getMap
         {
-            return map;
+            int size = 10;
+            // init
+            IMap[][] map = new IMap[size][];
+            for(int i = 0; i < size; i++) {
+                map[i] = new IMap[size];
+            }
+            Random r = new Random();
+            for(int x = 0; x < size; x++) {
+                for(int y = 0; y < size; y++) {
+                    List<MapEnum> attr = new List<MapEnum>();
+                    switch(r.Next(0, 5)) {
+                        case 0:
+                            attr.Add(MapEnum.WATER);
+                            break;
+                        case 1:
+                            attr.Add(MapEnum.HUNTABLE);
+                            attr.Add(MapEnum.FOREST);
+                            break;
+                        case 2:
+                            attr.Add(MapEnum.FOREST);
+                            break;
+                        case 3:
+                            attr.Add(MapEnum.UNWALKABLE);
+                            break;
+                        case 4:
+                            break;
+
+                    }
+                    map[x][y] = new Map(x, y, attr);
+                }
+            }
+            return map;   
         }
 
         public void interactMiniGame(String action)

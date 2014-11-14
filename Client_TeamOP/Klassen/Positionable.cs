@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Client_TeamOP.Klassen
 {
-    public class Positionable
+    public class Positionable : IPositionable
     {
         private int id;
         private int points;
@@ -18,9 +18,10 @@ namespace Client_TeamOP.Klassen
         private bool autopilot;
 
 
-       public Positionable()
+       public Positionable(int x, int y)
         {
-
+            this.x = x; 
+            this.y = y; 
         }
 
         public void autoWalk(bool status)

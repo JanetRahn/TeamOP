@@ -1,6 +1,6 @@
 ﻿namespace Client_TeamOP
 {
-    partial class Form1
+   public partial class GUI
     {
         /// <summary>
         /// Erforderliche Designervariable.
@@ -30,12 +30,12 @@
         {
             this.SuspendLayout();
             // 
-            // Form1
+            // GUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 261);
-            this.Name = "Form1";
+            this.ClientSize = new System.Drawing.Size(462, 430);
+            this.Name = "GUI";
             this.Text = "Form1";
             this.ResumeLayout(false);
 
