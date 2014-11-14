@@ -38,8 +38,9 @@ namespace Client_TeamOP.Klassen
 
                 buffer.Enqueue(message);
 
-                Monitor.Exit(buffer);
                 Monitor.PulseAll(buffer);
+                Monitor.Exit(buffer);
+                
 
                 Console.WriteLine("Addet ArrayList");
             }
@@ -57,9 +58,9 @@ namespace Client_TeamOP.Klassen
                         Monitor.Wait(buffer);
                     }
                     message = buffer.Dequeue();
-                    
-                Monitor.Exit(buffer);
+
                 Monitor.PulseAll(buffer);
+                Monitor.Exit(buffer);                
             }
             return message;
         }

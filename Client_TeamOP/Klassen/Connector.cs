@@ -17,8 +17,7 @@ namespace Client_TeamOP.Klassen
         private Sender sender;
         private Receiver receiver;
         private int messageID;
-        private ArrayList packedMessage;
-        private Queue<ArrayList> stackPackedMessage = new Queue<ArrayList>();
+        private ArrayList packedMessage;      
         private bool messageComplete = false, running = false;       
         
         public Connector(Buffer buffer) 
@@ -55,7 +54,7 @@ namespace Client_TeamOP.Klassen
             Contract.Requires(port < 0);
             bool connected = false;
 
-            if (ip != null & port < 0)
+            if (ip != null & port > 0)
             {
                 try
                 {
@@ -134,14 +133,10 @@ namespace Client_TeamOP.Klassen
                 }
                 if (messageComplete && packedMessage != null && packedMessage.Count > 0)
                 {
-                    stackPackedMessage.Enqueue(packedMessage);
+                    writeToBuffer(packedMessage);
                     packedMessage = null;
-                    messageComplete = false; 
-                }                
-                while (!buffer.isBufferFull() && stackPackedMessage.Count > 0)
-                {
-                        writeToBuffer(stackPackedMessage.Dequeue());
-                }
+                    messageComplete = false;
+                } 
             }            
             catch (Exception ex)
             {
