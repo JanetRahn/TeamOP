@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 namespace Client_TeamOP.Klassen {
    public  interface IPositionable {
 
-        int getXPosition();
+         int getX();
 
-        int getYPosition();
+         int getY();
     }
 }

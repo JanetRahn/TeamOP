@@ -6,44 +6,51 @@ using System.Threading.Tasks;
 
 namespace Client_TeamOP.Klassen
 {
-    class Field
+    public class Field : IMap
     {
-        private Boolean forest;
-        private Boolean unwalkable;
-        private Boolean water;
-        private Boolean huntable;
-        private List<Positionable> positionable;
+      
+        private List<MapEnum> attributes;
+        private int x, y;
 
-        public Field(Boolean forest, Boolean unwalkable, Boolean water, Boolean huntable)
+        public Field(int x, int y, List<MapEnum> attributes)
         {
-            this.forest = forest;
-            this.unwalkable = unwalkable;
-            this.water = water;
-            this.huntable = huntable;
+            this.x = x;
+            this.y = y;
+            this.attributes = new List<MapEnum>();
+            this.attributes.AddRange(attributes);
         }
-        public Boolean getForest()
+        public int[] getField(int x, int y)
         {
-            return forest;
+            int[] array=null;
+            return array;
         }
-        public Boolean getUnwalkable()
+        public int getX(){
+            
+            return x;
+        }
+        public int getY()
         {
-            return unwalkable;
+            return y;
         }
-        public Boolean getWater()
-        {
-            return water;
+
+        public bool isWalkable() {
+            return !this.attributes.Contains(MapEnum.UNWALKABLE);
         }
-        public Boolean getHuntable()
-        {
-            return huntable;
+
+        public bool isForest() {
+            return this.attributes.Contains(MapEnum.FOREST);
         }
-        public void setPositionable(Positionable pl)
-        {
-            this.positionable.Add(pl);
+
+        public bool isHuntable() {
+            return this.attributes.Contains(MapEnum.HUNTABLE);
         }
-        public void removePositionable(Positionable pl)
-        {
-            this.positionable.Remove(pl);
+
+        public bool isWater() {
+            return this.attributes.Contains(MapEnum.WATER);
         }
+
     }
+ 
 }
+
+

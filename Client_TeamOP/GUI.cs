@@ -20,8 +20,24 @@ namespace Client_TeamOP
             this.backend = backend;
             InitializeComponent(); 
             }
-            
-                
+        }
+
+
+        protected void drawMapTile(Graphics g, IMap tile, int absX, int absY, int width, int height) {
+            Color colour = Color.BurlyWood;
+            if(tile.isForest()) {
+                if(tile.isHuntable()) {
+                    colour = Color.YellowGreen;
+                } else {
+                    colour = Color.Green;
+                }
+            } else if(tile.isWater()) {
+                colour = Color.Blue;
+            } else if(!tile.isWalkable()) {
+                colour = Color.DimGray;
+            }
+            g.FillRectangle(new SolidBrush(colour), absX, absY, width, height);
+            g.DrawRectangle(new Pen(new SolidBrush(Color.Black)), new Rectangle(absX, absY, width, height));
         }
 
       

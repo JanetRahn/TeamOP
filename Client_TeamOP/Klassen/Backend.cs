@@ -34,6 +34,10 @@ namespace Client_TeamOP.Klassen
             return sended;
         }
 
+        public bool sendChat(String message) {
+        return false;
+        }
+
         public bool storeHuman(Positionable positionable)
         {
             Contract.Requires(this.positionableHuman != null);
@@ -160,7 +164,7 @@ namespace Client_TeamOP.Klassen
                             break;
 
                     }
-                    map[x][y] = new Map(x, y, attr);
+                    map[x][y] = new Field(x, y, attr);
                 }
             }
             return map;   
