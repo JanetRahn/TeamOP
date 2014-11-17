@@ -63,7 +63,7 @@ namespace Client_TeamOP
             {
                 throw new IndexOutOfRangeException("inner dimension of the retrieved map has length 0");
             }
-            int cellWidth = this.MapWindow.Size.Width / cells.Length;
+            int cellWidth = this.MapWindow.Size.Width / cells.GetLength(0);
             int cellHeight = this.MapWindow.Size.Height / cells.GetLength(1);
             Console.Write(cellWidth + " +  " + cellHeight);
             return new Size(cellWidth, cellHeight);
