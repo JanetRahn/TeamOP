@@ -18,10 +18,18 @@ namespace Client_TeamOP.Klassen
         private bool autopilot;
 
 
-       public Positionable(int x, int y)
+        public Positionable(int x, int y, int id, int points, String description, String type)
         {
-            this.x = x; 
-            this.y = y; 
+            this.x = x;
+            this.y = y;
+            this.autopilot = false;
+            this.autopilot = false;
+            this.description = description;
+            this.type = type;
+            this.x = x;
+            this.y = y;
+            this.points = points;
+            this.id = id;
         }
 
         public void autoWalk(bool status)
@@ -29,12 +37,12 @@ namespace Client_TeamOP.Klassen
 
         }
 
-        private void setY(int y)
+        public void setY(int y)
         {
-            this.y = y; 
+            this.y = y;
         }
 
-        private void setX(int x)
+        public void setX(int x)
         {
             this.x = x;
         }
@@ -78,7 +86,7 @@ namespace Client_TeamOP.Klassen
         {
             return busy;
         }
-       
+
 
     }
 }

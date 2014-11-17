@@ -8,8 +8,12 @@ namespace Client_TeamOP.Klassen {
     public interface IBackend {
         List<IPositionable> getPositionableDragon();
          List<IPositionable> getPositionableHumans();
-         IMap[][] getMap();
+         IMap[,] getMap();
          bool sendCommand(string command);
          bool sendChat(string message);
+         Boolean moveUp();
+         Boolean moveDown();
+         Boolean moveLeft();
+         Boolean moveRight();
     }
 }

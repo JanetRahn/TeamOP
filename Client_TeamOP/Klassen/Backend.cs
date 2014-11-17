@@ -20,15 +20,48 @@ namespace Client_TeamOP.Klassen
         private List<String> log;
 
 
-       public Backend()
+       public Backend(GUI gui)
         {
            connector = new Connector(new Buffer());
             connector.connectToServer("127.0.0.1", 666);
-           //Test
-           //map.creatTestMap();
-           //positionableHuman=new Positionable(//Infos);
-            //positionableDragon=new Positionable(//Infos);
-           //Guie refresh/repaint aufrufen
+            if (gui != null)
+            {
+                this.gui = gui;
+                positionableHuman=new List<Positionable>();
+                positionableDragon=new List<Positionable>();
+            }
+            //Test
+            map = new Map(10,10);
+            map.creatTestMap();
+            Field[,] field = map.getField();
+            bool first = true;
+            bool zweiter = false;
+            for (int x = 0; x < map.getWidth(); x++)
+            {
+                if (zweiter)
+                {
+                    break;
+                }
+                for (int y = 0; y < map.getHigh(); y++)
+                {
+                    if (field[x, y].isWalkable())
+                    {
+                        if (first)
+                        {
+                            positionableHuman.Add(new Positionable(x, y, 0, 0, "Im a Human", "Human"));
+                            first = false;
+                        }
+                        else
+                        {
+                            positionableDragon.Add(new Positionable(x, y, 1, 0, "Im a Dragon", "Dragon"));
+                            break;
+                            zweiter = true;
+                        }
+                    }
+                }
+            }
+            this.gui.refreshGui();
+            //End Test
         }
         public bool sendCommand(String message)
         {
@@ -59,8 +92,10 @@ namespace Client_TeamOP.Klassen
         public List<IPositionable> getPositionableHumans() //getPlayer
         {
             List<IPositionable> humans = new List<IPositionable>();
-            Positionable p = new Positionable(0, 1);
-            humans.Add(p);
+            foreach (Positionable p in positionableHuman)
+            {
+                humans.Add(p);
+            }           
             return humans; 
         }
 
@@ -79,34 +114,75 @@ namespace Client_TeamOP.Klassen
 
         public List<IPositionable> getPositionableDragon()  //getDragons
         {
-            List<IPositionable> dragons = new List<IPositionable>();
-            Positionable p = new Positionable(0,1);
-            dragons.Add(p);
-            return dragons; 
+            List<IPositionable> dragon = new List<IPositionable>();
+            foreach (Positionable p in positionableDragon)
+            {
+                dragon.Add(p);
+            }
+            return dragon; 
         }
 
         public Boolean moveUp()
         {
-            connector.sendCommandToServer("ask:mv:up");
-            return true;
+            if ((positionableHuman.First().getY() - 1) >= 0)
+            { 
+                //connector.sendCommandToServer("ask:mv:up");
+                positionableHuman.First().setX(positionableHuman.First().getX());
+                positionableHuman.First().setY(positionableHuman.First().getY()-1);
+                this.gui.refreshGui();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public Boolean moveDown()
         {
-            connector.sendCommandToServer("ask:mv:dwn");
-            return true;
+            if ((positionableHuman.First().getY() + 1) <= map.getHigh()) { 
+                //connector.sendCommandToServer("ask:mv:dwn");
+                positionableHuman.First().setX(positionableHuman.First().getX());
+                positionableHuman.First().setY(positionableHuman.First().getY()+1);
+                this.gui.refreshGui();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public Boolean moveRight()
         {
-            connector.sendCommandToServer("ask:mv:rgt");
-            return true;
+            if ((positionableHuman.First().getX() + 1) <= map.getWidth())
+            { 
+                //connector.sendCommandToServer("ask:mv:rgt");
+                positionableHuman.First().setX(positionableHuman.First().getX()+1);
+                positionableHuman.First().setY(positionableHuman.First().getY());
+                this.gui.refreshGui();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public Boolean moveLeft()
         {
-            connector.sendCommandToServer("ask:mv:lft");
-            return true;
+            if ((positionableHuman.First().getX() - 1) >= 0)
+            { 
+                //connector.sendCommandToServer("ask:mv:lft");
+                positionableHuman.First().setX(positionableHuman.First().getX()-1);
+                positionableHuman.First().setY(positionableHuman.First().getY());
+                this.gui.refreshGui();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public void challengePlayer(Positionable enemy)
@@ -139,37 +215,32 @@ namespace Client_TeamOP.Klassen
             return "";
         }
 
-        public IMap[][] getMap() //getMap
+        public IMap[,] getMap() //getMap
         {
-            int size = 10;
-            // init
-            IMap[][] map = new IMap[size][];
-            for(int i = 0; i < size; i++) {
-                map[i] = new IMap[size];
-            }
+            Field[,] tmpmap = this.map.getField();
+            int size = this.map.getWidth();
+            IMap[,] map = new IMap[size,size];
             Random r = new Random();
             for(int x = 0; x < size; x++) {
                 for(int y = 0; y < size; y++) {
                     List<MapEnum> attr = new List<MapEnum>();
-                    switch(r.Next(0, 5)) {
-                        case 0:
-                            attr.Add(MapEnum.WATER);
-                            break;
-                        case 1:
-                            attr.Add(MapEnum.HUNTABLE);
-                            attr.Add(MapEnum.FOREST);
-                            break;
-                        case 2:
-                            attr.Add(MapEnum.FOREST);
-                            break;
-                        case 3:
-                            attr.Add(MapEnum.UNWALKABLE);
-                            break;
-                        case 4:
-                            break;
-
+                    if (tmpmap[x, y].isForest())
+                    {
+                        attr.Add(MapEnum.FOREST);  
                     }
-                    map[x][y] = new Field(x, y, attr);
+                    if (tmpmap[x, y].isHuntable())
+                    {
+                        attr.Add(MapEnum.HUNTABLE);  
+                    }
+                    if (!tmpmap[x, y].isWalkable())
+                    {
+                        attr.Add(MapEnum.UNWALKABLE);  
+                    }
+                    if (tmpmap[x, y].isWater())
+                    {
+                        attr.Add(MapEnum.WATER);  
+                    }               
+                    map[x,y] = new Field(x, y, attr);
                 }
             }
             return map;   

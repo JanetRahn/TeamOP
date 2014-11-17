@@ -16,7 +16,7 @@ namespace Client_TeamOP
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new GUI(new Client_TeamOP.Klassen.Backend())); 
+            Application.Run(new GUI()); 
         }
     }
 }
