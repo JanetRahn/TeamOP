@@ -129,7 +129,7 @@ namespace Client_TeamOP.Klassen
                 }
                 else
                 {
-                    Console.Write(message);
+                   Console.WriteLine(message);
                     packedMessage.Add(message);
 
                 }

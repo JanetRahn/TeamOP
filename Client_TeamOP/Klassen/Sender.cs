@@ -15,12 +15,16 @@ namespace Client_TeamOP.Klassen
 
         public Sender(Connector c) : base(c)
         {
+           
             this.parent = c;
             sw = new StreamWriter(getStream());
+            
+            
         }
 
         protected override void loop()
         {
+            
             while (this.active && parent.isRunning())
             {
                                 
@@ -48,6 +52,7 @@ namespace Client_TeamOP.Klassen
 
         public void sendToSenderBuffer(String sendToServerMessage)
         {
+            
             senderStack.Enqueue(sendToServerMessage);
         }
     }

@@ -24,6 +24,11 @@ namespace Client_TeamOP.Klassen
         {
            connector = new Connector(new Buffer());
             connector.connectToServer("127.0.0.1", 666);
+           //Test
+           //map.creatTestMap();
+           //positionableHuman=new Positionable(//Infos);
+            //positionableDragon=new Positionable(//Infos);
+           //Guie refresh/repaint aufrufen
         }
         public bool sendCommand(String message)
         {
