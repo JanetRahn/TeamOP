@@ -60,7 +60,6 @@ namespace Client_TeamOP.Klassen
                     }
                 }
             }
-            this.gui.refreshGui();
             //End Test
         }
         public bool sendCommand(String message)
