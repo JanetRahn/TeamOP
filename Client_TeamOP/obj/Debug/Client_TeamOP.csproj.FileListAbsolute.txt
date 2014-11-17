@@ -41,3 +41,9 @@ C:\Users\Neddy\Documents\TeamOPProjekt\TeamOP\Client_TeamOP\obj\Debug\Client_Tea
 C:\Users\Neddy\Documents\TeamOPProjekt\TeamOP\Client_TeamOP\obj\Debug\Client_TeamOP.GUI.resources
 C:\Users\Neddy\Documents\TeamOPProjekt\TeamOP\Client_TeamOP\obj\Debug\Client_TeamOP.Properties.Resources.resources
 C:\Users\Neddy\Documents\TeamOPProjekt\TeamOP\Client_TeamOP\obj\Debug\Client_TeamOP.csproj.GenerateResource.Cache
+D:\Endwicklung\TeamOP\Client_TeamOP\obj\Debug\Client_TeamOP.csprojResolveAssemblyReference.cache
+D:\Endwicklung\TeamOP\Client_TeamOP\obj\Debug\Client_TeamOP.GUI.resources
+D:\Endwicklung\TeamOP\Client_TeamOP\obj\Debug\Client_TeamOP.Properties.Resources.resources
+D:\Endwicklung\TeamOP\Client_TeamOP\obj\Debug\Client_TeamOP.csproj.GenerateResource.Cache
+D:\Endwicklung\TeamOP\Client_TeamOP\bin\Debug\Client_TeamOP.exe
+D:\Endwicklung\TeamOP\Client_TeamOP\bin\Debug\Client_TeamOP.pdb
