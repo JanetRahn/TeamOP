@@ -10,10 +10,10 @@ namespace Client_TeamOP.Klassen {
          List<IPositionable> getPositionableHumans();
          IMap[,] getMap();
          bool sendCommand(string command);
-         bool sendChat(string message);
          Boolean moveUp();
          Boolean moveDown();
          Boolean moveLeft();
          Boolean moveRight();
+         List<String> getLog();
     }
 }

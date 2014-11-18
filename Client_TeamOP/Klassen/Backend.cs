@@ -24,6 +24,7 @@ namespace Client_TeamOP.Klassen
         {
            connector = new Connector(new Buffer());
             connector.connectToServer("127.0.0.1", 666);
+            log = new List<String>();
             if (gui != null)
             {
                 this.gui = gui;
@@ -44,7 +45,7 @@ namespace Client_TeamOP.Klassen
                 }
                 for (int y = 0; y < map.getHigh(); y++)
                 {
-                    if (field[x, y].isWalkable())
+                    if (field[x, y].isWalkable()&&!field[x, y].isWater())
                     {
                         if (first)
                         {
@@ -54,8 +55,8 @@ namespace Client_TeamOP.Klassen
                         else
                         {
                             positionableDragon.Add(new Positionable(x, y, 1, 0, "Im a Dragon", "Dragon"));
-                            break;
                             zweiter = true;
+                            break;
                         }
                     }
                 }
@@ -64,12 +65,13 @@ namespace Client_TeamOP.Klassen
         }
         public bool sendCommand(String message)
         {
-            /*bool sended;
+           /* bool sended;
             Contract.Requires(message != null);
             Contract.Invariant(connector != null);
-            sended = connector.sendCommandToServer(message);
+            //sended = connector.sendCommandToServer(message);
             return sended;*/
             log.Add(message);
+            gui.refreshGui();
             return true;
         }
 

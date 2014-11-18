@@ -6,6 +6,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -19,6 +20,11 @@ namespace Client_TeamOP
         {
             this.backend = new Backend(this);
             InitializeComponent();
+            AllocConsole();
+            this.MapWindow.Paint += MapWindow_Paint_1;
+            this.MapWindow.Paint += board_PaintEntities;
+            this.ChatInput.KeyPress += chatInput_KeyPress;
+            this.MapWindow.KeyPress += map_KeyPress;
         }
 
         protected void drawMapTile(Graphics g, IMap map, int absX, int absY, int width, int height)
@@ -71,6 +77,11 @@ namespace Client_TeamOP
 
         public bool refreshGui() {
             this.MapWindow_Paint_1(null,null);
+            List<String> log = this.backend.getLog();
+            foreach (String tmp in log)
+            {
+                ChatWindow.AppendText(tmp);
+            }
             return true;
         }  
 
@@ -92,26 +103,99 @@ namespace Client_TeamOP
             buffer.Render();
         }
 
-        private void LEFT_Click(object sender, EventArgs e)
+        private void chatInput_KeyPress(object sender, System.Windows.Forms.KeyPressEventArgs e)
         {
-            this.backend.moveLeft();
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                string input = this.ChatInput.Text.Trim();
+                this.backend.sendCommand(input);                
+                //this.MapWindow.Focus();
+            }
         }
 
-        private void RIGHT_Click(object sender, EventArgs e)
+        private void map_KeyPress(object sender, System.Windows.Forms.KeyPressEventArgs e)
         {
-            this.backend.moveRight();
+            // fall-through-cases for capital letters
+            switch (e.KeyChar)
+            {
+                case (char)Keys.Enter:
+                    this.ChatInput.Focus();
+                    break;
+                case 'a':
+                case 'A':
+                    this.backend.moveLeft();
+                    break;
+                case 'd':
+                case 'D':
+                    this.backend.moveRight();
+                    break;
+                case 'w':
+                case 'W':
+                    this.backend.moveUp();
+                    break;
+                case 's':
+                case 'S':
+                    this.backend.moveDown();
+                    break;
+            }
         }
 
-        private void UP_Click(object sender, EventArgs e)
+        private void board_PaintEntities(object sender, System.Windows.Forms.PaintEventArgs e)
         {
-            this.backend.moveUp();
+            List<IPositionable> dragons = this.backend.getPositionableDragon();
+            foreach (IPositionable dragon in dragons)
+            {
+                this.drawDragon(e.Graphics, dragon);
+            }
+            List<IPositionable> players = this.backend.getPositionableHumans();
+            foreach (IPositionable player in players)
+            {
+                this.drawPlayer(e.Graphics, player);
+            }
         }
 
-        private void DOWN_Click(object sender, EventArgs e)
+        protected void drawPlayer(Graphics g, IPositionable player)
         {
-            this.backend.moveDown();
+            Size tileSize = this.getTileSize();
+            List<IPositionable> p = backend.getPositionableHumans();
+            foreach (IPositionable tmp in p)
+            {
+                g.FillRectangle(new SolidBrush(Color.Black),
+             tmp.getX() * tileSize.Width + tileSize.Width / 2 - tileSize.Width / 4,
+             tmp.getY() * tileSize.Height + tileSize.Height / 2 - tileSize.Height / 4,
+             tileSize.Width / 2,
+             tileSize.Height / 2);
+            }
         }
 
-    
+        protected void drawDragon(Graphics g, IPositionable dragon)
+        {
+            Size tileSize = this.getTileSize();
+            List<IPositionable> p = backend.getPositionableDragon();
+            foreach (IPositionable tmp in p)
+            {
+                g.FillRectangle(new SolidBrush(Color.DarkGoldenrod),
+               tmp.getX() * tileSize.Width + tileSize.Width / 2 - tileSize.Width / 4,
+               tmp.getY() * tileSize.Height + tileSize.Height / 2 - tileSize.Height / 4,
+               tileSize.Width / 2,
+               tileSize.Height / 2);
+            }
+        }
+
+        public void appendChatMessage(string sender, string message)
+        {
+            this.ChatInput.AppendText(sender + ": " + message + "\r\n");
+        }
+
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        static extern bool AllocConsole();
+
+        private void ChatInput_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }

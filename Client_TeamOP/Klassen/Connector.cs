@@ -17,7 +17,7 @@ namespace Client_TeamOP.Klassen
         private Sender sender;
         private Receiver receiver;
         private int messageID;
-        private ArrayList packedMessage;      
+        private ArrayList packedMessage;     
         private bool messageComplete = false, running = false;       
         
         public Connector(Buffer buffer) 
