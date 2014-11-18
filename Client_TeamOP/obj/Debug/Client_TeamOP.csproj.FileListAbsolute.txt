@@ -47,3 +47,12 @@ D:\Endwicklung\TeamOP\Client_TeamOP\obj\Debug\Client_TeamOP.Properties.Resources
 D:\Endwicklung\TeamOP\Client_TeamOP\obj\Debug\Client_TeamOP.csproj.GenerateResource.Cache
 D:\Endwicklung\TeamOP\Client_TeamOP\bin\Debug\Client_TeamOP.exe
 D:\Endwicklung\TeamOP\Client_TeamOP\bin\Debug\Client_TeamOP.pdb
+C:\Users\Neddy\Documents\TeamOP\Client_TeamOP\bin\Debug\Client_TeamOP.exe.config
+C:\Users\Neddy\Documents\TeamOP\Client_TeamOP\obj\Debug\Client_TeamOP.exe
+C:\Users\Neddy\Documents\TeamOP\Client_TeamOP\obj\Debug\Client_TeamOP.pdb
+C:\Users\Neddy\Documents\TeamOP\Client_TeamOP\bin\Debug\Client_TeamOP.exe
+C:\Users\Neddy\Documents\TeamOP\Client_TeamOP\bin\Debug\Client_TeamOP.pdb
+C:\Users\Neddy\Documents\TeamOP\Client_TeamOP\obj\Debug\Client_TeamOP.csprojResolveAssemblyReference.cache
+C:\Users\Neddy\Documents\TeamOP\Client_TeamOP\obj\Debug\Client_TeamOP.GUI.resources
+C:\Users\Neddy\Documents\TeamOP\Client_TeamOP\obj\Debug\Client_TeamOP.Properties.Resources.resources
+C:\Users\Neddy\Documents\TeamOP\Client_TeamOP\obj\Debug\Client_TeamOP.csproj.GenerateResource.Cache

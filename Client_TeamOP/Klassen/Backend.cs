@@ -31,7 +31,7 @@ namespace Client_TeamOP.Klassen
                 positionableDragon=new List<Positionable>();
             }
             //Test
-            map = new Map(10,10);
+            map = new Map(15,15);
             map.creatTestMap();
             Field[,] field = map.getField();
             bool first = true;

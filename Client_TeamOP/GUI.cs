@@ -18,7 +18,7 @@ namespace Client_TeamOP
         public GUI() : base()
         {
             this.backend = new Backend(this);
-            this.refreshGui();
+            InitializeComponent();
         }
 
         protected void drawMapTile(Graphics g, IMap map, int absX, int absY, int width, int height)
@@ -65,11 +65,17 @@ namespace Client_TeamOP
             }
             int cellWidth = this.MapWindow.Size.Width / cells.GetLength(0);
             int cellHeight = this.MapWindow.Size.Height / cells.GetLength(1);
-            Console.Write(cellWidth + " +  " + cellHeight);
+           // Console.Write(cellWidth + " +  " + cellHeight);
             return new Size(cellWidth, cellHeight);
         }
 
         public bool refreshGui() {
+            this.MapWindow_Paint_1(null,null);
+            return true;
+        }  
+
+        private void MapWindow_Paint_1(object sender, PaintEventArgs e)
+        {
             Size tileSize = this.getTileSize();
             IMap[,] cells = this.backend.getMap();
             // validity checked beforehand in getTileSize
@@ -80,17 +86,10 @@ namespace Client_TeamOP
             {
                 for (int y = 0; y < cells.GetLength(1); y++)
                 {
-                    this.drawMapTile(buffer.Graphics, cells[x,y], x * tileSize.Width, y * tileSize.Height, tileSize.Width, tileSize.Height);
+                    this.drawMapTile(buffer.Graphics, cells[x, y], x * tileSize.Width, y * tileSize.Height, tileSize.Width, tileSize.Height);
                 }
             }
             buffer.Render();
-
-            return true;
-        }  
-
-        private void MapWindow_Paint_1(object sender, PaintEventArgs e)
-        {
-            
         }
 
         private void LEFT_Click(object sender, EventArgs e)

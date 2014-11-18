@@ -33,13 +33,12 @@ namespace Client_TeamOP.Klassen
 
         internal void creatTestMap()
         {
-            int size = 10;
             // init
-            field = new Field[size, size];
+            field = new Field[this.width, this.length];
             Random r = new Random();
-            for (int x = 0; x < size; x++)
+            for (int x = 0; x < width; x++)
             {
-                for (int y = 0; y < size; y++)
+                for (int y = 0; y < length; y++)
                 {
                     List<MapEnum> attr = new List<MapEnum>();
                     switch (r.Next(0, 4))
