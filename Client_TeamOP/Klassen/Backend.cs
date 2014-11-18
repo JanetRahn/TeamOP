@@ -64,15 +64,13 @@ namespace Client_TeamOP.Klassen
         }
         public bool sendCommand(String message)
         {
-            bool sended;
+            /*bool sended;
             Contract.Requires(message != null);
             Contract.Invariant(connector != null);
             sended = connector.sendCommandToServer(message);
-            return sended;
-        }
-
-        public bool sendChat(String message) {
-        return false;
+            return sended;*/
+            log.Add(message);
+            return true;
         }
 
         public bool storeHuman(Positionable positionable)
