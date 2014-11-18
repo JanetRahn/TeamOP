@@ -15,7 +15,7 @@ namespace Client_TeamOP
 {
     public partial class GUI : Form
     {
-        private IBackend backend;    
+        private IBackend backend;
         public GUI() : base()
         {
             this.backend = new Backend(this);
@@ -76,12 +76,13 @@ namespace Client_TeamOP
         }
 
         public bool refreshGui() {
-            this.MapWindow_Paint_1(null,null);
+            this.MapWindow_Paint_1(null, null);
             List<String> log = this.backend.getLog();
             foreach (String tmp in log)
             {
                 ChatWindow.AppendText(tmp);
             }
+            Refresh();
             return true;
         }  
 
@@ -110,6 +111,7 @@ namespace Client_TeamOP
                 string input = this.ChatInput.Text.Trim();
                 this.backend.sendCommand(input);                
                 //this.MapWindow.Focus();
+                ChatWindow.ScrollToCaret();
             }
         }
 
@@ -152,6 +154,7 @@ namespace Client_TeamOP
             {
                 this.drawPlayer(e.Graphics, player);
             }
+            Invalidate();
         }
 
         protected void drawPlayer(Graphics g, IPositionable player)
