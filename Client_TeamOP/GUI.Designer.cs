@@ -53,6 +53,7 @@
             // 
             this.ChatWindow.Location = new System.Drawing.Point(25, 387);
             this.ChatWindow.Name = "ChatWindow";
+            this.ChatWindow.ReadOnly = true;
             this.ChatWindow.Size = new System.Drawing.Size(380, 71);
             this.ChatWindow.TabIndex = 2;
             this.ChatWindow.Text = "";
