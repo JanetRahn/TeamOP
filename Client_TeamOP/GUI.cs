@@ -20,7 +20,7 @@ namespace Client_TeamOP
         {
             this.backend = new Backend(this);
             InitializeComponent();
-            AllocConsole();
+            //AllocConsole();
             this.MapWindow.Paint += MapWindow_Paint_1;
             this.MapWindow.Paint += board_PaintEntities;
             this.ChatInput.KeyPress += chatInput_KeyPress;
