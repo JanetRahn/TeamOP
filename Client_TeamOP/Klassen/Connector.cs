@@ -67,7 +67,6 @@ namespace Client_TeamOP.Klassen
                 }
                 catch
                 {
-                    Console.WriteLine("Server nicht erreichbar");
                 }
             }
             Contract.Ensures(client != null);
@@ -120,16 +119,13 @@ namespace Client_TeamOP.Klassen
                 if (extractKey(message) != null && extractKey(message).Equals("begin") && isServerMessage(message))
                 {
                     messageID = Int32.Parse(extractValue(message));
-                    Console.WriteLine("A new Message arrived");
                 }
                 else if (extractKey(message) != null && extractKey(message).Equals("end") && isServerMessage(message) && messageID == Int32.Parse(extractValue(message)))
                 {
                     messageComplete = true;
-                    Console.WriteLine("Message completed");
                 }
                 else
                 {
-                   Console.WriteLine(message);
                     packedMessage.Add(message);
 
                 }
@@ -142,7 +138,6 @@ namespace Client_TeamOP.Klassen
             }            
             catch (Exception ex)
             {
-                Console.WriteLine("Fehler" + ex.Message);
             }
 
         }
@@ -166,7 +161,6 @@ namespace Client_TeamOP.Klassen
             }
             catch (Exception e)
             {
-                Console.WriteLine("Fehler bei Key " + e.Message);
                 s = null;
             }
             return s;                
@@ -185,7 +179,6 @@ namespace Client_TeamOP.Klassen
             }
             catch(Exception e)
             {
-                Console.WriteLine("Fehler bei Value " + e.Message);
                 s = null;
             }
             return s;

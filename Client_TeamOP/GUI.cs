@@ -71,13 +71,13 @@ namespace Client_TeamOP
             }
             int cellWidth = this.MapWindow.Size.Width / cells.GetLength(0);
             int cellHeight = this.MapWindow.Size.Height / cells.GetLength(1);
-           // Console.Write(cellWidth + " +  " + cellHeight);
             return new Size(cellWidth, cellHeight);
         }
 
         public bool refreshGui() {
             this.MapWindow_Paint_1(null, null);
             List<String> log = this.backend.getLog();
+            ChatWindow.Clear();
             foreach (String tmp in log)
             {
                 ChatWindow.AppendText(tmp);
@@ -109,9 +109,10 @@ namespace Client_TeamOP
             if (e.KeyChar == (char)Keys.Enter)
             {
                 string input = this.ChatInput.Text.Trim();
-                this.backend.sendCommand(input);                
-                //this.MapWindow.Focus();
+                this.backend.sendCommand(input);
                 ChatWindow.ScrollToCaret();
+                this.MapWindow.Focus();
+
             }
         }
 
@@ -195,10 +196,9 @@ namespace Client_TeamOP
         [return: MarshalAs(UnmanagedType.Bool)]
         static extern bool AllocConsole();
 
-        private void ChatInput_TextChanged(object sender, EventArgs e)
+        private void MapWindow_Click(object sender, EventArgs e)
         {
-
+            this.MapWindow.Focus();
         }
-
     }
 }

@@ -31,7 +31,7 @@ namespace Client_TeamOP.Klassen
                             String messageLine = sr.ReadLine();
                             parent.packingMessage(messageLine);
                             }
-                            catch (Exception ex) { Console.WriteLine("Fehler: " + ex.Message); }
+                            catch (Exception ex) { }
                     }
                 }
             }

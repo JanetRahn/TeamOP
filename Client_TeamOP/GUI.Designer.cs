@@ -47,6 +47,7 @@
             this.MapWindow.Name = "MapWindow";
             this.MapWindow.Size = new System.Drawing.Size(380, 369);
             this.MapWindow.TabIndex = 1;
+            this.MapWindow.Click += new System.EventHandler(this.MapWindow_Click);
             this.MapWindow.Paint += new System.Windows.Forms.PaintEventHandler(this.MapWindow_Paint_1);
             // 
             // ChatWindow

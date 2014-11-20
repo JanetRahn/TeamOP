@@ -64,15 +64,19 @@ namespace Client_TeamOP.Klassen
             //End Test
         }
         public bool sendCommand(String message)
-        {
-           /* bool sended;
+        {         
             Contract.Requires(message != null);
             Contract.Invariant(connector != null);
-            //sended = connector.sendCommandToServer(message);
-            return sended;*/
+            bool sended;
             log.Add(message);
+            if (!message.StartsWith("/"))
+            {
+                message="ask:say:"+message;
+            }
+            sended = connector.sendCommandToServer(message);
             gui.refreshGui();
-            return true;
+            return sended;
+
         }
 
         public bool storeHuman(Positionable positionable)
@@ -139,7 +143,7 @@ namespace Client_TeamOP.Klassen
 
         public Boolean moveDown()
         {
-            if ((positionableHuman.First().getY() + 1) <= map.getHigh()) { 
+            if ((positionableHuman.First().getY() + 1) <= map.getHigh()-1) { 
                 //connector.sendCommandToServer("ask:mv:dwn");
                 positionableHuman.First().setX(positionableHuman.First().getX());
                 positionableHuman.First().setY(positionableHuman.First().getY()+1);
@@ -154,7 +158,7 @@ namespace Client_TeamOP.Klassen
 
         public Boolean moveRight()
         {
-            if ((positionableHuman.First().getX() + 1) <= map.getWidth())
+            if ((positionableHuman.First().getX() + 1) <= map.getWidth()-1)
             { 
                 //connector.sendCommandToServer("ask:mv:rgt");
                 positionableHuman.First().setX(positionableHuman.First().getX()+1);
