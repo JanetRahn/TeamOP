@@ -75,7 +75,7 @@ namespace Client_TeamOP.Klassen
             }
             else
             {
-                message = message.TrimStart('/');
+                message = message.Trim('/');
             }
             sended = connector.sendCommandToServer(message);
             gui.refreshGui();
