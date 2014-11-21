@@ -80,7 +80,7 @@ namespace Client_TeamOP
             ChatWindow.Clear();
             foreach (String tmp in log)
             {
-                ChatWindow.AppendText(tmp);
+                ChatWindow.AppendText(tmp + "\r\n");
             }
             Refresh();
             return true;
@@ -106,14 +106,17 @@ namespace Client_TeamOP
 
         private void chatInput_KeyPress(object sender, System.Windows.Forms.KeyPressEventArgs e)
         {
-            if (e.KeyChar == (char)Keys.Enter)
-            {
-                string input = this.ChatInput.Text.Trim();
-                this.backend.sendCommand(input);
-                ChatWindow.ScrollToCaret();
-                this.MapWindow.Focus();
-
-            }
+                if (e.KeyChar == (char)Keys.Enter)
+                {
+                    if (this.ChatInput.TextLength > 0)
+                    {
+                        string input = this.ChatInput.Text.Trim();
+                        this.backend.sendCommand(input);
+                        ChatWindow.ScrollToCaret();
+                        this.ChatInput.Clear();
+                        this.MapWindow.Focus();
+                    }
+                }
         }
 
         private void map_KeyPress(object sender, System.Windows.Forms.KeyPressEventArgs e)
@@ -185,12 +188,6 @@ namespace Client_TeamOP
                tileSize.Height / 2);
             }
         }
-
-        public void appendChatMessage(string sender, string message)
-        {
-            this.ChatInput.AppendText(sender + ": " + message + "\r\n");
-        }
-
 
         [DllImport("kernel32.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]

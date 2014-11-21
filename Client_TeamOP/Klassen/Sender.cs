@@ -35,6 +35,7 @@ namespace Client_TeamOP.Klassen
                         if (senderStack.Count > 0)
                         {
                             sw.WriteLine(senderStack.Dequeue());
+                            sw.Flush();
                         }
                     }                
                 }                

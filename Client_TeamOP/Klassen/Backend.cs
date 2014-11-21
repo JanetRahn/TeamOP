@@ -71,14 +71,15 @@ namespace Client_TeamOP.Klassen
             log.Add(message);
             if (!message.StartsWith("/"))
             {
-                message="ask:say:"+message;
+                message = "ask:say:" + message;
             }
             else
             {
-                message = message.Trim('/');
+                message = message.TrimStart('/');
             }
             sended = connector.sendCommandToServer(message);
             gui.refreshGui();
+            message = null;
             return sended;
 
         }
