@@ -73,6 +73,10 @@ namespace Client_TeamOP.Klassen
             {
                 message="ask:say:"+message;
             }
+            else
+            {
+                message = message.TrimStart('/');
+            }
             sended = connector.sendCommandToServer(message);
             gui.refreshGui();
             return sended;
@@ -129,7 +133,7 @@ namespace Client_TeamOP.Klassen
         {
             if ((positionableHuman.First().getY() - 1) >= 0)
             { 
-                //connector.sendCommandToServer("ask:mv:up");
+                connector.sendCommandToServer("ask:mv:up");
                 positionableHuman.First().setX(positionableHuman.First().getX());
                 positionableHuman.First().setY(positionableHuman.First().getY()-1);
                 this.gui.refreshGui();
@@ -144,7 +148,7 @@ namespace Client_TeamOP.Klassen
         public Boolean moveDown()
         {
             if ((positionableHuman.First().getY() + 1) <= map.getHigh()-1) { 
-                //connector.sendCommandToServer("ask:mv:dwn");
+                connector.sendCommandToServer("ask:mv:dwn");
                 positionableHuman.First().setX(positionableHuman.First().getX());
                 positionableHuman.First().setY(positionableHuman.First().getY()+1);
                 this.gui.refreshGui();
@@ -160,7 +164,7 @@ namespace Client_TeamOP.Klassen
         {
             if ((positionableHuman.First().getX() + 1) <= map.getWidth()-1)
             { 
-                //connector.sendCommandToServer("ask:mv:rgt");
+                connector.sendCommandToServer("ask:mv:rgt");
                 positionableHuman.First().setX(positionableHuman.First().getX()+1);
                 positionableHuman.First().setY(positionableHuman.First().getY());
                 this.gui.refreshGui();
@@ -176,7 +180,7 @@ namespace Client_TeamOP.Klassen
         {
             if ((positionableHuman.First().getX() - 1) >= 0)
             { 
-                //connector.sendCommandToServer("ask:mv:lft");
+                connector.sendCommandToServer("ask:mv:lft");
                 positionableHuman.First().setX(positionableHuman.First().getX()-1);
                 positionableHuman.First().setY(positionableHuman.First().getY());
                 this.gui.refreshGui();
