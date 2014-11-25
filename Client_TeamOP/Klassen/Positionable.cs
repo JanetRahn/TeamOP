@@ -87,6 +87,11 @@ namespace Client_TeamOP.Klassen
             return busy;
         }
 
+        public void setBusy(bool busy)
+        {
+            this.busy = busy;
+        }
+
 
     }
 }

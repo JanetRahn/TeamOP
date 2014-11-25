@@ -157,7 +157,10 @@ namespace Client_TeamOP.Klassen
                 {
                     s = null;
                 }
-                s = message.Substring(0, indexOfAssignChar(message));                
+                else
+                {
+                    s = message.Substring(0, indexOfAssignChar(message));
+                }
             }
             catch (Exception e)
             {
@@ -175,7 +178,10 @@ namespace Client_TeamOP.Klassen
                 {
                     s = null;
                 }
-                s = message.Substring(i + 1, message.Length - i - 1);
+                else
+                {
+                    s = message.Substring(i + 1, message.Length - i - 1);
+                }
             }
             catch(Exception e)
             {

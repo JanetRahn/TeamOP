@@ -22,10 +22,17 @@ namespace Client_TeamOP.Klassen
 
        public Backend(GUI gui)
         {
-           connector = new Connector(new Buffer());
-            connector.connectToServer("127.0.0.1", 666);
-            log = new List<String>();
-            if (gui != null)
+            Buffer b = new Buffer();
+           connector = new Connector(b);
+           parser = new Parser(b,this);
+           connector.connectToServer("127.0.0.1", 666);
+            
+           
+           
+           
+           
+           log = new List<String>();
+           if (gui != null)
             {
                 this.gui = gui;
                 positionableHuman=new List<Positionable>();
@@ -266,6 +273,16 @@ namespace Client_TeamOP.Klassen
         public List<String> getLog()
         {
             return log;
+        }
+
+        public void storeMapcell(Field cell)
+        {
+            map.setField(cell.getX(), cell.getY(), cell);
+        }
+
+        internal void storeMap(Map map)
+        {
+            this.map = map;
         }
     }
 }

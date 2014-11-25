@@ -31,6 +31,11 @@ namespace Client_TeamOP.Klassen
             return length;
         }
 
+        public void setField(int x, int y, Field f)
+        {
+            field[f.getX(), f.getY()] = f;
+        }
+
         internal void creatTestMap()
         {
             // init

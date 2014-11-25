@@ -21,7 +21,6 @@ C:\Users\User\Documents\Visual Studio 2013\Projects\TeamOP\Client_TeamOP\bin\Deb
 C:\Users\User\Documents\Visual Studio 2013\Projects\TeamOP\Client_TeamOP\obj\Debug\Client_TeamOP.csprojResolveAssemblyReference.cache
 C:\Users\User\Documents\Visual Studio 2013\Projects\TeamOP\Client_TeamOP\obj\Debug\Client_TeamOP.Properties.Resources.resources
 C:\Users\User\Documents\Visual Studio 2013\Projects\TeamOP\Client_TeamOP\obj\Debug\Client_TeamOP.csproj.GenerateResource.Cache
-C:\Users\Tim\Documents\Visual Studio 2013\Projects\TeamOP\Client_TeamOP\obj\Debug\Client_TeamOP.Form1.resources
 C:\Users\User\Documents\Visual Studio 2013\Projects\TeamOP\Client_TeamOP\obj\Debug\Client_TeamOP.Form1.resources
 C:\Users\Neddy-PC\Documents\TeamOP\Client_TeamOP\bin\Debug\Client_TeamOP.exe.config
 C:\Users\Neddy-PC\Documents\TeamOP\Client_TeamOP\obj\Debug\Client_TeamOP.exe
@@ -56,3 +55,4 @@ C:\Users\Neddy\Documents\TeamOP\Client_TeamOP\obj\Debug\Client_TeamOP.csprojReso
 C:\Users\Neddy\Documents\TeamOP\Client_TeamOP\obj\Debug\Client_TeamOP.GUI.resources
 C:\Users\Neddy\Documents\TeamOP\Client_TeamOP\obj\Debug\Client_TeamOP.Properties.Resources.resources
 C:\Users\Neddy\Documents\TeamOP\Client_TeamOP\obj\Debug\Client_TeamOP.csproj.GenerateResource.Cache
+C:\Users\Tim\Documents\Visual Studio 2013\Projects\TeamOP\Client_TeamOP\obj\Debug\Client_TeamOP.GUI.resources

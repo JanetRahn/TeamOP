@@ -18,7 +18,12 @@ namespace Client_TeamOP.Klassen
            
             this.parent = c;
             sw = new StreamWriter(getStream());
-            
+            senderStack.Enqueue("get:map");
+            senderStack.Enqueue("get:time");
+            senderStack.Enqueue("get:online");
+            senderStack.Enqueue("get:ents");
+            senderStack.Enqueue("get:players");
+            senderStack.Enqueue("get:me");
             
         }
 
