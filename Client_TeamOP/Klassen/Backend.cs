@@ -18,6 +18,7 @@ namespace Client_TeamOP.Klassen
         private Minigame currentGame;
         private bool isMiniGame;
         private List<String> log;
+        private int myID;
 
 
        public Backend(GUI gui)
@@ -71,7 +72,8 @@ namespace Client_TeamOP.Klassen
                         status = true;
                         break;
                     }
-                    if(i==(positionableHuman.Count-1){
+                    if(i==(positionableHuman.Count-1))
+                    {
                         positionableHuman.Add(positionable);
                         log.Add("New Player "+positionable.getDescription()+" arrived at"+positionable.getX()+"/"+positionable.getY()+"!");
                         status=true;
@@ -130,7 +132,8 @@ namespace Client_TeamOP.Klassen
                         status = true;
                         break;
                     }
-                    else if(i==(positionableDragon.Count-1){
+                    else if(i==(positionableDragon.Count-1))
+                    {
                         positionableDragon.Add(positionable);
                         log.Add("New Dragon spawn at "+positionable.getX()+"/"+positionable.getY()+"!");
                         status=true;
@@ -229,7 +232,10 @@ namespace Client_TeamOP.Klassen
 
         public void rename(String newName)
         {
-
+            if (this.connector.isConnected())
+            {
+                connector.sendCommandToServer("ask:rn:" + newName);
+            }
         }
 
         public Positionable[] getOnPos()
@@ -249,7 +255,17 @@ namespace Client_TeamOP.Klassen
 
         public String getCurrentMiniGame()
         {
-            return "";
+            String games = "";
+            foreach (Positionable p in positionableHuman)
+            {
+                if (p.getID() == myID)
+                {
+                    int x = p.getX();
+                    int y = p.getY();
+                    break;
+                }
+            }
+            return games;
         }
 
         public IMap[,] getMap() //getMap
@@ -287,11 +303,6 @@ namespace Client_TeamOP.Klassen
         {
         }
 
-        public bool isMiniGameRunning()
-        {
-            return isMiniGame;
-        }
-
         public List<String> getLog()
         {
             return log;
@@ -306,6 +317,11 @@ namespace Client_TeamOP.Klassen
         {
             this.map = map;
             gui.Refresh();
+        }
+
+        internal void setMyId(int id)
+        {
+            this.myID=id;
         }
     }
 }
