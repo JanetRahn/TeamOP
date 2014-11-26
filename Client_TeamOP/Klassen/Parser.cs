@@ -91,6 +91,7 @@ namespace Client_TeamOP.Klassen
                         parseChallenge();
                         break;
                     case "player":
+                        counter--;
                         parsePlayer(false);
                         break;
                     case "yourid":
@@ -130,17 +131,18 @@ namespace Client_TeamOP.Klassen
 
             String tmpMsg = "";
 
-            while (!tmpMsg.Equals("end:result"))
+            for (int i = 1; i <= 3; i++ )
             {
-                if (extractKey(tmpMsg).Equals("round"))
+                tmpMsg = (String)message[counter];
+                if (i==1)
                 {
                     round = Int32.Parse(extractValue(tmpMsg));
                 }
-                else if (extractKey(tmpMsg).Equals("running"))
+                else if (i==2)
                 {
                     running = bool.Parse(extractValue(tmpMsg));
                 }
-                else if (extractKey(tmpMsg).Equals("delay"))
+                else if (i==3)
                 {
                     delay = Int32.Parse(extractValue(tmpMsg));
                 }
@@ -169,21 +171,22 @@ namespace Client_TeamOP.Klassen
             bool accepted = false;
 
             String tmpMsg = "";
-            while (!tmpMsg.Equals("end:challenge"))
+            for (int i = 1; i <= 3;i++ )
             {
-                if (extractKey(tmpMsg).Equals("id"))
+                tmpMsg = (String)message[counter];
+                if (i ==1)
                 {
                     id = Int32.Parse(extractValue(tmpMsg));
                 }
-                else if (extractKey(tmpMsg).Equals("type"))
+                else if (i==2)
                 {
                     type = extractValue(tmpMsg);
                 }
-                else if (extractKey(tmpMsg).Equals("accepted"))
+                else if (i==3)
                 {
                     accepted = bool.Parse(extractValue(tmpMsg));
                 }
-               
+
                 if (!tmpMsg.Equals("end:challenge"))
                 {
                     counter++;
@@ -195,35 +198,36 @@ namespace Client_TeamOP.Klassen
         {
             Contract.Requires(message != null);
             bool busy = false;
-            int id = -1, x = -1, y = -1;
+            int id = -1, x = -1, y = -1, count = 0;
             String type = null, desc = null;  
             
             String tmpMsg = "";
+            counter++;
 
-            while (!tmpMsg.Equals("end:dragon"))
+            for (int i = 1; i <= 6; i++ )
             {
                 tmpMsg = (String)message[counter];
-                if (extractKey(tmpMsg).Equals("id"))
+                if (i == 1)
                 {
                     id = Int32.Parse(extractValue(tmpMsg));
                 }
-                else if (extractKey(tmpMsg).Equals("type"))
+                else if (i== 2)
                 {
                     type = extractValue(tmpMsg);
                 }
-                else if (extractKey(tmpMsg).Equals("busy"))
+                else if (i == 3)
                 {
                     busy = Boolean.Parse(extractValue(tmpMsg));
                 }
-                else if (extractKey(tmpMsg).Equals("desc"))
+                else if (i == 4)
                 {
                     desc = extractValue(tmpMsg);
                 }
-                else if (extractKey(tmpMsg).Equals("x"))
+                else if (i == 5)
                 {
                     x = Int32.Parse(extractValue(tmpMsg));
                 }
-                else if (extractKey(tmpMsg).Equals("y"))
+                else if (i == 6)
                 {
                     y = Int32.Parse(extractValue(tmpMsg));
                 }
@@ -252,39 +256,40 @@ namespace Client_TeamOP.Klassen
             int id = -1, x = -1, y = -1, points = -1;
             String type = null, desc = null;
             String tmpMsg = "";
+            counter++;
 
-            while (!tmpMsg.Equals("end:player"))
+            for (int i = 1; i <= 7; i++ )
             {
                 tmpMsg = (String)message[counter];
-                if (extractKey(tmpMsg).Equals("id"))
+                if (i==1)
                 {
                     id = Int32.Parse(extractValue(tmpMsg));
                 }
-                else if (extractKey(tmpMsg).Equals("type"))
+                else if (i==2)
                 {
                     type = extractValue(tmpMsg);
                 }
-                else if (extractKey(tmpMsg).Equals("busy"))
+                else if (i==3)
                 {
                     busy = Boolean.Parse(extractValue(tmpMsg));
                 }
-                else if (extractKey(tmpMsg).Equals("desc"))
+                else if (i==4)
                 {
                     desc = extractValue(tmpMsg);
                 }
-                else if (extractKey(tmpMsg).Equals("x"))
+                else if (i==5)
                 {
                     x = Int32.Parse(extractValue(tmpMsg));
                 }
-                else if (extractKey(tmpMsg).Equals("y"))
+                else if (i==6)
                 {
                     y = Int32.Parse(extractValue(tmpMsg));
                 }
-                else if (extractKey(tmpMsg).Equals("points"))
+                else if (i==7)
                 {
                     points = Int32.Parse(extractValue(tmpMsg));
                 }
-                
+
                 if (!tmpMsg.Equals("end:player"))
                 {
                     counter++;
@@ -354,26 +359,27 @@ namespace Client_TeamOP.Klassen
             List<MapEnum> props = new List<MapEnum>();
             Field cell = null;
             String tmpMsg = "";
-            
-            while(!tmpMsg.Equals("end:cell"))
+            counter++;
+
+            for (int i = 1; i <= 3; i++ )
             {
                 tmpMsg = (String)message[counter];
 
-                if (extractKey(tmpMsg).Equals("row"))
+                if (i==1)
                 {
                     row = Int32.Parse(extractValue(tmpMsg));
                 }
-                else if (extractKey(tmpMsg).Equals("col"))
+                else if (i==2)
                 {
                     col = Int32.Parse(extractValue(tmpMsg));
                 }
-                else if (tmpMsg.Equals("begin:props"))
+                else if (i==3)
                 {
                     props = parseProperty();
                 }
 
                 cell = new Field(row, col, props);
-                
+
                 if (mapExist)
                 {
                     backend.storeMapcell(cell);
@@ -381,10 +387,6 @@ namespace Client_TeamOP.Klassen
                 if (!tmpMsg.Equals("end:cell"))
                 {
                     counter++;
-                }
-                else
-                {
-                    Console.WriteLine();
                 }
             } 
       
@@ -435,7 +437,7 @@ namespace Client_TeamOP.Klassen
             String tmpMsg = "";
             while(!tmpMsg.Equals("end:mes"))
             {
-                tmpMsg = extractValue((String)message[counter]);
+                tmpMsg = (String)message[counter];
 
                 if (extractKey(tmpMsg).Equals("srcid"))
                 {
@@ -460,27 +462,28 @@ namespace Client_TeamOP.Klassen
         public void parseUpdate()
         {
             Contract.Requires(message != null);
-            String tmpMsg = extractValue((String)message[counter++]);
+            String tmpMsg = extractValue((String)message[counter]);
 
             switch (tmpMsg)
             {
-                case "dragon":
+                case "dragon":                    
                     parseDragon(false);
                     counter++;
                     break;
-                case "player":
+                case "player":                    
                     parsePlayer(false);
                     counter++;
                     break;
                 case "cell":
+                    counter++;
                     parseMapcell(true);
                     break;
             }
-        }           //complete
+        }           //complete counter++ deleted, test
         public void parseDelete()
         {
             Contract.Requires(message != null);
-            String tmpMsg = extractValue((String)message[counter++]);
+            String tmpMsg = (String)message[counter++];
             if (extractValue(tmpMsg).Equals("player"))
             {
                 parsePlayer(true);
@@ -583,7 +586,7 @@ namespace Client_TeamOP.Klassen
                     case "WATER":
                         props.Add(MapEnum.WATER);
                         break;
-                    case "HUNTERABLE":
+                    case "HUNTABLE":
                         props.Add(MapEnum.HUNTABLE);
                         break;
                 }
