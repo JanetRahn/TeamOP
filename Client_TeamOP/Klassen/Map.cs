@@ -21,6 +21,11 @@ namespace Client_TeamOP.Klassen
         {
             return field;
         }
+
+        public Field getFieldAt(int x, int y)
+        {
+            return field[x,y];
+        }
         public int getWidth()
         {
             return width;

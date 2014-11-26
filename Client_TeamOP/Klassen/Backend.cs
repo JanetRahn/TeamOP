@@ -225,9 +225,15 @@ namespace Client_TeamOP.Klassen
             return status;
         }
 
-        public void challengePlayer(Positionable enemy)
+        public void challengePlayer(String game, Positionable enemy)
         {
-
+            if(game.Equals("dhunt")){
+                connector.sendCommandToServer("ask:chal:dhunt:"+enemy.getID());
+            }else if(game.Equals("skirm")){
+                connector.sendCommandToServer("ask:chal:skirm:"+enemy.getID());
+            }else if(game.Equals("shunt")){
+                connector.sendCommandToServer("ask:chal:shunt:"+enemy.getID());
+            }
         }
 
         public void rename(String newName)
@@ -256,14 +262,29 @@ namespace Client_TeamOP.Klassen
         public String getCurrentMiniGame()
         {
             String games = "";
+            int x = 0;
+            int y = 0;
             foreach (Positionable p in positionableHuman)
             {
                 if (p.getID() == myID)
                 {
-                    int x = p.getX();
-                    int y = p.getY();
+                    x = p.getX();
+                    y = p.getY();
                     break;
                 }
+            }
+            Field f = map.getFieldAt(x, y);
+            if (this.playerOnMyPos().Count >= 2)
+            {
+                if (f.isHuntable())
+                {
+                    games += "Staghunt/";
+                }
+                if (this.dragonOnMyPos().Count>0)
+                {
+                    games+="Dragonhunt/";
+                }
+                games += "Skirmish";
             }
             return games;
         }
@@ -301,6 +322,7 @@ namespace Client_TeamOP.Klassen
 
         public void interactMiniGame(String action)
         {
+            currentGame.interaction(action);
         }
 
         public List<String> getLog()
@@ -322,6 +344,54 @@ namespace Client_TeamOP.Klassen
         internal void setMyId(int id)
         {
             this.myID=id;
+        }
+
+        public List<Positionable> playerOnMyPos()
+        {
+            List<Positionable> listP = new List<Positionable>();
+            int x = 0;
+            int y = 0;
+            foreach (Positionable p in positionableHuman)
+            {
+                if (p.getID() == myID)
+                {
+                    x = p.getX();
+                    y = p.getY();
+                    break;
+                }
+            }
+            foreach (Positionable p in positionableHuman)
+            {
+                if (p.getX() == x && p.getY() == y)
+                {
+                    listP.Add(p);
+                }
+            }
+            return listP;
+        }
+
+        public List<Positionable> dragonOnMyPos()
+        {
+            List<Positionable> listD = new List<Positionable>();
+            int x = 0;
+            int y = 0;
+            foreach (Positionable p in positionableDragon)
+            {
+                if (p.getID() == myID)
+                {
+                    x = p.getX();
+                    y = p.getY();
+                    break;
+                }
+            }
+            foreach (Positionable p in positionableDragon)
+            {
+                if (p.getX() == x && p.getY() == y)
+                {
+                    listD.Add(p);
+                }
+            }
+            return listD;
         }
     }
 }
