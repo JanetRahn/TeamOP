@@ -181,8 +181,6 @@ namespace Client_TeamOP.Klassen
             if ((positionableHuman.First().getY() - 1) >= 0)
             { 
                 connector.sendCommandToServer("ask:mv:up");
-                positionableHuman.First().setX(positionableHuman.First().getX());
-                positionableHuman.First().setY(positionableHuman.First().getY()-1);
                 this.gui.refreshGui();
                 status=true;
             }
