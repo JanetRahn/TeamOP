@@ -410,6 +410,7 @@ namespace Client_TeamOP.Klassen
                 else if (extractKey(tmpMsg).Equals("height"))
                 {
                     height = Int32.Parse(extractValue(tmpMsg));
+                    counter++;
                 }
                 else if (!tmpMsg.Equals("end:cells") & !tmpMsg.Equals("end:map"))
                 {

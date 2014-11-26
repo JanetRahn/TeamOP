@@ -16,6 +16,15 @@ namespace Client_TeamOP.Klassen
             this.width = width;
             this.length = length;
             field = new Field[width, length];
+            List<MapEnum> attributes = new List<MapEnum>();
+            attributes.Add(MapEnum.FOREST);
+            for (int x = 0; x < width; x++)
+            {
+                for (int y = 0; y < length; y++)
+                {
+                    field[x, y] = new Field(x,y,attributes);
+                }
+            }
         }
         public Field[,] getField()
         {

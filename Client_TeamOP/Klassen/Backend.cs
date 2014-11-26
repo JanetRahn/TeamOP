@@ -25,7 +25,8 @@ namespace Client_TeamOP.Klassen
             Buffer b = new Buffer();
            connector = new Connector(b);
            parser = new Parser(b,this);
-           connector.connectToServer("127.0.0.1", 666);           
+           connector.connectToServer("127.0.0.1", 666);
+           map = new Map(1, 1);
            log = new List<String>();
            if (gui != null)
             {
@@ -335,7 +336,7 @@ namespace Client_TeamOP.Klassen
         internal void storeMap(Map map)
         {
             this.map = map;
-            gui.Refresh();
+            gui.refreshGui();
         }
 
         internal void setMyId(int id)
