@@ -56,3 +56,6 @@ C:\Users\Neddy\Documents\TeamOP\Client_TeamOP\obj\Debug\Client_TeamOP.GUI.resour
 C:\Users\Neddy\Documents\TeamOP\Client_TeamOP\obj\Debug\Client_TeamOP.Properties.Resources.resources
 C:\Users\Neddy\Documents\TeamOP\Client_TeamOP\obj\Debug\Client_TeamOP.csproj.GenerateResource.Cache
 C:\Users\Tim\Documents\Visual Studio 2013\Projects\TeamOP\Client_TeamOP\obj\Debug\Client_TeamOP.GUI.resources
+C:\Users\Christina\Documents\Visual Studio 2013\Projects\TeamOP\Client_TeamOP\bin\Debug\Client_TeamOP.exe.config
+C:\Users\Christina\Documents\Visual Studio 2013\Projects\TeamOP\Client_TeamOP\obj\Debug\Client_TeamOP.exe
+C:\Users\Christina\Documents\Visual Studio 2013\Projects\TeamOP\Client_TeamOP\obj\Debug\Client_TeamOP.pdb

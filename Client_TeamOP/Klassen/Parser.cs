@@ -328,7 +328,7 @@ namespace Client_TeamOP.Klassen
                 }
             }         
 
-        }           
+        }   // loop stay; unknown amount of players
         public void parseEntities()
         {
             Contract.Requires(message != null);
@@ -351,7 +351,7 @@ namespace Client_TeamOP.Klassen
                     counter++;
                 }
             }            
-        }       
+        }           //loop stays; unknown amount of entities
         public Field parseMapcell(bool mapExist)
         {
             Contract.Requires(message != null);
@@ -391,7 +391,7 @@ namespace Client_TeamOP.Klassen
             } 
       
             return cell;
-        }
+        }   //loop stays; unknown amount of mapcells
         public void parseMap()
         {
             Contract.Requires(message != null);
@@ -430,29 +430,29 @@ namespace Client_TeamOP.Klassen
                 }
             }
             backend.storeMap(map);
-        }       //complete
+        }       //loop stays; unknown amount of mapcells incoming; other solution?
         public void parseMessage()
         {
             Contract.Requires(message != null);
 
             String tmpMsg = "";
-            while(!tmpMsg.Equals("end:mes"))
+            for (int i = 1; i <= 3; i++ )
             {
                 tmpMsg = (String)message[counter];
 
-                if (extractKey(tmpMsg).Equals("srcid"))
+                if (i==1)
                 {
                     //Log add implem.
                 }
-                else if (extractKey(tmpMsg).Equals("src"))
+                else if (i==2)
                 {
                     //Log add implem.
                 }
-                else if (extractKey(tmpMsg).Equals("txt"))
+                else if (i==3)
                 {
                     //Log add implem.
                 }
-                
+
                 if (!tmpMsg.Equals("end:mes"))
                 {
                     counter++;
@@ -597,7 +597,7 @@ namespace Client_TeamOP.Klassen
                 }
             }                
             return props;
-        }       //complete
+        }       //loop stays; unknown amount of properties
         public static String extractKey(String message)
         {
             String s = "";
