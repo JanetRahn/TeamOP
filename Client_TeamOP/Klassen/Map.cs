@@ -35,39 +35,4 @@ namespace Client_TeamOP.Klassen
         {
             field[f.getX(), f.getY()] = f;
         }
-
-        internal void creatTestMap()
-        {
-            // init
-            field = new Field[this.width, this.length];
-            Random r = new Random();
-            for (int x = 0; x < width; x++)
-            {
-                for (int y = 0; y < length; y++)
-                {
-                    List<MapEnum> attr = new List<MapEnum>();
-                    switch (r.Next(0, 4))
-                    {
-                        case 0:
-                            attr.Add(MapEnum.WATER);
-                            field[x, y] = new Field(x, y, attr);
-                            break;
-                        case 1:
-                            attr.Add(MapEnum.HUNTABLE);
-                            attr.Add(MapEnum.FOREST);
-                            field[x, y] = new Field(x, y, attr);
-                            break;
-                        case 2:
-                            attr.Add(MapEnum.FOREST);
-                            field[x, y] = new Field(x, y, attr);
-                            break;
-                        case 3:
-                            attr.Add(MapEnum.UNWALKABLE);
-                            field[x, y] = new Field(x, y, attr);
-                            break;
-                    }
-                }
-            }
-        }
-    }
 }

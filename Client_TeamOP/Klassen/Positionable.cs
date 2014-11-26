@@ -92,6 +92,9 @@ namespace Client_TeamOP.Klassen
             this.busy = busy;
         }
 
-
+        public Boolean Equals(Positionable p)
+        {
+            return p.getID() == this.id;
+        }
     }
 }

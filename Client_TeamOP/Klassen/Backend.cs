@@ -25,12 +25,7 @@ namespace Client_TeamOP.Klassen
             Buffer b = new Buffer();
            connector = new Connector(b);
            parser = new Parser(b,this);
-           connector.connectToServer("127.0.0.1", 666);
-            
-           
-           
-           
-           
+           connector.connectToServer("127.0.0.1", 666);           
            log = new List<String>();
            if (gui != null)
             {
@@ -38,37 +33,6 @@ namespace Client_TeamOP.Klassen
                 positionableHuman=new List<Positionable>();
                 positionableDragon=new List<Positionable>();
             }
-            //Test
-            map = new Map(15,15);
-            map.creatTestMap();
-            Field[,] field = map.getField();
-            bool first = true;
-            bool zweiter = false;
-            for (int x = 0; x < map.getWidth(); x++)
-            {
-                if (zweiter)
-                {
-                    break;
-                }
-                for (int y = 0; y < map.getHigh(); y++)
-                {
-                    if (field[x, y].isWalkable()&&!field[x, y].isWater())
-                    {
-                        if (first)
-                        {
-                            positionableHuman.Add(new Positionable(x, y, 0, 0, "Im a Human", "Human"));
-                            first = false;
-                        }
-                        else
-                        {
-                            positionableDragon.Add(new Positionable(x, y, 1, 0, "Im a Dragon", "Dragon"));
-                            zweiter = true;
-                            break;
-                        }
-                    }
-                }
-            }
-            //End Test
         }
         public bool sendCommand(String message)
         {         
@@ -93,15 +57,51 @@ namespace Client_TeamOP.Klassen
 
         public bool storeHuman(Positionable positionable)
         {
+            Boolean status = false;
             Contract.Requires(this.positionableHuman != null);
             Contract.Requires(positionable != null);
-            return false;
+            if (positionableHuman != null && positionable != null)
+            {
+                for (int i = 0; i < positionableHuman.Count; i++)
+                {
+                    if (positionableHuman[i].Equals(positionable))
+                    {
+                        positionableHuman.RemoveAt(i);
+                        positionableHuman.Insert(i, positionable);
+                        status = true;
+                        break;
+                    }
+                    if(i==(positionableHuman.Count-1){
+                        positionableHuman.Add(positionable);
+                        log.Add("New Player "+positionable.getDescription()+" arrived at"+positionable.getX()+"/"+positionable.getY()+"!");
+                        status=true;
+                        break;
+                    }
+                }
+                gui.Refresh();
+            }
+            else
+            {
+                status = false;
+            }
+            return status;
         }
 
         public void deleteHuman(Positionable positionable)
         {
             Contract.Requires(this.positionableHuman != null);
             Contract.Requires(positionable != null);
+            if (positionableHuman != null && positionable != null)
+            {
+                for (int i = 0; i < positionableHuman.Count; i++)
+                {
+                    if (positionableHuman[i].Equals(positionable))
+                    {
+                        positionableHuman.RemoveAt(i);
+                        log.Add("Player "+positionable.getDescription()+" leave!");
+                    }
+                }
+            }
         }
 
         public List<IPositionable> getPositionableHumans() //getPlayer
@@ -116,15 +116,51 @@ namespace Client_TeamOP.Klassen
 
         public bool storeDragon(Positionable positionable)
         {
+            Boolean status = false;
             Contract.Requires(this.positionableDragon != null);
             Contract.Requires(positionable != null);
-            return false;
+            if (positionableDragon != null && positionable != null)
+            {
+                for (int i = 0; i < positionableDragon.Count; i++)
+                {
+                    if (positionableDragon[i].Equals(positionable))
+                    {
+                        positionableDragon.RemoveAt(i);
+                        positionableDragon.Insert(i, positionable);
+                        status = true;
+                        break;
+                    }
+                    else if(i==(positionableDragon.Count-1){
+                        positionableDragon.Add(positionable);
+                        log.Add("New Dragon spawn at "+positionable.getX()+"/"+positionable.getY()+"!");
+                        status=true;
+                        break;
+                    }
+                }
+                gui.Refresh();
+            }
+            else
+            {
+                status = false;
+            }
+                return status;
         }
 
         public void deleteDragon(Positionable positionable)
         {
             Contract.Requires(this.positionableDragon != null);
             Contract.Requires(positionable != null);
+            if (positionableDragon != null && positionable != null)
+            {
+                for (int i = 0; i < positionableDragon.Count; i++)
+                {
+                    if (positionableDragon[i].Equals(positionable))
+                    {
+                        positionableDragon.RemoveAt(i);
+                        log.Add("Dragon on "+positionable.getX()+"/"+positionable.getY()+" died!");
+                    }
+                }
+            }
         }
 
         public List<IPositionable> getPositionableDragon()  //getDragons
@@ -139,65 +175,51 @@ namespace Client_TeamOP.Klassen
 
         public Boolean moveUp()
         {
+            Boolean status = false;
             if ((positionableHuman.First().getY() - 1) >= 0)
             { 
                 connector.sendCommandToServer("ask:mv:up");
                 positionableHuman.First().setX(positionableHuman.First().getX());
                 positionableHuman.First().setY(positionableHuman.First().getY()-1);
                 this.gui.refreshGui();
-                return true;
+                status=true;
             }
-            else
-            {
-                return false;
-            }
+            return status;
         }
 
         public Boolean moveDown()
         {
+            Boolean status = false;
             if ((positionableHuman.First().getY() + 1) <= map.getHigh()-1) { 
                 connector.sendCommandToServer("ask:mv:dwn");
-                positionableHuman.First().setX(positionableHuman.First().getX());
-                positionableHuman.First().setY(positionableHuman.First().getY()+1);
                 this.gui.refreshGui();
-                return true;
+                status=true;
             }
-            else
-            {
-                return false;
-            }
+            return status;
         }
 
         public Boolean moveRight()
         {
+            Boolean status = false;
             if ((positionableHuman.First().getX() + 1) <= map.getWidth()-1)
             { 
                 connector.sendCommandToServer("ask:mv:rgt");
-                positionableHuman.First().setX(positionableHuman.First().getX()+1);
-                positionableHuman.First().setY(positionableHuman.First().getY());
                 this.gui.refreshGui();
-                return true;
+                status=true;
             }
-            else
-            {
-                return false;
-            }
+            return status;
         }
 
         public Boolean moveLeft()
         {
+            Boolean status=false;
             if ((positionableHuman.First().getX() - 1) >= 0)
             { 
                 connector.sendCommandToServer("ask:mv:lft");
-                positionableHuman.First().setX(positionableHuman.First().getX()-1);
-                positionableHuman.First().setY(positionableHuman.First().getY());
                 this.gui.refreshGui();
-                return true;
+                status=true;
             }
-            else
-            {
-                return false;
-            }
+            return status;
         }
 
         public void challengePlayer(Positionable enemy)
@@ -283,6 +305,7 @@ namespace Client_TeamOP.Klassen
         internal void storeMap(Map map)
         {
             this.map = map;
+            gui.Refresh();
         }
     }
 }
