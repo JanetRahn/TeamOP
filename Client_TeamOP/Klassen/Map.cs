@@ -24,7 +24,7 @@ namespace Client_TeamOP.Klassen
 
         public Field getFieldAt(int x, int y)
         {
-            return field[x,y];
+            return field[x, y];
         }
         public int getWidth()
         {
@@ -40,4 +40,5 @@ namespace Client_TeamOP.Klassen
         {
             field[f.getX(), f.getY()] = f;
         }
+    }
 }
