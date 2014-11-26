@@ -18,7 +18,6 @@ namespace Client_TeamOP.Klassen
             this.gameName = gameName;
             roundCounter = 0;
             points = 0;
-            interactions = new String[3];
         }
 
         public int getRound()

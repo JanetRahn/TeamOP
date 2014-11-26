@@ -20,7 +20,6 @@ namespace Client_TeamOP.Klassen
         private List<String> log;
         private int myID;
 
-
        public Backend(GUI gui)
         {
             Buffer b = new Buffer();
