@@ -11,14 +11,14 @@ namespace Client_TeamOP.Klassen
 {
     public class Parser
     {
-        Buffer buffer;
-        Backend backend;
-        Thread convertParser;
-        static int messageID;
-        bool completedMessage;
+        private Buffer buffer;
+        private Backend backend;
+        private Thread convertParser;
+        private static int messageID;
+        private bool completedMessage;
 
-        int counter;
-        ArrayList message;
+        private int counter;
+        private ArrayList message;
         
         
         public Parser(Buffer buffer, Backend backend)
