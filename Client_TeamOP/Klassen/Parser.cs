@@ -48,15 +48,17 @@ namespace Client_TeamOP.Klassen
                 }
                 else if(message != null)
                 {
-                    parseServermes();
+                    parseS();
                     message = null;
                     counter = 0;
                 }
             }
         }
-        //public void parseS(String message){
-        //    Contract.Requires(message != null);
-        //}
+        public void parseS()
+        {
+            Contract.Requires(message != null);
+            parseServermes();
+        }
         
         public void parseServermes(){
             Contract.Requires(message != null);
@@ -122,6 +124,7 @@ namespace Client_TeamOP.Klassen
         public void parseServer(){
             Contract.Requires(message != null);
             int serverVersion = Int32.Parse((String)message[counter++]);
+            backend.setServerVersion(serverVersion);
         }       //Backend Implementation
         public void parseResult(){
             Contract.Requires(message != null);
@@ -131,7 +134,7 @@ namespace Client_TeamOP.Klassen
 
             String tmpMsg = "";
 
-            for (int i = 1; i <= 3; i++ )
+            for (int i = 1; i <= 5; i++ )
             {
                 tmpMsg = (String)message[counter];
                 if (i==1)
@@ -146,9 +149,15 @@ namespace Client_TeamOP.Klassen
                 {
                     delay = Int32.Parse(extractValue(tmpMsg));
                 }
-                else if (true)
+                else if (i==4)
                 {
-                    throw new NotImplementedException();
+                    counter++;
+                    parseOpponent();
+                }
+                else if (i == 5)
+                {
+                    parseOpponent();
+                    counter = counter + 2;
                 }
 
                 if (!tmpMsg.Equals("end:result"))
@@ -161,6 +170,35 @@ namespace Client_TeamOP.Klassen
         public void parseOpponent()
         {
             Contract.Requires(message != null);
+            String tmpMsg = "";
+            int id = -1, points = -1, total = -1;
+            String decision = "";
+            counter++;
+
+            for (int i = 1; i <= 4; i++)
+            {
+                tmpMsg = (String)message[counter];
+                if (i == 1)
+                {
+                    id = Int32.Parse(extractValue(tmpMsg));
+                }
+                else if (i == 2)
+                {
+                    decision = extractValue(tmpMsg);
+                }
+                else if (i == 3)
+                {
+                    points = Int32.Parse(extractValue(tmpMsg));
+                }
+                else if (i == 4)
+                {
+                    total = Int32.Parse(extractValue(tmpMsg));
+                }
+                if (!tmpMsg.Equals("end:opponent"))
+                {
+                    counter++;
+                }
+            }
         }
         public void parseChallenge()
         {
@@ -399,20 +437,16 @@ namespace Client_TeamOP.Klassen
             int width = -1, height = -1;
             Map map = null;
 
+
+            width = Int32.Parse(extractValue((String)message[counter++]));
+            height = Int32.Parse(extractValue((String)message[counter++]));
+            counter++;   
+
             while (!tmpMsg.Equals("end:map"))
             {
                 tmpMsg = (String)message[counter];
 
-                if (extractKey(tmpMsg).Equals("width"))
-                {
-                    width = Int32.Parse(extractValue(tmpMsg));
-                }
-                else if (extractKey(tmpMsg).Equals("height"))
-                {
-                    height = Int32.Parse(extractValue(tmpMsg));
-                    counter++;
-                }
-                else if (!tmpMsg.Equals("end:cells") & !tmpMsg.Equals("end:map"))
+                if (!tmpMsg.Equals("end:cells") & !tmpMsg.Equals("end:map"))
                 {
                     if ((width > -1 & height > -1) & map == null)
                     {
@@ -430,27 +464,28 @@ namespace Client_TeamOP.Klassen
                 }
             }
             backend.storeMap(map);
-        }       //loop stays; unknown amount of mapcells incoming; other solution?
+        }       //loop stays; unknown amount of mapcells incoming
         public void parseMessage()
         {
             Contract.Requires(message != null);
+            
+            String tmpMsg = "", playerMessage = "";
 
-            String tmpMsg = "";
             for (int i = 1; i <= 3; i++ )
             {
                 tmpMsg = (String)message[counter];
 
                 if (i==1)
                 {
-                    //Log add implem.
+                    playerMessage += extractKey((String)message[counter]);
                 }
                 else if (i==2)
                 {
-                    //Log add implem.
+                    playerMessage += extractKey((String)message[counter]);
                 }
                 else if (i==3)
                 {
-                    //Log add implem.
+                    playerMessage += extractKey((String)message[counter]);
                 }
 
                 if (!tmpMsg.Equals("end:mes"))
@@ -458,8 +493,8 @@ namespace Client_TeamOP.Klassen
                     counter++;
                 }
             }
-
-        }           //Implementation Log
+            backend.addToLog(playerMessage);
+        }           //Complete
         public void parseUpdate()
         {
             Contract.Requires(message != null);
@@ -480,7 +515,7 @@ namespace Client_TeamOP.Klassen
                     parseMapcell(true);
                     break;
             }
-        }           //complete counter++ deleted, test
+        }           //Complete
         public void parseDelete()
         {
             Contract.Requires(message != null);
@@ -493,7 +528,7 @@ namespace Client_TeamOP.Klassen
             {
                 parseDragon(true);
             }
-        }           //complete
+        }           //Complete
         public void parseAnswer()
         {
             Contract.Requires(message != null);
@@ -515,39 +550,44 @@ namespace Client_TeamOP.Klassen
                     break;
             }
             
-        }       //Log to Answer??
+        }               //Complete
         public void parseOkay()
         {
             Contract.Requires(message != null);
-        }       //Log to Answer??
+            backend.addToLog(extractValue((String)message[counter]));
+        }       //Complete
         public void parseDeny()
         {
             Contract.Requires(message != null);
-        }       //Log to Answer??
+            backend.addToLog(extractValue((String)message[counter]));
+        }       //Complete
         public void parseUnknow()
         {
             Contract.Requires(message != null);
-        }       //Log to Answer??
+            backend.addToLog(extractValue((String)message[counter]));
+        }       //Complete
         public void parseInvalid()
         {
             Contract.Requires(message != null);
-        }       //Log to Answer??
+            backend.addToLog(extractValue((String)message[counter]));
+        }       //Complete
         public void parseYourID()
         {
             Contract.Requires(message != null);
-            int yourid = Int32.Parse((String)message[counter++]);
-        }       //Backend implementation 
+            int myID = Int32.Parse((String)message[counter++]);
+            backend.setMyID(myID);
+        }       
         public void parseTime()
         {
             Contract.Requires(message != null);
             long time = long.Parse((String)message[counter++]);
-            Console.WriteLine();
-        }       //Backend implementation 
+            
+        }       //Complete 
         public void parseOnline()
         {
             Contract.Requires(message != null);
             int time = Int32.Parse((String)message[counter++]);
-        }       //Backend implementation
+        }       //Complete
         public void parseDecision()
         {
             Contract.Requires(message != null);

@@ -18,7 +18,9 @@ namespace Client_TeamOP.Klassen
         private Minigame currentGame;
         private bool isMiniGame;
         private List<String> log;
-        private int myID;
+        private int myID,playersOnline;
+        private long serverOnlineTime;
+        private int serverVersion;
 
        public Backend(GUI gui)
         {
@@ -114,6 +116,37 @@ namespace Client_TeamOP.Klassen
                 humans.Add(p);
             }           
             return humans; 
+        }
+
+        public void setPlayersOnline(int playersCount)
+        {
+            if (playersCount >= 0)
+            {
+                this.playersOnline = playersCount;
+            }
+        }
+
+        public void setServerVersion(int version)
+        {
+            if (version >= 0)
+            {
+                this.serverVersion = version;
+            }
+        }
+        public void setServerOnlineTime(int onlineTime)
+        {
+            if (onlineTime >= 0)
+            {
+                this.serverOnlineTime = onlineTime;
+            }
+        }
+
+        public void addToLog(String logMessage)
+        {
+            if (logMessage != null & log != null)
+            {
+                log.Add(logMessage);
+            }
         }
 
         public bool storeDragon(Positionable positionable)
@@ -339,7 +372,7 @@ namespace Client_TeamOP.Klassen
             gui.refreshGui();
         }
 
-        internal void setMyId(int id)
+        internal void setMyID(int id)
         {
             this.myID=id;
         }
