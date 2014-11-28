@@ -14,8 +14,6 @@ namespace Client_TeamOP.Klassen
         private Buffer buffer;
         private Backend backend;
         private Thread convertParser;
-        private static int messageID;
-        private bool completedMessage;
 
         private int counter;
         private ArrayList message;
