@@ -14,6 +14,7 @@ namespace Client_TeamOP.Klassen
         private Buffer buffer;
         private Backend backend;
         private Thread convertParser;
+        private bool running = false;
 
         private int counter;
         private ArrayList message;
@@ -28,8 +29,8 @@ namespace Client_TeamOP.Klassen
             this.buffer = buffer;
             counter = 0;
             convertParser = new Thread(new ThreadStart(sendToMethod));
-            convertParser.Start();  
-                  
+            convertParser.Start(); 
+            running = convertParser.IsAlive;                  
         }
        
         public ArrayList readFromBuffer(){
@@ -39,7 +40,7 @@ namespace Client_TeamOP.Klassen
         public void sendToMethod()
         {
             //Thread.Sleep(500);
-            while (this.convertParser.IsAlive)
+            while (this.running)
             {
                 if (message == null)
                 {
@@ -57,8 +58,7 @@ namespace Client_TeamOP.Klassen
         {
             Contract.Requires(message != null);
             parseServermes();
-        }
-        
+        }        
         public void parseServermes(){
             Contract.Requires(message != null);
             if (message != null)
@@ -739,6 +739,12 @@ namespace Client_TeamOP.Klassen
         {
             int s = message.IndexOf(":");
             return s;
+        }
+
+        public void exit()
+        {
+            running = false;
+            convertParser.Abort();
         }
     }
 }

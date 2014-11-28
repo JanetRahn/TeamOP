@@ -457,5 +457,11 @@ namespace Client_TeamOP.Klassen
             }
             return listD;
         }
+
+        public void exit()
+        {
+            connector.exit();
+            parser.exit();
+        }
     }
 }

@@ -5,15 +5,17 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Client_TeamOP.Klassen {
-    public interface IBackend {
+    public interface IBackend
+    {
         List<IPositionable> getPositionableDragon();
-         List<IPositionable> getPositionableHumans();
-         IMap[,] getMap();
-         bool sendCommand(string command);
-         Boolean moveUp();
-         Boolean moveDown();
-         Boolean moveLeft();
-         Boolean moveRight();
-         List<String> getLog();
+        List<IPositionable> getPositionableHumans();
+        IMap[,] getMap();
+        bool sendCommand(string command);
+        Boolean moveUp();
+        Boolean moveDown();
+        Boolean moveLeft();
+        Boolean moveRight();
+        List<String> getLog();
+        void exit();
     }
 }

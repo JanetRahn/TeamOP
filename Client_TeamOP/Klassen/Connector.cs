@@ -67,6 +67,7 @@ namespace Client_TeamOP.Klassen
                 }
                 catch
                 {
+                    Console.WriteLine("Konnte keine Connection finden!");
                 }
             }
             Contract.Ensures(client != null);
@@ -99,15 +100,13 @@ namespace Client_TeamOP.Klassen
             Contract.Invariant(client != null);
             bool sended = false;
 
-            if (command != null & client != null)
+            if (command != null & client != null & isConnected())
             {
                 sender.sendToSenderBuffer(command);
                 sended = true;
             }
             return sended;
         }
-
-
         public void packingMessage(String message)
         {
             try
@@ -194,7 +193,14 @@ namespace Client_TeamOP.Klassen
             int s = message.IndexOf(":");
             return s;
         }
-
-
+        public void exit()
+        {
+            if (client.Connected)
+            {
+                sender.stop();
+                receiver.stop();
+                running = false;
+            }
+        }
     }
 }

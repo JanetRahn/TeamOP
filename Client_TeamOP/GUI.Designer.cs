@@ -62,6 +62,7 @@
             this.Controls.Add(this.ChatInput);
             this.Name = "GUI";
             this.Text = "Form1";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.GUI_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 

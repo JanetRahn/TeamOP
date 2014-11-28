@@ -203,5 +203,10 @@ namespace Client_TeamOP
         {
             this.MapWindow.Focus();
         }
+
+        private void GUI_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            backend.exit();            
+        }
     }
 }
