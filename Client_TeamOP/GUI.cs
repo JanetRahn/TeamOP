@@ -88,6 +88,7 @@ namespace Client_TeamOP
             {
                 ChatWindow.AppendText(tmp + "\r\n");
             }
+            ChatWindow.ScrollToCaret();
             Refresh();
             //return true;
         }  
