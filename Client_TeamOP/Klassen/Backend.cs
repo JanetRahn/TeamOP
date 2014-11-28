@@ -28,8 +28,8 @@ namespace Client_TeamOP.Klassen
            connector = new Connector(b);
            parser = new Parser(b,this);
            connector.connectToServer("127.0.0.1", 666);
-           map = new Map(1, 1);
-           log = new List<String>();
+           map = new Map(5, 5);
+           log = new List<String>();           
            if (gui != null)
             {
                 this.gui = gui;
@@ -52,7 +52,7 @@ namespace Client_TeamOP.Klassen
                 message = message.TrimStart('/');
             }
             sended = connector.sendCommandToServer(message);
-            gui.refreshGui();
+            refreshGui();
             message = null;
             return sended;
 
@@ -82,7 +82,7 @@ namespace Client_TeamOP.Klassen
                         break;
                     }
                 }
-                gui.Refresh();
+                refreshGui();
             }
             else
             {
@@ -173,7 +173,7 @@ namespace Client_TeamOP.Klassen
                         break;
                     }
                 }
-                gui.Refresh();
+                refreshGui();
             }
             else
             {
@@ -212,47 +212,44 @@ namespace Client_TeamOP.Klassen
         public Boolean moveUp()
         {
             Boolean status = false;
-            if ((positionableHuman.First().getY() - 1) >= 0)
-            { 
-                connector.sendCommandToServer("ask:mv:up");
+
+            connector.sendCommandToServer("ask:mv:up");
                 this.gui.refreshGui();
                 status=true;
-            }
+            
             return status;
         }
 
         public Boolean moveDown()
         {
             Boolean status = false;
-            if ((positionableHuman.First().getY() + 1) <= map.getHigh()-1) { 
-                connector.sendCommandToServer("ask:mv:dwn");
-                this.gui.refreshGui();
+
+            connector.sendCommandToServer("ask:mv:dwn");
+                refreshGui();
                 status=true;
-            }
+            
             return status;
         }
 
         public Boolean moveRight()
         {
             Boolean status = false;
-            if ((positionableHuman.First().getX() + 1) <= map.getWidth()-1)
-            { 
-                connector.sendCommandToServer("ask:mv:rgt");
-                this.gui.refreshGui();
+
+            connector.sendCommandToServer("ask:mv:rgt");
+                refreshGui();
                 status=true;
-            }
+            
             return status;
         }
 
         public Boolean moveLeft()
         {
             Boolean status=false;
-            if ((positionableHuman.First().getX() - 1) >= 0)
-            { 
+            
                 connector.sendCommandToServer("ask:mv:lft");
-                this.gui.refreshGui();
+                refreshGui();
                 status=true;
-            }
+            
             return status;
         }
 
@@ -322,6 +319,10 @@ namespace Client_TeamOP.Klassen
 
         public IMap[,] getMap() //getMap
         {
+            while(this.map == null)
+            {
+
+            }
             Field[,] tmpmap = this.map.getField();
             int size = this.map.getWidth();
             IMap[,] map = new IMap[size,size];
@@ -369,7 +370,7 @@ namespace Client_TeamOP.Klassen
         internal void storeMap(Map map)
         {
             this.map = map;
-            gui.refreshGui();
+            refreshGui();
         }
 
         internal void setMyID(int id)
@@ -399,6 +400,11 @@ namespace Client_TeamOP.Klassen
                 }
             }
             return listP;
+        }
+
+        public void refreshGui()
+        {            
+            gui.Invoke(gui.myDelegate);
         }
 
         public List<Positionable> dragonOnMyPos()

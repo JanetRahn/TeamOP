@@ -16,8 +16,13 @@ namespace Client_TeamOP
     public partial class GUI : Form
     {
         private IBackend backend;
+        public delegate void refresh();
+        public refresh myDelegate;
+
+        
         public GUI() : base()
         {
+            
             this.backend = new Backend(this);
             InitializeComponent();
             //AllocConsole();
@@ -25,6 +30,7 @@ namespace Client_TeamOP
             this.MapWindow.Paint += board_PaintEntities;
             this.ChatInput.KeyPress += chatInput_KeyPress;
             this.MapWindow.KeyPress += map_KeyPress;
+            myDelegate = new refresh(refreshGui);
         }
 
         protected void drawMapTile(Graphics g, IMap map, int absX, int absY, int width, int height)
@@ -74,7 +80,7 @@ namespace Client_TeamOP
             return new Size(cellWidth, cellHeight);
         }
 
-        public bool refreshGui() {
+        public void refreshGui() {
             this.MapWindow_Paint_1(null, null);
             List<String> log = this.backend.getLog();
             ChatWindow.Clear();
@@ -83,7 +89,7 @@ namespace Client_TeamOP
                 ChatWindow.AppendText(tmp + "\r\n");
             }
             Refresh();
-            return true;
+            //return true;
         }  
 
         private void MapWindow_Paint_1(object sender, PaintEventArgs e)

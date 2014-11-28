@@ -40,7 +40,7 @@ namespace Client_TeamOP.Klassen
         }
         public void sendToMethod()
         {
-            while (true)
+            while (this.convertParser.IsAlive)
             {
                 if (message == null)
                 {
