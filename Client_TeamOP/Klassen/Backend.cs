@@ -24,12 +24,12 @@ namespace Client_TeamOP.Klassen
 
        public Backend(GUI gui)
         {
-            Buffer b = new Buffer();
+           map = new Map(1, 1);
+           log = new List<String>();
+           Buffer b = new Buffer();
            connector = new Connector(b);
            parser = new Parser(b,this);
-           connector.connectToServer("127.0.0.1", 666);
-           map = new Map(5, 5);
-           log = new List<String>();           
+           connector.connectToServer("127.0.0.1", 666);        
            if (gui != null)
             {
                 this.gui = gui;
@@ -42,13 +42,13 @@ namespace Client_TeamOP.Klassen
             Contract.Requires(message != null);
             Contract.Invariant(connector != null);
             bool sended;
-            log.Add(message);
             if (!message.StartsWith("/"))
             {
                 message = "ask:say:" + message;
             }
             else
             {
+                log.Add(message);
                 message = message.TrimStart('/');
             }
             sended = connector.sendCommandToServer(message);
@@ -65,22 +65,31 @@ namespace Client_TeamOP.Klassen
             Contract.Requires(positionable != null);
             if (positionableHuman != null && positionable != null)
             {
-                for (int i = 0; i < positionableHuman.Count; i++)
+                if (positionableHuman.Count != 0)
                 {
-                    if (positionableHuman[i].Equals(positionable))
+                    for (int i = 0; i < positionableHuman.Count; i++)
                     {
-                        positionableHuman.RemoveAt(i);
-                        positionableHuman.Insert(i, positionable);
-                        status = true;
-                        break;
+                        if (positionableHuman[i].Equals(positionable))
+                        {
+                            positionableHuman.RemoveAt(i);
+                            positionableHuman.Insert(i, positionable);
+                            status = true;
+                            break;
+                        }
+                        if (i == (positionableHuman.Count - 1))
+                        {
+                            positionableHuman.Add(positionable);
+                            log.Add("New Player " + positionable.getDescription() + " arrived at" + positionable.getX() + "/" + positionable.getY() + "!");
+                            status = true;
+                            break;
+                        }
                     }
-                    if(i==(positionableHuman.Count-1))
-                    {
-                        positionableHuman.Add(positionable);
-                        log.Add("New Player "+positionable.getDescription()+" arrived at"+positionable.getX()+"/"+positionable.getY()+"!");
-                        status=true;
-                        break;
-                    }
+                }
+                else
+                {
+                    positionableHuman.Add(positionable);
+                    log.Add("New Player " + positionable.getDescription() + " arrived at" + positionable.getX() + "/" + positionable.getY() + "!");
+                    status = true;
                 }
                 refreshGui();
             }
@@ -156,22 +165,31 @@ namespace Client_TeamOP.Klassen
             Contract.Requires(positionable != null);
             if (positionableDragon != null && positionable != null)
             {
-                for (int i = 0; i < positionableDragon.Count; i++)
+                if (positionableDragon.Count != 0)
                 {
-                    if (positionableDragon[i].Equals(positionable))
+                    for (int i = 0; i < positionableDragon.Count; i++)
                     {
-                        positionableDragon.RemoveAt(i);
-                        positionableDragon.Insert(i, positionable);
-                        status = true;
-                        break;
+                        if (positionableDragon[i].Equals(positionable))
+                        {
+                            positionableDragon.RemoveAt(i);
+                            positionableDragon.Insert(i, positionable);
+                            status = true;
+                            break;
+                        }
+                        else if (i == (positionableDragon.Count - 1))
+                        {
+                            positionableDragon.Add(positionable);
+                            log.Add("New Dragon spawn at " + positionable.getX() + "/" + positionable.getY() + "!");
+                            status = true;
+                            break;
+                        }
                     }
-                    else if(i==(positionableDragon.Count-1))
-                    {
-                        positionableDragon.Add(positionable);
-                        log.Add("New Dragon spawn at "+positionable.getX()+"/"+positionable.getY()+"!");
-                        status=true;
-                        break;
-                    }
+                }
+                else
+                {
+                    positionableDragon.Add(positionable);
+                    log.Add("New Dragon spawn at " + positionable.getX() + "/" + positionable.getY() + "!");
+                    status = true;
                 }
                 refreshGui();
             }

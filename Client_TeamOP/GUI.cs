@@ -164,7 +164,6 @@ namespace Client_TeamOP
             {
                 this.drawPlayer(e.Graphics, player);
             }
-            Invalidate();
         }
 
         protected void drawPlayer(Graphics g, IPositionable player)

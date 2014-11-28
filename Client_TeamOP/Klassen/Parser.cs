@@ -38,6 +38,7 @@ namespace Client_TeamOP.Klassen
         }
         public void sendToMethod()
         {
+            Thread.Sleep(500);
             while (this.convertParser.IsAlive)
             {
                 if (message == null)
@@ -475,15 +476,15 @@ namespace Client_TeamOP.Klassen
 
                 if (i==1)
                 {
-                    playerMessage += extractKey((String)message[counter]);
+                    playerMessage += extractValue((String)message[counter]);
                 }
                 else if (i==2)
                 {
-                    playerMessage += extractKey((String)message[counter]);
+                    playerMessage = playerMessage+" - "+ extractValue((String)message[counter]);
                 }
                 else if (i==3)
                 {
-                    playerMessage += extractKey((String)message[counter]);
+                    playerMessage = playerMessage + " : " + extractValue((String)message[counter]);
                 }
 
                 if (!tmpMsg.Equals("end:mes"))
@@ -509,7 +510,7 @@ namespace Client_TeamOP.Klassen
                     counter++;
                     break;
                 case "cell":
-                    counter++;
+                   // counter++;
                     parseMapcell(true);
                     break;
             }
