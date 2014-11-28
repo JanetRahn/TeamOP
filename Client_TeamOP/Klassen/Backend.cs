@@ -42,9 +42,14 @@ namespace Client_TeamOP.Klassen
             Contract.Requires(message != null);
             Contract.Invariant(connector != null);
             bool sended;
+            if (message.Equals("/challenge"))
+            {
+                challengePlayer("dragonfight", playerOnMyPos()[0]);
+            }
             if (!message.StartsWith("/"))
             {
                 message = "ask:say:" + message;
+                
             }
             else
             {
@@ -156,6 +161,7 @@ namespace Client_TeamOP.Klassen
             {
                 log.Add(logMessage);
             }
+            refreshGui();
         }
 
         public bool storeDragon(Positionable positionable)
@@ -421,8 +427,11 @@ namespace Client_TeamOP.Klassen
         }
 
         public void refreshGui()
-        {            
-            gui.Invoke(gui.myDelegate);
+        {
+            if (gui.Created)
+            {
+                gui.Invoke(gui.myDelegate);
+            }
         }
 
         public List<Positionable> dragonOnMyPos()

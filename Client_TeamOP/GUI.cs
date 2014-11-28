@@ -149,7 +149,7 @@ namespace Client_TeamOP
                 case 's':
                 case 'S':
                     this.backend.moveDown();
-                    break;
+                    break;                
             }
         }
 

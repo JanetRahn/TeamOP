@@ -38,7 +38,7 @@ namespace Client_TeamOP.Klassen
         }
         public void sendToMethod()
         {
-            Thread.Sleep(500);
+            //Thread.Sleep(500);
             while (this.convertParser.IsAlive)
             {
                 if (message == null)
@@ -61,107 +61,116 @@ namespace Client_TeamOP.Klassen
         
         public void parseServermes(){
             Contract.Requires(message != null);
-            String tmpMsg = (String)message[counter++];
+            if (message != null)
+            {
+                String tmpMsg = (String)message[counter++];
 
-            if (tmpMsg.StartsWith("ans:"))
-            {
-                counter--;
-                parseAnswer();
-            }
-            else
-            {
-                tmpMsg = extractValue(tmpMsg);
-                switch (tmpMsg)
+                if (tmpMsg.StartsWith("ans:"))
                 {
-                    case "upd":
-                        parseUpdate();
-                        break;
-                    case "del":
-                        parseDelete();
-                        break;
-                    case "map":
-                        parseMap();
-                        break;
-                    case "mes":
-                        parseMessage();
-                        break;
-                    case "result":
-                        parseResult();
-                        break;
-                    case "challenge":
-                        parseChallenge();
-                        break;
-                    case "player":
-                        counter--;
-                        parsePlayer(false);
-                        break;
-                    case "yourid":
-                        parseYourID();
-                        break;
-                    case "online":
-                        parseOnline();
-                        break;
-                    case "ents":
-                        parseEntities();
-                        break;
-                    case "players":
-                        parsePlayers();
-                        break;
-                    case "server":
-                        parseServer();
-                        break;
-                    case "time":
-                        parseTime();
-                        break;
+                    counter--;
+                    parseAnswer();
                 }
-            }
-                if (counter != message.Count-1)
+                else
+                {
+                    tmpMsg = extractValue(tmpMsg);
+                    switch (tmpMsg)
+                    {
+                        case "upd":
+                            parseUpdate();
+                            break;
+                        case "del":
+                            parseDelete();
+                            break;
+                        case "map":
+                            parseMap();
+                            break;
+                        case "mes":
+                            parseMessage();
+                            break;
+                        case "result":
+                            parseResult();
+                            break;
+                        case "challenge":
+                            parseChallenge();
+                            break;
+                        case "player":
+                            counter--;
+                            parsePlayer(false);
+                            break;
+                        case "yourid":
+                            parseYourID();
+                            break;
+                        case "online":
+                            parseOnline();
+                            break;
+                        case "ents":
+                            parseEntities();
+                            break;
+                        case "players":
+                            parsePlayers();
+                            break;
+                        case "server":
+                            parseServer();
+                            break;
+                        case "time":
+                            parseTime();
+                            break;
+                    }
+                }
+                if (counter != message.Count - 1)
                 {
                     Console.WriteLine("Message parsing failed");
                 }
+            }
         }
         public void parseServer(){
             Contract.Requires(message != null);
-            int serverVersion = Int32.Parse((String)message[counter++]);
-            backend.setServerVersion(serverVersion);
+            if (message != null)
+            { 
+                int serverVersion = Int32.Parse((String)message[counter++]);
+                backend.setServerVersion(serverVersion);
+            }
         }       //Backend Implementation
         public void parseResult(){
-            Contract.Requires(message != null);
-
-            int round = -1, delay = -1;
-            bool running = false;
-
-            String tmpMsg = "";
-
-            for (int i = 1; i <= 5; i++ )
+            if (message != null)
             {
-                tmpMsg = (String)message[counter];
-                if (i==1)
-                {
-                    round = Int32.Parse(extractValue(tmpMsg));
-                }
-                else if (i==2)
-                {
-                    running = bool.Parse(extractValue(tmpMsg));
-                }
-                else if (i==3)
-                {
-                    delay = Int32.Parse(extractValue(tmpMsg));
-                }
-                else if (i==4)
-                {
-                    counter++;
-                    parseOpponent();
-                }
-                else if (i == 5)
-                {
-                    parseOpponent();
-                    counter = counter + 2;
-                }
+                Contract.Requires(message != null);
 
-                if (!tmpMsg.Equals("end:result"))
+                int round = -1, delay = -1;
+                bool running = false;
+
+                String tmpMsg = "";
+
+                for (int i = 1; i <= 5; i++)
                 {
-                    counter++;
+                    tmpMsg = (String)message[counter];
+                    if (i == 1)
+                    {
+                        round = Int32.Parse(extractValue(tmpMsg));
+                    }
+                    else if (i == 2)
+                    {
+                        running = bool.Parse(extractValue(tmpMsg));
+                    }
+                    else if (i == 3)
+                    {
+                        delay = Int32.Parse(extractValue(tmpMsg));
+                    }
+                    else if (i == 4)
+                    {
+                        counter++;
+                        parseOpponent();
+                    }
+                    else if (i == 5)
+                    {
+                        parseOpponent();
+                        counter = counter + 2;
+                    }
+
+                    if (!tmpMsg.Equals("end:result"))
+                    {
+                        counter++;
+                    }
                 }
             }
 
@@ -169,64 +178,69 @@ namespace Client_TeamOP.Klassen
         public void parseOpponent()
         {
             Contract.Requires(message != null);
-            String tmpMsg = "";
-            int id = -1, points = -1, total = -1;
-            String decision = "";
-            counter++;
-
-            for (int i = 1; i <= 4; i++)
+            if (message != null)
             {
-                tmpMsg = (String)message[counter];
-                if (i == 1)
+                String tmpMsg = "";
+                int id = -1, points = -1, total = -1;
+                String decision = "";
+                counter++;
+
+                for (int i = 1; i <= 4; i++)
                 {
-                    id = Int32.Parse(extractValue(tmpMsg));
-                }
-                else if (i == 2)
-                {
-                    decision = extractValue(tmpMsg);
-                }
-                else if (i == 3)
-                {
-                    points = Int32.Parse(extractValue(tmpMsg));
-                }
-                else if (i == 4)
-                {
-                    total = Int32.Parse(extractValue(tmpMsg));
-                }
-                if (!tmpMsg.Equals("end:opponent"))
-                {
-                    counter++;
+                    tmpMsg = (String)message[counter];
+                    if (i == 1)
+                    {
+                        id = Int32.Parse(extractValue(tmpMsg));
+                    }
+                    else if (i == 2)
+                    {
+                        decision = extractValue(tmpMsg);
+                    }
+                    else if (i == 3)
+                    {
+                        points = Int32.Parse(extractValue(tmpMsg));
+                    }
+                    else if (i == 4)
+                    {
+                        total = Int32.Parse(extractValue(tmpMsg));
+                    }
+                    if (!tmpMsg.Equals("end:opponent"))
+                    {
+                        counter++;
+                    }
                 }
             }
         }
         public void parseChallenge()
         {
             Contract.Requires(message != null);
-
-            int id = -1;
-            String type = "";
-            bool accepted = false;
-
-            String tmpMsg = "";
-            for (int i = 1; i <= 3;i++ )
+            if (message != null)
             {
-                tmpMsg = (String)message[counter];
-                if (i ==1)
-                {
-                    id = Int32.Parse(extractValue(tmpMsg));
-                }
-                else if (i==2)
-                {
-                    type = extractValue(tmpMsg);
-                }
-                else if (i==3)
-                {
-                    accepted = bool.Parse(extractValue(tmpMsg));
-                }
+                int id = -1;
+                String type = "";
+                bool accepted = false;
 
-                if (!tmpMsg.Equals("end:challenge"))
+                String tmpMsg = "";
+                for (int i = 1; i <= 3; i++)
                 {
-                    counter++;
+                    tmpMsg = (String)message[counter];
+                    if (i == 1)
+                    {
+                        id = Int32.Parse(extractValue(tmpMsg));
+                    }
+                    else if (i == 2)
+                    {
+                        type = extractValue(tmpMsg);
+                    }
+                    else if (i == 3)
+                    {
+                        accepted = bool.Parse(extractValue(tmpMsg));
+                    }
+
+                    if (!tmpMsg.Equals("end:challenge"))
+                    {
+                        counter++;
+                    }
                 }
             }
 
@@ -234,164 +248,172 @@ namespace Client_TeamOP.Klassen
         public void parseDragon(bool delete)
         {
             Contract.Requires(message != null);
-            bool busy = false;
-            int id = -1, x = -1, y = -1, count = 0;
-            String type = null, desc = null;  
-            
-            String tmpMsg = "";
-            counter++;
+            if (message != null)
+            {
+                bool busy = false;
+                int id = -1, x = -1, y = -1, count = 0;
+                String type = null, desc = null;
 
-            for (int i = 1; i <= 6; i++ )
-            {
-                tmpMsg = (String)message[counter];
-                if (i == 1)
+                String tmpMsg = "";
+                counter++;
+
+                for (int i = 1; i <= 6; i++)
                 {
-                    id = Int32.Parse(extractValue(tmpMsg));
+                    tmpMsg = (String)message[counter];
+                    if (i == 1)
+                    {
+                        id = Int32.Parse(extractValue(tmpMsg));
+                    }
+                    else if (i == 2)
+                    {
+                        type = extractValue(tmpMsg);
+                    }
+                    else if (i == 3)
+                    {
+                        busy = Boolean.Parse(extractValue(tmpMsg));
+                    }
+                    else if (i == 4)
+                    {
+                        desc = extractValue(tmpMsg);
+                    }
+                    else if (i == 5)
+                    {
+                        x = Int32.Parse(extractValue(tmpMsg));
+                    }
+                    else if (i == 6)
+                    {
+                        y = Int32.Parse(extractValue(tmpMsg));
+                    }
+                    if (!tmpMsg.Equals("end:dragon"))
+                    {
+                        counter++;
+                    }
                 }
-                else if (i== 2)
+
+                Positionable dragon = new Positionable(x, y, id, 0, desc, type);
+                dragon.setBusy(busy);
+                if (!delete)
                 {
-                    type = extractValue(tmpMsg);
+                    backend.storeDragon(dragon);
                 }
-                else if (i == 3)
+                else
                 {
-                    busy = Boolean.Parse(extractValue(tmpMsg));
+                    backend.deleteDragon(dragon);
                 }
-                else if (i == 4)
-                {
-                    desc = extractValue(tmpMsg);
-                }
-                else if (i == 5)
-                {
-                    x = Int32.Parse(extractValue(tmpMsg));
-                }
-                else if (i == 6)
-                {
-                    y = Int32.Parse(extractValue(tmpMsg));
-                }
-                if (!tmpMsg.Equals("end:dragon"))
-                {
-                    counter++;
-                }
-            }   
-            
-            Positionable dragon = new Positionable(x,y,id,0,desc,type);
-            dragon.setBusy(busy);
-            if (!delete)
-            {
-                backend.storeDragon(dragon);
-            }
-            else
-            {
-                backend.deleteDragon(dragon);
             }
        }   //complete
         public void parsePlayer(bool delete)
         {
             Contract.Requires(message != null);
-            
-            bool busy = false;
-            int id = -1, x = -1, y = -1, points = -1;
-            String type = null, desc = null;
-            String tmpMsg = "";
-            counter++;
+            if (message != null)
+            {
+                bool busy = false;
+                int id = -1, x = -1, y = -1, points = -1;
+                String type = null, desc = null;
+                String tmpMsg = "";
+                counter++;
 
-            for (int i = 1; i <= 7; i++ )
-            {
-                tmpMsg = (String)message[counter];
-                if (i==1)
+                for (int i = 1; i <= 7; i++)
                 {
-                    id = Int32.Parse(extractValue(tmpMsg));
-                }
-                else if (i==2)
-                {
-                    type = extractValue(tmpMsg);
-                }
-                else if (i==3)
-                {
-                    busy = Boolean.Parse(extractValue(tmpMsg));
-                }
-                else if (i==4)
-                {
-                    desc = extractValue(tmpMsg);
-                }
-                else if (i==5)
-                {
-                    x = Int32.Parse(extractValue(tmpMsg));
-                }
-                else if (i==6)
-                {
-                    y = Int32.Parse(extractValue(tmpMsg));
-                }
-                else if (i==7)
-                {
-                    points = Int32.Parse(extractValue(tmpMsg));
+                    tmpMsg = (String)message[counter];
+                    if (i == 1)
+                    {
+                        id = Int32.Parse(extractValue(tmpMsg));
+                    }
+                    else if (i == 2)
+                    {
+                        type = extractValue(tmpMsg);
+                    }
+                    else if (i == 3)
+                    {
+                        busy = Boolean.Parse(extractValue(tmpMsg));
+                    }
+                    else if (i == 4)
+                    {
+                        desc = extractValue(tmpMsg);
+                    }
+                    else if (i == 5)
+                    {
+                        x = Int32.Parse(extractValue(tmpMsg));
+                    }
+                    else if (i == 6)
+                    {
+                        y = Int32.Parse(extractValue(tmpMsg));
+                    }
+                    else if (i == 7)
+                    {
+                        points = Int32.Parse(extractValue(tmpMsg));
+                    }
+
+                    if (!tmpMsg.Equals("end:player"))
+                    {
+                        counter++;
+                    }
                 }
 
-                if (!tmpMsg.Equals("end:player"))
+                Positionable player = new Positionable(x, y, id, points, desc, type);
+                player.setBusy(busy);
+
+                if (!delete)
                 {
-                    counter++;
+                    backend.storeHuman(player);
                 }
-            }
-            
-            Positionable player = new Positionable(x, y, id, points, desc, type);
-            player.setBusy(busy);
-            
-            if (!delete)
-            {
-                backend.storeHuman(player);
-            }
-            else
-            {
-                backend.deleteHuman(player);
+                else
+                {
+                    backend.deleteHuman(player);
+                }
             }
         }   //complete
         public void parsePlayers()
         {
             Contract.Requires(message != null);
-
-            String tmpMsg = "";
-
-            while (!tmpMsg.Equals("end:players"))
+            if (message != null)
             {
-                tmpMsg = (String)message[counter];
+                String tmpMsg = "";
 
-                if (extractValue(tmpMsg).Equals("player"))
+                while (!tmpMsg.Equals("end:players"))
                 {
-                    parsePlayer(false);
-                }                
-                if (!tmpMsg.Equals("end:players"))
-                {
-                    counter++;
+                    tmpMsg = (String)message[counter];
+
+                    if (extractValue(tmpMsg).Equals("player"))
+                    {
+                        parsePlayer(false);
+                    }
+                    if (!tmpMsg.Equals("end:players"))
+                    {
+                        counter++;
+                    }
                 }
-            }         
-
+            }
         }   // loop stay; unknown amount of players
         public void parseEntities()
         {
             Contract.Requires(message != null);
-            String tmpMsg = "";
-
-            while(!tmpMsg.Equals("end:ents"))
+            if (message != null)
             {
-                tmpMsg = (String)message[counter];
+                String tmpMsg = "";
 
-                if (extractValue(tmpMsg).Equals("player"))
+                while (!tmpMsg.Equals("end:ents"))
                 {
-                    parsePlayer(false);
+                    tmpMsg = (String)message[counter];
+
+                    if (extractValue(tmpMsg).Equals("player"))
+                    {
+                        parsePlayer(false);
+                    }
+                    else if (extractValue(tmpMsg).Equals("dragon"))
+                    {
+                        parseDragon(false);
+                    }
+                    if (!tmpMsg.Equals("end:ents"))
+                    {
+                        counter++;
+                    }
                 }
-                else if (extractValue(tmpMsg).Equals("dragon"))
-                {
-                    parseDragon(false);
-                }
-                if (!tmpMsg.Equals("end:ents"))
-                {
-                    counter++;
-                }
-            }            
+            }
         }           //loop stays; unknown amount of entities
         public Field parseMapcell(bool mapExist)
-        {
-            Contract.Requires(message != null);
+        {    
             int row = 0, col = 0;
             List<MapEnum> props = new List<MapEnum>();
             Field cell = null;
@@ -432,160 +454,194 @@ namespace Client_TeamOP.Klassen
         public void parseMap()
         {
             Contract.Requires(message != null);
-            String tmpMsg ="";
-            int width = -1, height = -1;
-            Map map = null;
-
-
-            width = Int32.Parse(extractValue((String)message[counter++]));
-            height = Int32.Parse(extractValue((String)message[counter++]));
-            counter++;   
-
-            while (!tmpMsg.Equals("end:map"))
+            if (message != null)
             {
-                tmpMsg = (String)message[counter];
+                String tmpMsg = "";
+                int width = -1, height = -1;
+                Map map = null;
 
-                if (!tmpMsg.Equals("end:cells") & !tmpMsg.Equals("end:map"))
+
+                width = Int32.Parse(extractValue((String)message[counter++]));
+                height = Int32.Parse(extractValue((String)message[counter++]));
+                counter++;
+
+                while (!tmpMsg.Equals("end:map"))
                 {
-                    if ((width > -1 & height > -1) & map == null)
+                    tmpMsg = (String)message[counter];
+
+                    if (!tmpMsg.Equals("end:cells") & !tmpMsg.Equals("end:map"))
                     {
-                        map = new Map(width,height);
-                    }                    
+                        if ((width > -1 & height > -1) & map == null)
+                        {
+                            map = new Map(width, height);
+                        }
                         tmpMsg = (String)message[counter];
                         Field f = parseMapcell(false);
-                        map.setField(f.getX(),f.getY(),f);
-                        tmpMsg = (String)message[counter];                       
-                    
+                        map.setField(f.getX(), f.getY(), f);
+                        tmpMsg = (String)message[counter];
+
+                    }
+                    if (!tmpMsg.Equals("end:map"))
+                    {
+                        counter++;
+                    }
                 }
-                if (!tmpMsg.Equals("end:map"))
-                {
-                    counter++;
-                }
+                backend.storeMap(map);
             }
-            backend.storeMap(map);
         }       //loop stays; unknown amount of mapcells incoming
         public void parseMessage()
         {
             Contract.Requires(message != null);
-            
-            String tmpMsg = "", playerMessage = "";
-
-            for (int i = 1; i <= 3; i++ )
+            if (message != null)
             {
-                tmpMsg = (String)message[counter];
+                String tmpMsg = "", playerMessage = "";
 
-                if (i==1)
+                for (int i = 1; i <= 3; i++)
                 {
-                    playerMessage += extractValue((String)message[counter]);
-                }
-                else if (i==2)
-                {
-                    playerMessage = playerMessage+" - "+ extractValue((String)message[counter]);
-                }
-                else if (i==3)
-                {
-                    playerMessage = playerMessage + " : " + extractValue((String)message[counter]);
-                }
+                    tmpMsg = (String)message[counter];
 
-                if (!tmpMsg.Equals("end:mes"))
-                {
-                    counter++;
+                    if (i == 1)
+                    {
+                        playerMessage += extractValue((String)message[counter]);
+                    }
+                    else if (i == 2)
+                    {
+                        playerMessage = playerMessage + " - " + extractValue((String)message[counter]);
+                    }
+                    else if (i == 3)
+                    {
+                        playerMessage = playerMessage + " : " + extractValue((String)message[counter]);
+                    }
+
+                    if (!tmpMsg.Equals("end:mes"))
+                    {
+                        counter++;
+                    }
                 }
+                backend.addToLog(playerMessage);
             }
-            backend.addToLog(playerMessage);
         }           //Complete
         public void parseUpdate()
         {
             Contract.Requires(message != null);
-            String tmpMsg = extractValue((String)message[counter]);
-
-            switch (tmpMsg)
+            if (message != null)
             {
-                case "dragon":                    
-                    parseDragon(false);
-                    counter++;
-                    break;
-                case "player":                    
-                    parsePlayer(false);
-                    counter++;
-                    break;
-                case "cell":
-                   // counter++;
-                    parseMapcell(true);
-                    break;
+                String tmpMsg = extractValue((String)message[counter]);
+
+                switch (tmpMsg)
+                {
+                    case "dragon":
+                        parseDragon(false);
+                        counter++;
+                        break;
+                    case "player":
+                        parsePlayer(false);
+                        counter++;
+                        break;
+                    case "cell":
+                        // counter++;
+                        parseMapcell(true);
+                        break;
+                }
             }
         }           //Complete
         public void parseDelete()
         {
             Contract.Requires(message != null);
-            String tmpMsg = (String)message[counter++];
-            if (extractValue(tmpMsg).Equals("player"))
+            if (message != null)
             {
-                parsePlayer(true);
-            }
-            else if (extractValue(tmpMsg).Equals("dragon"))
-            {
-                parseDragon(true);
+                String tmpMsg = (String)message[counter++];
+                if (extractValue(tmpMsg).Equals("player"))
+                {
+                    parsePlayer(true);
+                }
+                else if (extractValue(tmpMsg).Equals("dragon"))
+                {
+                    parseDragon(true);
+                }
             }
         }           //Complete
         public void parseAnswer()
         {
             Contract.Requires(message != null);
-            String tmpMsg = extractValue((String)message[counter]);
-
-            switch (tmpMsg)
+            if (message != null)
             {
-                case "ans:ok":
-                    parseOkay();
-                    break;
-                case "ans:no":
-                    parseDeny();
-                    break;
-                case "ans:unknown":
-                    parseUnknow();
-                    break;
-                case "ans:invalid":
-                    parseInvalid();
-                    break;
+                String tmpMsg = extractValue((String)message[counter]);
+
+                switch (tmpMsg)
+                {
+                    case "ans:ok":
+                        parseOkay();
+                        break;
+                    case "ans:no":
+                        parseDeny();
+                        break;
+                    case "ans:unknown":
+                        parseUnknow();
+                        break;
+                    case "ans:invalid":
+                        parseInvalid();
+                        break;
+                }
             }
-            
         }               //Complete
         public void parseOkay()
         {
             Contract.Requires(message != null);
-            backend.addToLog(extractValue((String)message[counter]));
+            if (message != null)
+            {
+                backend.addToLog(extractValue((String)message[counter]));
+            }
         }       //Complete
         public void parseDeny()
         {
             Contract.Requires(message != null);
-            backend.addToLog(extractValue((String)message[counter]));
+            if (message != null)
+            {
+                backend.addToLog(extractValue((String)message[counter]));
+            }
         }       //Complete
         public void parseUnknow()
         {
             Contract.Requires(message != null);
-            backend.addToLog(extractValue((String)message[counter]));
+            if (message != null)
+            {
+                backend.addToLog(extractValue((String)message[counter]));
+            }
         }       //Complete
         public void parseInvalid()
         {
             Contract.Requires(message != null);
-            backend.addToLog(extractValue((String)message[counter]));
+            if (message != null)
+            {
+                backend.addToLog(extractValue((String)message[counter]));
+            }
         }       //Complete
         public void parseYourID()
         {
             Contract.Requires(message != null);
-            int myID = Int32.Parse((String)message[counter++]);
-            backend.setMyID(myID);
+            if (message != null)
+            {
+                int myID = Int32.Parse((String)message[counter++]);
+                backend.setMyID(myID);
+            }
         }       
         public void parseTime()
         {
             Contract.Requires(message != null);
-            long time = long.Parse((String)message[counter++]);
+            if (message != null)
+            {
+                long time = long.Parse((String)message[counter++]);
+            }
             
         }       //Complete 
         public void parseOnline()
         {
             Contract.Requires(message != null);
-            int time = Int32.Parse((String)message[counter++]);
+            if (message != null)
+            {
+                int time = Int32.Parse((String)message[counter++]);
+            }
         }       //Complete
         public void parseDecision()
         {
@@ -605,7 +661,7 @@ namespace Client_TeamOP.Klassen
         }
         public List<MapEnum> parseProperty()
         {
-            Contract.Requires(message != null);
+            
             List<MapEnum> props = new List<MapEnum>();
             String tmpMsg = "";
             int i = 0;
