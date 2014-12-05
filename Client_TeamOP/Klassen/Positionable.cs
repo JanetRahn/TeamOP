@@ -1,13 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Text;
+using System.Runtime.InteropServices;
+using System.IO;
 
 namespace Client_TeamOP.Klassen
 {
     public class Positionable : IPositionable
     {
+
+        [DllImport("MapDll.dll", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr findPath(int from, int to, int[] map, int mapw, int maph, int plength);
+
+        [DllImport("MapDll.dll", CallingConvention = CallingConvention.Cdecl)]
+        static extern void freeArray(IntPtr pointer);
+
         private int id;
         private int points;
         private int x;
@@ -32,9 +42,17 @@ namespace Client_TeamOP.Klassen
             this.id = id;
         }
 
-        public void autoWalk(bool status)
+        public void autoWalk(int fromX, int fromY, int toX, int toY, Map map)
         {
-
+            if (!File.Exists("MapDll.dll"))
+            {
+                return;
+            }
+            else
+            {
+                int mapWidth = map.getHigh() * map.getWidth();
+                //findPath((fromX+(map.getWidth()*fromY)),(toX+(map.getWidth()*toY)),mapconvert,map.getWidth(),map.getHigh(),mapWidth);
+            }
         }
 
         public void setY(int y)
