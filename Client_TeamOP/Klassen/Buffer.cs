@@ -12,7 +12,7 @@ namespace Client_TeamOP.Klassen
 {
     public class Buffer {
         
-        private static readonly int bufferMaxSize = 20;
+        private static readonly int bufferMaxSize = 256;
         private Queue<ArrayList> buffer = new Queue<ArrayList>(bufferMaxSize);         
 
         public Buffer(){

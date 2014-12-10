@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics.Contracts;
+using System.Runtime.InteropServices;
+using System.Threading;
 
 namespace Client_TeamOP.Klassen
 {
@@ -42,14 +44,15 @@ namespace Client_TeamOP.Klassen
             Contract.Requires(message != null);
             Contract.Invariant(connector != null);
             bool sended;
-            if (message.Equals("/challenge"))
+            if (message.StartsWith("/autowalk"))
             {
-                challengePlayer("dragonfight", playerOnMyPos()[0]);
+                int x = Int32.Parse(message.Substring(10,2));
+                int y = Int32.Parse(message.Substring(13,2));
+                autoWalk(map.getFieldAt(x, y), map.getFieldAt(positionableHuman[0].getX(), positionableHuman[0].getY()));
             }
-            if (!message.StartsWith("/"))
+            else if (!message.StartsWith("/"))
             {
-                message = "ask:say:" + message;
-                
+                message = "ask:say:" + message;                
             }
             else
             {
@@ -102,6 +105,7 @@ namespace Client_TeamOP.Klassen
             {
                 status = false;
             }
+            
             return status;
         }
 
@@ -239,8 +243,7 @@ namespace Client_TeamOP.Klassen
 
             connector.sendCommandToServer("ask:mv:up");
                 this.gui.refreshGui();
-                status=true;
-            
+                status=true;            
             return status;
         }
 
@@ -463,5 +466,141 @@ namespace Client_TeamOP.Klassen
             connector.exit();
             parser.exit();
         }
+
+
+        //AutoWalk Method
+
+        [DllImport("MapDll.dll", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr findPath(int from, int to, int[] map, int mapw, int maph, int plength);
+
+        [DllImport("MapDll.dll", CallingConvention = CallingConvention.Cdecl)]
+        static extern void freeArray(IntPtr pointer);
+
+        public void prefAutoWalk(int x, int y)
+        {
+            autoWalk(map.getFieldAt(x, y), map.getFieldAt(positionableHuman[0].getX(), positionableHuman[0].getY()));
+        }
+        public void autoWalk(Field start, Field end)
+        {
+            int[,] mapConvertToMinimal = new int[map.getWidth(),map.getHigh()];
+
+            for (int i = 0; i < map.getWidth(); i++)
+            {
+                for (int j = 0; j < map.getHigh(); j++)
+                {
+                    if (map.getFieldAt(i, j).isWater() | !map.getFieldAt(i, j).isWalkable())
+                    {
+                        mapConvertToMinimal[i, j] = 1;
+                    }
+                    else
+                    {
+                        mapConvertToMinimal[i, j] = 0;
+                    }
+                }
+            }
+
+            int[] path = new int[map.getWidth() * map.getHigh()]; 
+
+            int[] convertMap = convertMapToPointer(mapConvertToMinimal);
+
+            bool convertable;
+
+            if (convertMap[findPoint(start)] == 0)
+            {
+                convertable = true;
+                IntPtr pointer = findPath(findPoint(start), findPoint(end), convertMap, map.getWidth(), map.getHigh(), (map.getWidth() * map.getHigh()));
+                Marshal.Copy(pointer, path, 0, path.Length);
+            }
+            else 
+            {
+                convertable = false;
+            }
+
+
+            if (convertable)
+            {
+                int count = 1;
+                foreach (int p in path)
+                {
+                    if (p >= 0)
+                    {
+                        if (!(positionableHuman[0].getX() == findPoint(p)[0] & positionableHuman[0].getY() == findPoint(p)[1]))
+                        {
+                            int[] test = findPoint(p);
+                            Console.WriteLine(test[0] + " - " + test[1]);
+                            walkAutomatic(test[0], test[1], path, count);
+                            count++;
+                        }                        
+                    }
+                }
+            }
+        }
+
+        private void walkAutomatic(int x, int y, int[] path, int count)
+        {
+            if (count > 0)
+            {
+                if (x > findPoint(path[count - 1])[0])
+                {
+                    moveRight();
+                }
+                else if (x < findPoint(path[count - 1])[0])
+                {
+                    moveLeft();
+                }
+                else if (y > findPoint(path[count - 1])[1])
+                {
+                    moveDown();
+                }
+                else if (y < findPoint(path[count - 1])[1])
+                {
+                    moveUp();
+                }
+            }
+        }
+
+        private int[] findPoint(int index)
+        {
+            int[] coords = new int[2];
+            int x = 0, y = 0;
+            while(index > map.getWidth())
+            {
+                index = index - map.getWidth();
+                y++;
+            }
+            x = index;
+            coords[0] = x;
+            coords[1] = y;
+            return coords;
+        }
+
+        private int findPoint(Field point)
+        {
+            int convertedPoint = -1;
+            convertedPoint = point.getX() + point.getY() * map.getWidth();
+            return convertedPoint;
+        }
+
+        private int[] convertMapToPointer(int[,] convMap)
+        {
+            int[] tmp = new int[map.getWidth() * map.getHigh()];
+            for (int i = 0; i < map.getWidth(); i++)
+            {
+                for (int j = 0; j < map.getHigh(); j++)
+                {
+                    tmp[i * map.getWidth() + j] = convMap[j, i];
+                }
+            }
+            return tmp;
+        }
+
+        // AutoPilot Test
+
+
+
+
+
+
+
     }
 }

@@ -197,8 +197,8 @@ namespace Client_TeamOP.Klassen
         {
             if (client.Connected)
             {
-                sender.stop();
-                receiver.stop();
+                sender.abortLoopThread();
+                receiver.abortLoopThread();
                 running = false;
             }
         }
