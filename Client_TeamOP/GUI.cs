@@ -26,10 +26,17 @@ namespace Client_TeamOP
             this.backend = new Backend(this);
             InitializeComponent();
             //AllocConsole();
+           
             this.MapWindow.Paint += MapWindow_Paint_1;
             this.MapWindow.Paint += board_PaintEntities;
             this.ChatInput.KeyPress += chatInput_KeyPress;
             this.MapWindow.KeyPress += map_KeyPress;
+
+           
+
+            this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
+            this.SetStyle(ControlStyles.UserPaint, true);
+            this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             myDelegate = new refresh(refreshGui);
         }
 
@@ -89,6 +96,8 @@ namespace Client_TeamOP
                 ChatWindow.AppendText(tmp + "\r\n");
             }
             ChatWindow.ScrollToCaret();
+            Refresh();
+            
             Refresh();
             //return true;
         }  
@@ -201,7 +210,22 @@ namespace Client_TeamOP
 
         private void MapWindow_Click(object sender, EventArgs e)
         {
+            //MouseEventArgs mouse = (MouseEventArgs)e;
+            //Point pos = this.PointToClient(new Point(mouse.X, mouse.Y));
             this.MapWindow.Focus();
+            //MessageBox.Show("" + pos.ToString());
+            Size pos = getFieldFromPixel(((Panel)sender).PointToClient(MousePosition).X, ((Panel)sender).PointToClient(MousePosition).Y);
+            backend.prefAutoWalk(pos.Width, pos.Height);
+        }
+
+        private Size getFieldFromPixel(float x, float y) 
+        {
+         
+            float xFieldPos, yFieldPos;
+            xFieldPos = (x / MapWindow.Size.Width) * 20;
+            yFieldPos = (y / MapWindow.Size.Height) * 20;
+
+            return new Size((int)xFieldPos,(int)yFieldPos);
         }
 
         private void GUI_FormClosing(object sender, FormClosingEventArgs e)

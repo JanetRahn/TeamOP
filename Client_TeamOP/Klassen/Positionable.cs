@@ -42,18 +42,6 @@ namespace Client_TeamOP.Klassen
             this.id = id;
         }
 
-        public void autoWalk(int fromX, int fromY, int toX, int toY, Map map)
-        {
-            if (!File.Exists("MapDll.dll"))
-            {
-                return;
-            }
-            else
-            {
-                int mapWidth = map.getHigh() * map.getWidth();
-                //findPath((fromX+(map.getWidth()*fromY)),(toX+(map.getWidth()*toY)),mapconvert,map.getWidth(),map.getHigh(),mapWidth);
-            }
-        }
 
         public void setY(int y)
         {

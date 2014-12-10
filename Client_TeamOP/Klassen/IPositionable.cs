@@ -10,6 +10,6 @@ namespace Client_TeamOP.Klassen {
          int getX();
 
          int getY();
-         void autoWalk(int fromX, int fromY, int toX, int toY, Map map);
+         
     }
 }

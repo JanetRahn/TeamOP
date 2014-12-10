@@ -36,6 +36,7 @@
             // 
             // MapWindow
             // 
+            this.MapWindow.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.MapWindow.Location = new System.Drawing.Point(25, 12);
             this.MapWindow.Name = "MapWindow";
             this.MapWindow.Size = new System.Drawing.Size(380, 369);
@@ -60,6 +61,7 @@
             this.Controls.Add(this.ChatWindow);
             this.Controls.Add(this.MapWindow);
             this.Controls.Add(this.ChatInput);
+            this.DoubleBuffered = true;
             this.Name = "GUI";
             this.Text = "Form1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.GUI_FormClosing);

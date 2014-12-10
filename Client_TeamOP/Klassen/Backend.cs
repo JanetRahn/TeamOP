@@ -23,6 +23,7 @@ namespace Client_TeamOP.Klassen
         private int myID,playersOnline;
         private long serverOnlineTime;
         private int serverVersion;
+        private bool autoPilot;
 
        public Backend(GUI gui)
         {
@@ -31,6 +32,7 @@ namespace Client_TeamOP.Klassen
            Buffer b = new Buffer();
            connector = new Connector(b);
            parser = new Parser(b,this);
+           autoPilot = false;
            connector.connectToServer("127.0.0.1", 666);        
            if (gui != null)
             {
@@ -46,9 +48,7 @@ namespace Client_TeamOP.Klassen
             bool sended;
             if (message.StartsWith("/autowalk"))
             {
-                int x = Int32.Parse(message.Substring(10,2));
-                int y = Int32.Parse(message.Substring(13,2));
-                autoWalk(map.getFieldAt(x, y), map.getFieldAt(positionableHuman[0].getX(), positionableHuman[0].getY()));
+                setAutoPilot();
             }
             else if (!message.StartsWith("/"))
             {
@@ -480,8 +480,9 @@ namespace Client_TeamOP.Klassen
         {
             autoWalk(map.getFieldAt(x, y), map.getFieldAt(positionableHuman[0].getX(), positionableHuman[0].getY()));
         }
-        public void autoWalk(Field start, Field end)
+        public bool autoWalk(Field start, Field end)
         {
+            searchMiniGame();
             int[,] mapConvertToMinimal = new int[map.getWidth(),map.getHigh()];
 
             for (int i = 0; i < map.getWidth(); i++)
@@ -516,6 +517,8 @@ namespace Client_TeamOP.Klassen
                 convertable = false;
             }
 
+            
+
 
             if (convertable)
             {
@@ -534,6 +537,7 @@ namespace Client_TeamOP.Klassen
                     }
                 }
             }
+            return true;
         }
 
         private void walkAutomatic(int x, int y, int[] path, int count)
@@ -596,11 +600,209 @@ namespace Client_TeamOP.Klassen
 
         // AutoPilot Test
 
+        private void setAutoPilot()
+        {
+            if (!autoPilot)
+            {
+                autoPilot = true;
+            }
+            else
+            {
+                autoPilot = false;
+            }
 
+            bool arrived = false;
+            
+                if (!isMiniGame)
+                {                    
+                    Field nextMiniGame = searchMiniGame();
+                    arrived = autoWalk(nextMiniGame, getMyPositionField());                    
+                    Console.WriteLine("Geht zu Minigame!");
+                }
+            
+            
+        }
 
+        private Field searchMiniGame()
+        {
+            Field nextMiniGameHuntable = null;
+            Positionable nextMiniGameDragon = null;
+            Positionable nextMiniGamePlayer = null;
+            Field nextMiniGame = null;
 
+            int[] myPos = getMyPositionArray();
+            int minX = myPos[0], minY = myPos[1];
 
+            foreach (Field f in map.getField())
+            {
+                if (f.isHuntable())
+                {
+                    if ((f.getX() >= myPos[0]) & (f.getX() - myPos[0] <= minX))
+                    {
+                        int tmp = minX;
+                        minX = f.getX() - myPos[0];
 
+                        if ((f.getY() >= myPos[1]) & (f.getY() - myPos[1] <= minY))
+                        {
+                            minY = f.getY() - myPos[1];
+                            nextMiniGameHuntable = f;
+                        }
+                        else if ((f.getY() <= myPos[1]) & (myPos[1] - f.getY() <= minY))
+                        {
+                            minY = myPos[1] - f.getY();
+                            nextMiniGameHuntable = f;
+                        }
+                        else
+                        {
+                            minX = tmp;
+                        }
+                    }
+                    else if ((f.getX() <= myPos[0]) & (myPos[0] - f.getX() <= minX))
+                    {
+                        int tmp = minX;
+                        minX = myPos[0] - f.getX();
 
+                        if ((f.getY() >= myPos[1]) & (f.getY() - myPos[1] <= minY))
+                        {
+                            minY = f.getY() - myPos[1];
+                            nextMiniGameHuntable = f;
+                        }
+                        else if ((f.getY() <= myPos[1]) & (myPos[1] - f.getY() <= minY))
+                        {
+                            minY = myPos[1] - f.getY();
+                            nextMiniGameHuntable = f;
+                        }
+                        else
+                        {
+                            minY = tmp;
+                        }
+                    }
+                }
+            }
+
+            minX = myPos[0];
+            minY = myPos[1];
+
+            foreach (Positionable d in positionableDragon)
+            {
+                if ((d.getX() >= myPos[0]) & (d.getX() - myPos[0] <= minX))
+                {
+                    int tmp = minX;
+                    minX = d.getX() - myPos[0];
+
+                    if ((d.getY() >= myPos[1]) & (d.getY() - myPos[1] <= minY))
+                    {
+                        minY = d.getY() - myPos[1];
+                        nextMiniGameDragon = d;
+                    }
+                    else if ((d.getY() <= myPos[1]) & (myPos[1] - d.getY() <= minY))
+                    {
+                        minY = myPos[1] - d.getY();
+                        nextMiniGameDragon = d;
+                    }
+                    else
+                    {
+                        minX = tmp;
+                    }
+                }
+                else if ((d.getX() <= myPos[0]) & (myPos[0] - d.getX() <= minX))
+                {
+                    int tmp = minX;
+                    minX = myPos[0] - d.getX();
+
+                    if ((d.getY() >= myPos[1]) & (d.getY() - myPos[1] <= minY))
+                    {
+                        minY = d.getY() - myPos[1];
+                        nextMiniGameDragon = d;
+                    }
+                    else if ((d.getY() <= myPos[1]) & (myPos[1] - d.getY() <= minY))
+                    {
+                        minY = myPos[1] - d.getY();
+                        nextMiniGameDragon = d;
+                    }
+                    else
+                    {
+                        minY = tmp;
+                    }
+                }
+            }
+
+            minX = myPos[0];
+            minY = myPos[1];
+            foreach (Positionable d in positionableHuman)
+            {
+                if ((d.getX() >= myPos[0]) & (d.getX() - myPos[0] <= minX))
+                {
+                    int tmp = minX;
+                    minX = d.getX() - myPos[0];
+
+                    if ((d.getY() >= myPos[1]) & (d.getY() - myPos[1] <= minY))
+                    {
+                        minY = d.getY() - myPos[1];
+                        nextMiniGamePlayer = d;
+                    }
+                    else if ((d.getY() <= myPos[1]) & (myPos[1] - d.getY() <= minY))
+                    {
+                        minY = myPos[1] - d.getY();
+                        nextMiniGamePlayer = d;
+                    }
+                    else
+                    {
+                        minX = tmp;
+                    }
+                }
+                else if ((d.getX() <= myPos[0]) & (myPos[0] - d.getX() <= minX))
+                {
+                    int tmp = minX;
+                    minX = myPos[0] - d.getX();
+
+                    if ((d.getY() >= myPos[1]) & (d.getY() - myPos[1] <= minY))
+                    {
+                        minY = d.getY() - myPos[1];
+                        nextMiniGamePlayer = d;
+                    }
+                    else if ((d.getY() <= myPos[1]) & (myPos[1] - d.getY() <= minY))
+                    {
+                        minY = myPos[1] - d.getY();
+                        nextMiniGamePlayer = d;
+                    }
+                    else
+                    {
+                        minY = tmp;
+                    }
+                }
+            }
+
+            Random r = new Random();
+            int selected = r.Next(3);
+
+            if (selected == 0)
+            {
+                nextMiniGame = nextMiniGameHuntable;
+            }
+            else if (selected == 1)
+            {
+                nextMiniGame = map.getFieldAt(nextMiniGameDragon.getX(), nextMiniGameDragon.getY());
+            }
+            else if (selected == 2)
+            {
+                nextMiniGame = map.getFieldAt(nextMiniGamePlayer.getX(), nextMiniGamePlayer.getY());
+            }
+
+            return nextMiniGame;
+        }
+
+        private int[] getMyPositionArray()
+        {
+            int[] me = new int[2];
+            me[0] = positionableHuman[0].getX();
+            me[1] = positionableHuman[0].getY();
+            return me;
+        }
+
+        private Field getMyPositionField()
+        {
+            return map.getFieldAt(positionableHuman[0].getX(), positionableHuman[0].getY());
+        }
     }
 }
