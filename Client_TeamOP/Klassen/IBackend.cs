@@ -16,8 +16,7 @@ namespace Client_TeamOP.Klassen {
         Boolean moveLeft();
         Boolean moveRight();
         List<String> getLog();
-
-        void prefAutoWalk(int x, int y);
+        void autowalkGotoField(int x, int y);
         void exit();
     }
 }

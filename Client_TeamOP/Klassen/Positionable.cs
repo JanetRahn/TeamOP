@@ -9,15 +9,10 @@ using System.IO;
 
 namespace Client_TeamOP.Klassen
 {
-    public class Positionable : IPositionable
+    public class Positionable : IPositionable, IObservable
     {
 
-        [DllImport("MapDll.dll", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr findPath(int from, int to, int[] map, int mapw, int maph, int plength);
-
-        [DllImport("MapDll.dll", CallingConvention = CallingConvention.Cdecl)]
-        static extern void freeArray(IntPtr pointer);
-
+        Autowalk observer;
         private int id;
         private int points;
         private int x;
@@ -26,6 +21,7 @@ namespace Client_TeamOP.Klassen
         private String type;
         private bool busy;
         private bool autopilot;
+
 
 
         public Positionable(int x, int y, int id, int points, String description, String type)
@@ -102,5 +98,19 @@ namespace Client_TeamOP.Klassen
         {
             return p.getID() == this.id;
         }
+
+        public void callTheObserverForChanges()
+        {
+            if (observer != null)
+            {
+                observer.playerHasBeenMoved(this);
+            }
+        }
+
+        public void setObserver(Autowalk observer)
+        {
+            this.observer = observer;
+        }
+       
     }
 }

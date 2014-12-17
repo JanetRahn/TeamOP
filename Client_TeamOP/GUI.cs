@@ -96,9 +96,8 @@ namespace Client_TeamOP
                 ChatWindow.AppendText(tmp + "\r\n");
             }
             ChatWindow.ScrollToCaret();
-            Refresh();
+            Refresh();       
             
-            Refresh();
             //return true;
         }  
 
@@ -215,7 +214,7 @@ namespace Client_TeamOP
             this.MapWindow.Focus();
             //MessageBox.Show("" + pos.ToString());
             Size pos = getFieldFromPixel(((Panel)sender).PointToClient(MousePosition).X, ((Panel)sender).PointToClient(MousePosition).Y);
-            backend.prefAutoWalk(pos.Width, pos.Height);
+            backend.autowalkGotoField(pos.Width, pos.Height);
         }
 
         private Size getFieldFromPixel(float x, float y) 

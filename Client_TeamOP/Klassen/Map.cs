@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Client_TeamOP.Klassen
 {
-    class Map
+    public class Map
     {
         private Field[,] field;
         private int width, length;

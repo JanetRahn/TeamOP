@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Klassen\Autowalk.cs" />
     <Compile Include="Klassen\Backend.cs" />
     <Compile Include="Klassen\Buffer.cs" />
     <Compile Include="Klassen\ClientThread.cs" />
@@ -54,6 +55,7 @@
     <Compile Include="Klassen\Map.cs" />
     <Compile Include="Klassen\MapEnum.cs" />
     <Compile Include="Klassen\Minigame.cs" />
+    <Compile Include="Klassen\IObservable.cs" />
     <Compile Include="Klassen\Positionable.cs" />
     <Compile Include="Klassen\Parser.cs" />
     <Compile Include="Klassen\Connector.cs" />
