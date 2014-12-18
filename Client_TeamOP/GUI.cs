@@ -214,7 +214,7 @@ namespace Client_TeamOP
             this.MapWindow.Focus();
             //MessageBox.Show("" + pos.ToString());
             Size pos = getFieldFromPixel(((Panel)sender).PointToClient(MousePosition).X, ((Panel)sender).PointToClient(MousePosition).Y);
-            backend.autowalkGotoField(pos.Width, pos.Height);
+            backend.autowalkGotoField(pos.Width, pos.Height);            
         }
 
         private Size getFieldFromPixel(float x, float y) 

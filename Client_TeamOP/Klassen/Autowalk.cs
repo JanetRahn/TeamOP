@@ -159,12 +159,13 @@ namespace Client_TeamOP.Klassen
             {
                 int[] coord = findPoint(path[counter]);
                 walkAutomatic(coord[0], coord[1]);
+                counter++;
             }
             else
             {
                 clearAutowalk();
             }
-            counter++;
+            
             
 
         }

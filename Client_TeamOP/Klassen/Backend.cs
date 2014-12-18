@@ -245,7 +245,7 @@ namespace Client_TeamOP.Klassen
             Boolean status = false;
 
             connector.sendCommandToServer("ask:mv:up");
-                this.gui.refreshGui();
+                
                 status=true;            
             return status;
         }
@@ -255,7 +255,7 @@ namespace Client_TeamOP.Klassen
             Boolean status = false;
 
             connector.sendCommandToServer("ask:mv:dwn");
-                refreshGui();
+                
                 status=true;
             
             return status;
@@ -266,7 +266,7 @@ namespace Client_TeamOP.Klassen
             Boolean status = false;
 
             connector.sendCommandToServer("ask:mv:rgt");
-                refreshGui();
+                
                 status=true;
             
             return status;
@@ -277,7 +277,7 @@ namespace Client_TeamOP.Klassen
             Boolean status=false;
             
                 connector.sendCommandToServer("ask:mv:lft");
-                refreshGui();
+                
                 status=true;
             
             return status;
@@ -474,8 +474,7 @@ namespace Client_TeamOP.Klassen
         public void autowalkGotoField(int x, int y)
         {            
             autowalk.init(x, y, positionableHuman[0]);            
-            autowalk.playerHasBeenMoved(positionableHuman[0]);
-            
+            autowalk.playerHasBeenMoved(positionableHuman[0]);            
         }
 
 
