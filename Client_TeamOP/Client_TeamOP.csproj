@@ -68,6 +68,7 @@
     <Compile Include="Klassen\Receiver.cs" />
     <Compile Include="Klassen\Ringpuffer.cs" />
     <Compile Include="Klassen\Sender.cs" />
+    <Compile Include="Klassen\Sort.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="GUI.resx">

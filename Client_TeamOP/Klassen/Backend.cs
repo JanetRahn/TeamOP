@@ -477,6 +477,11 @@ namespace Client_TeamOP.Klassen
             autowalk.playerHasBeenMoved(positionableHuman[0]);            
         }
 
+        public Positionable getMe()
+        {
+            return positionableHuman[0];
+        }
+
 
         //AutoWalk Method
 

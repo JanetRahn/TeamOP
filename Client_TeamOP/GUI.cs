@@ -66,7 +66,6 @@ namespace Client_TeamOP
             g.DrawRectangle(new Pen(new SolidBrush(Color.Black)), new Rectangle(absX, absY, width, height));
         }
 
-
         protected Size getTileSize()
         {
             IMap[,] cells = this.backend.getMap();
