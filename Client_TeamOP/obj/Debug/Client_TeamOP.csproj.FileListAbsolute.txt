@@ -59,3 +59,6 @@ C:\Users\Christina\Documents\Visual Studio 2013\Projects\TeamOP\Client_TeamOP\bi
 C:\Users\Christina\Documents\Visual Studio 2013\Projects\TeamOP\Client_TeamOP\obj\Debug\Client_TeamOP.exe
 C:\Users\Christina\Documents\Visual Studio 2013\Projects\TeamOP\Client_TeamOP\obj\Debug\Client_TeamOP.pdb
 C:\Users\User\Documents\Visual Studio 2013\Projects\TeamOP\Client_TeamOP\obj\Debug\Client_TeamOP.GUI.resources
+C:\Users\User\Documents\Visual Studio 2013\Projects\TeamOP\Client_TeamOP\obj\Debug\Client_TeamOP.Skirmish.resources
+C:\Users\User\Documents\Visual Studio 2013\Projects\TeamOP\Client_TeamOP\obj\Debug\Client_TeamOP.Dragonfight.resources
+C:\Users\User\Documents\Visual Studio 2013\Projects\TeamOP\Client_TeamOP\obj\Debug\Client_TeamOP.Staghunt.resources

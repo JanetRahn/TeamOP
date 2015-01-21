@@ -24,6 +24,7 @@ namespace Client_TeamOP.Klassen
             senderStack.Enqueue("get:ents");
             senderStack.Enqueue("get:players");
             senderStack.Enqueue("get:me");
+            senderStack.Enqueue("get:myid");
             
         }
 

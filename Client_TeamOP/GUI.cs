@@ -17,7 +17,9 @@ namespace Client_TeamOP
     {
         private IBackend backend;
         public delegate void refresh();
+        public delegate void openPop();
         public refresh myDelegate;
+        public openPop myDelegatePopUp;
 
         
         public GUI() : base()
@@ -25,19 +27,19 @@ namespace Client_TeamOP
             
             this.backend = new Backend(this);
             InitializeComponent();
+            
             //AllocConsole();
            
             this.MapWindow.Paint += MapWindow_Paint_1;
             this.MapWindow.Paint += board_PaintEntities;
             this.ChatInput.KeyPress += chatInput_KeyPress;
-            this.MapWindow.KeyPress += map_KeyPress;
-
-           
+            this.MapWindow.KeyPress += map_KeyPress;           
 
             this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
             this.SetStyle(ControlStyles.UserPaint, true);
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             myDelegate = new refresh(refreshGui);
+            myDelegatePopUp = new openPop(openPopUp);
         }
 
         protected void drawMapTile(Graphics g, IMap map, int absX, int absY, int width, int height)
@@ -229,6 +231,29 @@ namespace Client_TeamOP
         private void GUI_FormClosing(object sender, FormClosingEventArgs e)
         {
             backend.exit();            
+        }
+
+        public void openPopUp()
+        {
+            String type = backend.getMinigameType();
+
+            if (type.Equals("SKIRMISH"))
+            {
+                Skirmish minigameSkrimish = new Skirmish(backend);
+                minigameSkrimish.Show();
+            }
+            if (type.Equals("DRAGON"))
+            {
+                Dragonfight minigameDragonfight = new Dragonfight(backend);
+                minigameDragonfight.Show();
+            }
+            if (type.Equals("STAGHUNT"))
+            {
+                Staghunt minigameStaghunt = new Staghunt(backend);
+                minigameStaghunt.Show();
+            }
+            
+            
         }
     }
 }

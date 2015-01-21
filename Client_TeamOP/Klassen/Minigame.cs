@@ -10,14 +10,13 @@ namespace Client_TeamOP.Klassen
     {
         private int roundCounter;
         private int points = 0;
-        private String gameName;
+        private String gameType;
         private String[] interactions;
 
-        public void interaction(String gameName)
+
+        public Minigame(String gameType)
         {
-            this.gameName = gameName;
-            roundCounter = 0;
-            points = 0;
+            this.gameType = gameType;
         }
 
         public int getRound()
@@ -32,12 +31,32 @@ namespace Client_TeamOP.Klassen
 
         public String getGameName()
         {
-            return gameName;
+            return gameType;
         }
 
         public String getInteraction(int x)
         {
             return interactions[x];
+        }
+
+        public String getGameType()
+        {
+            String toReturn = null;
+
+            if (gameType.Equals("DRAGON"))
+            {
+                toReturn = "dragon";
+            }
+            else if (gameType.Equals("SKIRMISH"))
+            {
+                toReturn = "skirm";
+            }
+            else if (gameType.Equals("STAGHUNT"))
+            {
+                toReturn = "shunt";
+            }
+
+            return toReturn;
         }
     }
 }

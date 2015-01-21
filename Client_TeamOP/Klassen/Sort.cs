@@ -28,21 +28,7 @@ namespace Client_TeamOP.Klassen
             return listToReturn;
         }
 
-        private static List<Positionable> quicksortListPoints(List<Positionable> toSort, String lambda, int left, int right)
-        {
-            
-        }
-
-        private static List<Positionable> quicksortListName(List<Positionable> toSort, String lambda, int left, int right)
-        {
-          
-        }
-
-        private static List<Positionable> quicksortListDistance(List<Positionable> toSort, String lambda, int left, int right)
-        {
-          
-        }
-
+      
         public static int binarySearchOfSortedList(List<Positionable> toSearch, Positionable searchObject)
         {
             return toSearch.BinarySearch(searchObject);            
@@ -83,7 +69,7 @@ namespace Client_TeamOP.Klassen
                     
                     
                 }
-                indexToReturn = toSearch.IndexOf(tmpObject);
+                
             }
             return indexToReturn;
         }

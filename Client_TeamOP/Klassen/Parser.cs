@@ -31,8 +31,7 @@ namespace Client_TeamOP.Klassen
             convertParser = new Thread(new ThreadStart(sendToMethod));
             convertParser.Start(); 
             running = convertParser.IsAlive;                  
-        }
-       
+        }       
         public ArrayList readFromBuffer(){
             Contract.Requires(buffer != null);
             return buffer.getMessageFromBuffer();
@@ -172,6 +171,7 @@ namespace Client_TeamOP.Klassen
                         counter++;
                     }
                 }
+                counter--;
             }
 
         }           //Backend Implementation saving?
@@ -234,14 +234,15 @@ namespace Client_TeamOP.Klassen
                     }
                     else if (i == 3)
                     {
-                        accepted = bool.Parse(extractValue(tmpMsg));
+                        accepted = bool.Parse(extractValue(tmpMsg));                       
                     }
 
                     if (!tmpMsg.Equals("end:challenge"))
                     {
                         counter++;
                     }
-                }
+                }                
+                backend.startMinigame(type);                   
             }
 
         }       //Backend Implementation (Test?)
@@ -740,7 +741,6 @@ namespace Client_TeamOP.Klassen
             int s = message.IndexOf(":");
             return s;
         }
-
         public void exit()
         {
             running = false;

@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 namespace Client_TeamOP.Klassen {
     public interface IBackend
     {
+
+        String getMinigameType();
+        void sendDecision(String decision);
         List<IPositionable> getPositionableDragon();
         List<IPositionable> getPositionableHumans();
         IMap[,] getMap();
